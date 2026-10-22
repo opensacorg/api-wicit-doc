@@ -1,0 +1,323 @@
+{
+  "accrual_periodicity": "annually",
+  "additional_limitations": "",
+  "citation": "Data Analysis, Research and Evaluation Section. Women, Infants and Children (WIC) Division, California Department of Public Health. 2023. WIC-Redemption-by-County-by-Participant-Category-Data.csv. ",
+  "contact_email": "OpenData@cdph.ca.gov",
+  "data_collection_tool": "Numbers are based on food vouchers redeemed. ",
+  "data_license": "Terms of Use",
+  "de_identification_method": "In aggregate participant counts of less than 11, selective data suppression was used in order to ensure WIC participant anonymity. In counties with less than three vendors, selective data suppression was used in order to ensure WIC vendor anonymity. An asterisk ‘*’ is used to identify data suppression in the dataset. Participant data suppressed due to the small cell size is included in the county annual totals and statewide totals by participant category.",
+  "description": "The Women, Infants and Children (WIC) Program is a federally-funded health and nutrition program that provides assistance to pregnant women, new mothers, infants and children under age five. WIC helps California families by providing food benefits to individual participants based on their nutritional need and risk assessment. The food benefits can be used to purchase healthy supplemental foods from about 4,000 WIC authorized vendor stores throughout the State. WIC also provides nutritional education, breastfeeding support, healthcare referrals and other community services. Participants must meet income guidelines and other criteria. Currently, 84 WIC agencies provide services monthly to approximately one million participants at over 500 sites in local communities throughout the State.\r\n\r\nPrior to June 2019, WIC issued paper food instruments (FIs) to individual participants for purchasing supplemental, nutritious foods. Beginning in June 2019, California WIC began transitioning to a new food delivery system, replacing the FI delivery system with the Electronic Benefit Transfer (EBT) system. California WIC completed this transition in March 2020. With the previous FI delivery system, participants were issued three or four paper FIs per month listing the foods that could be redeemed at authorized vendor stores. In order to take full advantage of their benefits in the FI delivery system, participants had to purchase all of the foods listed on a FI in a single transaction or lose that benefit. In contrast, in the EBT system a family’s benefits are combined and uploaded to one EBT card. Participants can use this card to purchase WIC foods as needed through the benefit expiry date without having to purchase foods that they don’t need yet and without risking losing their benefits.\r\n\r\nThe data files provided contain monthly and annual redemption information from the FI delivery system and the EBT system by the county in which WIC participants redeemed their food benefits. Because FIs are issued and redeemed at the participant level, the FI redemption data are presented with aggregation at the participant level (e.g., participant category). However, because EBT redemptions only occur at the family level, EBT data can only be presented with aggregation at the family level. Therefore, we provide two types of aggregated data:\r\n\r\n1.  WIC Redemption by Vendor County by Participant Category contains the number of FIs redeemed, the dollar amount of FIs redeemed, and the count of unique individual participants, from 2010 to 2018. This data is no longer available beyond 2018 due to transitioning from the FI delivery system to the EBT system.\r\n\r\n2. WIC Redemption by Vendor County with Family Counts contains data from before and after the EBT transition period (i.e., 2010 – present), and provides the count of unique families instead of participants. It comprises three parts:\r\n    \r\n    - Part A contains only FI redemption data from 2010 to 2018; \r\n    - Part B contains both the FI redemption data and the EBT redemption data for the EBT transition period that occurred in 2019 and 2020; \r\n    - Part C contains only EBT redemption data for 2021 and forward.\r\n\r\nThe dollar amount of redemptions and the number of families redeeming benefits are expected to vary from month to month. Many of these monthly variations can be attributed to the number of days and holidays in a month. Additionally, in June 2021 the federal government approved a Cash Value Benefits (CVB) expansion, which resulted in a large increase in monthly EBT redemption amounts. The initial CVB expansion was implemented in California from June 2021 to September 2021 and provided $35 per month for all non-infant participants, increased from $9 - $11. The CVB expansion was subsequently extended several times.  Effective October 1, 2023, CVB was set at new inflation-adjusted amounts where pregnant and postpartum individuals receive $47 per month, breastfeeding individuals receive $52 per month, individuals breastfeeding more than one infant receive $78 per month, and children ages 1-5 received $26 per month. \r\n\r\nTo ensure WIC participant and vendor anonymity, the redemption data has been suppressed when number of WIC vendors were less than 3 or number of redeemed participants or families were less than 11. The suppressed cells are annotated as “–“.\r\n",
+  "geo_coverage": "California",
+  "geographic_granularity": "county",
+  "keywords": [
+    "CFH",
+    "food expenditures",
+    "food instrument",
+    "food voucher",
+    "food vouchers redeemed",
+    "month of obligation",
+    "participants redeeming food vouchers",
+    "wic"
+  ],
+  "limitations": "Limitations",
+  "name": "california-women-infants-and-children-program-redemption-by-county",
+  "program_web_page": "https://www.cdph.ca.gov/Programs/CFH/DWICSN/Pages/Program-Landing1.aspx",
+  "related_resources": "",
+  "resources": [
+    {
+      "format": "CSV",
+      "hash": "36f51c7735c0999cb3e270676a7cfc40",
+      "name": "2021-2025-forward-part-c-wic-ebt-redemptions-by-vendor-county-with-family-counts",
+      "path": "2021-2025-forward-part-c-wic-ebt-redemptions-by-vendor-county-with-family-counts.csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "Vendor County Code",
+            "type": "string"
+          },
+          {
+            "name": "Vendor County",
+            "type": "string"
+          },
+          {
+            "name": "Obligation Year and Month",
+            "type": "string"
+          },
+          {
+            "name": "Number of Families Redeemed",
+            "type": "string"
+          },
+          {
+            "name": "Number of EBT Transactions",
+            "type": "string"
+          },
+          {
+            "name": "Dollar Amount of EBT Transaction",
+            "type": "string"
+          },
+          {
+            "name": "Average Cost per Family",
+            "type": "string"
+          },
+          {
+            "name": "Statewide Infant Formula Rebate",
+            "type": "string"
+          },
+          {
+            "name": "Total Cost Adjusted",
+            "type": "string"
+          },
+          {
+            "name": "Average Cost Adjusted",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/a54918e1-de83-480a-961e-2d0b7b342982/resource/22949f40-3517-48c1-98b3-5661896c7804/download/2021-2025-forward-part-c-wic-ebt-redemptions-by-vendor-county-with-family-counts.csv",
+          "title": "2021-2025 Forward (Part C) WIC EBT Redemptions by Vendor County with Family Counts"
+        }
+      ],
+      "title": "2021-2025 Forward (Part C) WIC EBT Redemptions by Vendor County with Family Counts"
+    },
+    {
+      "format": "CSV",
+      "hash": "274580a924670e868928a345e4bae7cd",
+      "name": "2019-2020-part-b-wic-redemptions-by-vendor-county-with-family-counts",
+      "path": "2019-2020-part-b-wic-redemptions-by-vendor-county-with-family-counts.csv",
+      "schema": {
+        "fields": [
+          {
+            "description": "The code represents a specific California county, in which the Women, Infants and Children (WIC) families redeemed their food benefits.  Statewide is coded as '00' and statewide data includes a small amount of redemptions from vendors authorized in border states (e.g., OR, NV and AZ).\r\n",
+            "name": "Vendor County Code",
+            "type": "string"
+          },
+          {
+            "description": "The name of the vendor county.\r\n",
+            "name": "Vendor County",
+            "type": "string"
+          },
+          {
+            "description": "The month and year for which food benefits were issued.  Some of the monthly variation in the data can be attributed to the number of days and holidays in a month.\r\n",
+            "name": "Obligation Year and Month",
+            "type": "string"
+          },
+          {
+            "description": "Total number of unique WIC families who redeemed food benefits for the obligation month or year.  Families can redeem food benefits in any county at any WIC authorized vendor.  When a family redeems food benefits in more than one county, this family is counted in each respective county.  In contrast, statewide family count reflects a single count for each unique family regardless of the number of counties the family redeemed their benefits.\r\n",
+            "name": "Number of Families Redeemed",
+            "type": "string"
+          },
+          {
+            "description": "Total number of food instruments redeemed by WIC vendors, assigned to the obligation month or year.  Due to the implementation of Electronic Benefits Transfer (EBT), May 2020 was the last obligation month for which Food Instruments could be redeemed.\r\n",
+            "name": "Number of Food Instruments Redeemed",
+            "type": "string"
+          },
+          {
+            "description": "The dollar amount of food instruments paid to WIC vendors, by obligation month or year.  This dollar value does not represent the actual amount paid to the WIC vendors each month since it could take up to 90 days before WIC received a request for payment on a food instrument.\r\n",
+            "name": "Dollar Amount of Food Instruments",
+            "type": "string"
+          },
+          {
+            "description": "Total number of EBT transactions processed by WIC vendors, assigned to the obligation month or year.  EBT was first implemented in June 2019, which combines an entire family’s benefits onto one card, and it provides participants the flexibility to purchase as much or as little as they want as long as the benefits are available on their WIC cards.\r\n",
+            "name": "Number of EBT Transactions",
+            "type": "string"
+          },
+          {
+            "description": "The dollar amount of EBT transactions by obligation month or year.  EBT simplifies transactions and settlement process, which allows vendors to get reimbursed faster.\r\n",
+            "name": "Dollar Amount of EBT Transactions",
+            "type": "string"
+          },
+          {
+            "description": "The average food cost per redeeming family before applying infant formula rebates, which is the sum of \"Dollar Amount Redeemed of Food Instruments\" and/or \"Dollar Amount of EBT Transactions\" divided by the \"Number of Families Redeemed\".  When viewing at the county level, average cost per family is somewhat deflated as a given family might have redeemed their food benefits in multiple counties. Under such circumstances, the cost associated with that family is limited to the cost associated with food benefits redeemed in the respective county and not the other benefits that might have been redeemed in another county.\r\n",
+            "name": "Average Cost per Family",
+            "type": "string"
+          },
+          {
+            "description": "The rebate amount received from the contracted manufacturers.  Only applies to the statewide data.\r\n",
+            "name": "Statewide Infant Formula Rebate",
+            "type": "string"
+          },
+          {
+            "description": "The total food cost after applying infant formula rebate, which is the sum of \"Dollar Amount of Food Instruments\" and/or \"Dollar Amount of EBT Transactions\" minus the \"Statewide Infant Formula Rebate\".  Only applies to the statewide data.\r\n",
+            "name": "Total Cost Adjusted",
+            "type": "string"
+          },
+          {
+            "description": "The average food cost per redeeming family after infant formula rebate, which is the \"Total Cost Adjusted\" divided by the \"Number of Families Redeemed\". Only applies to the Statewide data.\r\n",
+            "name": "Average Cost Adjusted",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/a54918e1-de83-480a-961e-2d0b7b342982/resource/7b9998f6-cd0f-4d72-ac17-4db5775c4f26/download/2019-2020-part-b-wic-redemptions-by-vendor-county-with-family-counts.csv",
+          "title": "2019-2020 (Part B) WIC Redemptions by Vendor County with Family Counts"
+        }
+      ],
+      "title": "2019-2020 (Part B) WIC Redemptions by Vendor County with Family Counts"
+    },
+    {
+      "format": "CSV",
+      "hash": "5f75f5ec05e34f14f4d5c7a293e89cd2",
+      "name": "2010-2018-part-a-wic-redemptions-by-vendor-county-with-family-counts",
+      "path": "2010-2018-part-a-wic-redemptions-by-vendor-county-with-family-counts.csv",
+      "schema": {
+        "fields": [
+          {
+            "description": "The code represents a specific California county, in which the Women, Infants and Children (WIC) families redeemed their food benefits.  Statewide is coded as '00' and statewide data includes a small amount of redemptions from vendors authorized in border states (e.g., OR, NV and AZ).\r\n",
+            "name": "Vendor County Code",
+            "type": "string"
+          },
+          {
+            "description": "The name of the vendor county.\r\n",
+            "name": "Vendor County",
+            "type": "string"
+          },
+          {
+            "description": "The month and year for which food benefits were issued.  Some of the monthly variation in the data can be attributed to the number of days and holidays in a month.\r\n",
+            "name": "Obligation Year and Month",
+            "type": "string"
+          },
+          {
+            "description": "Total number of unique WIC families who redeemed food benefits for the obligation month or year.  Families can redeem food benefits in any county at any WIC authorized vendor.  When a family redeems food benefits in more than one county, this family is counted in each respective county.  In contrast, statewide family count reflects a single count for each unique family regardless of the number of counties the family redeemed their benefits.\r\n",
+            "name": "Number of Families Redeemed",
+            "type": "string"
+          },
+          {
+            "description": "Total number of food instruments redeemed by WIC vendors, assigned to the obligation month or year.  Due to the implementation of Electronic Benefits Transfer (EBT), May 2020 was the last obligation month for which Food Instruments could be redeemed.\r\n",
+            "name": "Number of Food Instruments Redeemed",
+            "type": "string"
+          },
+          {
+            "description": "The dollar amount of food instruments paid to WIC vendors, by obligation month or year.  This dollar value does not represent the actual amount paid to the WIC vendors each month since it could take up to 90 days before WIC received a request for payment on a food instrument.\r\n",
+            "name": "Dollar Amount of Food Instruments",
+            "type": "string"
+          },
+          {
+            "description": "The average food cost per redeeming family before applying infant formula rebates, which is the sum of \"Dollar Amount Redeemed of Food Instruments\" and/or \"Dollar Amount of EBT Transactions\" divided by the \"Number of Families Redeemed\".  When viewing at the county level, average cost per family is somewhat deflated as a given family might have redeemed their food benefits in multiple counties. Under such circumstances, the cost associated with that family is limited to the cost associated with food benefits redeemed in the respective county and not the other benefits that might have been redeemed in another county.\r\n",
+            "name": "Average Cost per Family",
+            "type": "string"
+          },
+          {
+            "description": "The rebate amount received from the contracted manufacturers.  Only applies to the statewide data.\r\n",
+            "name": "Statewide Infant Formula Rebate",
+            "type": "string"
+          },
+          {
+            "description": "The total food cost after applying infant formula rebate, which is the sum of \"Dollar Amount of Food Instruments\" and/or \"Dollar Amount of EBT Transactions\" minus the \"Statewide Infant Formula Rebate\".  Only applies to the statewide data.\r\n",
+            "name": "Total Cost Adjusted",
+            "type": "string"
+          },
+          {
+            "description": "The average food cost per redeeming family after infant formula rebate, which is the \"Total Cost Adjusted\" divided by the \"Number of Families Redeemed\". Only applies to the Statewide data.\r\n",
+            "name": "Average Cost Adjusted",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/a54918e1-de83-480a-961e-2d0b7b342982/resource/414259b9-7734-48ba-9dd0-d54edaaa804d/download/2010-2018-part-a-wic-redemptions-by-vendor-county-with-family-counts.csv",
+          "title": "2010-2018 (Part A) WIC Redemptions by Vendor County with Family Counts"
+        }
+      ],
+      "title": "2010-2018 (Part A) WIC Redemptions by Vendor County with Family Counts"
+    },
+    {
+      "description": "This dataset contains detailed information about the county in which California WIC participants redeemed their food vouchers, the number of participants in each category who redeemed their food vouchers and the subsequent dollar value of those food vouchers.\r\n\r\nThe Women, Infants and Children (WIC) Program is a federally-funded health and nutrition program that provides assistance to pregnant women, new mothers, infants and children under age five. WIC helps California families by providing food vouchers to individual participants based on their nutritional need and risk assessment. The food vouchers can be used to purchase healthy supplemental foods from over 4,000 WIC authorized vendor stores throughout the State.\r\n\r\nData summaries in this dataset are ordered by county, certification category, and obligation month.  Reporting on state totals (monthly participant category totals and annual totals) is organized in a similar manner with the state summaries appearing after the summaries for all counties.\r\n\r\nFor more information, see 'WIC Redemption by County by Participant Category - Full Description' attachment.\r\n",
+      "format": "CSV",
+      "hash": "bc9423a29db22fa66db0130f6e09e04a",
+      "name": "wic-redemption-by-vendor-county-by-participant-category-data-2010-2018-csv",
+      "path": "wic-redemption-by-vendor-county-by-participant-category-data-2010-2018-.csv",
+      "schema": {
+        "fields": [
+          {
+            "description": "The location of the vendor, generally the specific California county, in which the Women, Infants and Children (WIC) participant redeemed their food vouchers. Participants can redeem vouchers in any county at any WIC authorized vendor, not just the county where they receive WIC services or their county of residence. Statewide monthly totals by participant category and statewide annual totals are provided in the final rows of the data file.\r\n",
+            "name": "Vendor Location",
+            "type": "string"
+          },
+          {
+            "description": "The type of participant, there are five categories: Pregnant, Breastfeeding Individual, Non-Breastfeeding Individual, Infant and Child.\r\n",
+            "name": "Participant Category",
+            "type": "string"
+          },
+          {
+            "description": "Month and year for which food instruments were issued (i.e., obligation month). \r\n",
+            "name": "Year Month",
+            "type": "string"
+          },
+          {
+            "description": "Total number of participants who redeemed food vouchers for that obligation month (month of the first day food voucher valid to be used).  Participants redeeming food vouchers in more than one county are counted in each respective county but only for the vouchers redeemed. \r\n",
+            "name": "Number of Participants Redeemed",
+            "type": "string"
+          },
+          {
+            "description": "Total number of food vouchers redeemed by WIC vendors, assigned to the obligation month.\r\n",
+            "name": "Number Vouchers Redeemed",
+            "type": "string"
+          },
+          {
+            "description": "The dollar amount of food vouchers paid to WIC vendors, by obligation month.\r\n",
+            "name": "Total Cost Vouchers",
+            "type": "string"
+          },
+          {
+            "description": "The average food cost per redeeming participant. \"Total Cost Vouchers\" divided by \"Number of Participants Redeemed\". Does not include the Infant Formula Rebate Adjustment.\r\n",
+            "name": "Average Cost",
+            "type": "string"
+          },
+          {
+            "description": "The statewide dollar amount by obligation month of infant formula rebates. Only applies to the Statewide Infant Participant Category.\r\n",
+            "name": "Statewide Infant Formula Rebate",
+            "type": "string"
+          },
+          {
+            "description": "The dollar amount of food vouchers paid to WIC vendors, by obligation month (including the infant formula rebate adjustment). \"Total Cost Vouchers\" minus \"Statewide Infant Formula Rebate Adjustment\". Only applies to the Statewide Infant Participant Category.\r\n",
+            "name": "Total Cost Vouchers Adjusted",
+            "type": "string"
+          },
+          {
+            "description": "The average food cost per Redeeming Participant including the Infant Formula Rebate Adjustment. \"Total Cost Vouchers Adjusted\" divided by \"Number Participants Redeemed\". Only applies to the Statewide Infant Participant Category.\r\n",
+            "name": "Average Cost Adjusted",
+            "type": "string"
+          },
+          {
+            "description": "“Average Cost” and “Average Cost Adjusted” compiled for graphing purposes and only applies to the Statewide data. Allows for comparison of true program cost (Infant formula rebate included) across participant category.\r\n",
+            "name": "State Average Cost Adjusted",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/a54918e1-de83-480a-961e-2d0b7b342982/resource/67c42b2e-3388-4d7f-b277-73c1cac28ab5/download/wic-redemption-by-county-by-participant-category-data-2010-2018.csv",
+          "title": "WIC Redemption by Vendor County by Participant Category-Data 2010-2018 (CSV)"
+        }
+      ],
+      "title": "WIC Redemption by Vendor County by Participant Category-Data 2010-2018 (CSV)"
+    },
+    {
+      "format": "PDF",
+      "name": "full-description",
+      "path": "full-description.pdf",
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/a54918e1-de83-480a-961e-2d0b7b342982/resource/4416f76b-634d-49b1-abae-00cab27c4b06/download/full-description-updated-1-21-25.pdf",
+          "title": "Full Description"
+        }
+      ],
+      "title": "Full Description"
+    }
+  ],
+  "secondary_sources": "For more information about the WIC Program please visit: http://www.fns.usda.gov/wic/about-wic",
+  "sources": [
+    {
+      "name": "Women, Infants and Children (WIC) Program",
+      "web": "https://www.cdph.ca.gov/Programs/CFH/DWICSN/Pages/Program-Landing1.aspx"
+    }
+  ],
+  "temporal_coverage": "2010 - present",
+  "title": "California Women, Infants and Children Program Redemption by County"
+}

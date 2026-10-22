@@ -1,0 +1,9 @@
+column,type,label,description
+UPC,text,,
+CATEGORY,text,,
+CATEGORY_DESCRIPTION,text,,
+SUBCATEGORY,text,,
+SUBCATEGORY_DESCRIPTION,text,,
+PRODUCT_DESCRIPTION_AND_SIZE,text,,
+UOM,text,,
+FRUIT_AND_VEGETABLE_TYPE,text,,

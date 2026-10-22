@@ -1,0 +1,5 @@
+column,type,label,description
+COUNTY,text,,
+FARM_NAME,text,,
+CERTIFIED_PRODUCER_1,text,,
+CERTIFIED_PRODUCER_2,text,,

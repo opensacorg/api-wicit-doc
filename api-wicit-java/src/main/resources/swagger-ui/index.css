@@ -1,0 +1,44 @@
+/* Replaces Swagger UI's index.css: its own rules first, then the WICit branding. */
+html {
+    box-sizing: border-box;
+    overflow: -moz-scrollbars-vertical;
+    overflow-y: scroll;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    background: #fafafa;
+}
+
+/* The logo's dark wordmark needs a light bar. */
+.swagger-ui .topbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #d1d9e0;
+}
+
+.swagger-ui .topbar .download-url-wrapper .select-label {
+    color: #1f2328;
+}
+
+.swagger-ui .topbar .topbar-wrapper .link {
+    flex: none;
+    width: 100px;
+    height: 40px;
+    background: url("../logo.svg") no-repeat left center / contain;
+}
+
+.swagger-ui .topbar .topbar-wrapper .link svg {
+    display: none;
+}
+
+/* Swagger UI's dark mode keeps its dark bar. Inverting lightness while keeping hue makes the wordmark
+   light and leaves the green leaves green. */
+html.dark-mode .swagger-ui .topbar .topbar-wrapper .link {
+    filter: invert(1) hue-rotate(180deg);
+}

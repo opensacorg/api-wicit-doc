@@ -1,0 +1,173 @@
+{% extends "base.peb" %}
+{% block title %}Farmers and Farmers' Markets{% endblock %}
+{% block content %}
+    <h1>WIC Enabled Farmers and Authorized Farmers Markets</h1>
+    <p class="lead">Source: <a href="https://data.chhs.ca.gov/dataset/wic-farmers-markets">data.chhs.ca.gov/dataset/wic-farmers-markets</a>
+    </p>
+
+    <h2>About the dataset</h2>
+    <p>California farmers provide nutritious food s to families throughout the state, the nation, and the world. The
+        California Department of Public Health/Women, Infants, and Children Division (CDPH/WIC) supports the consumption
+        of fresh, locally grown fruits and vegetables, and encourages shopping with local farmers at community WIC
+        authorized farmers’ markets.</p>
+    <p>CDPH/WIC authorizes farmers and farmers’ markets for WIC Farmers’ Market Programs. These farmers are also
+        automatically authorized to participate in the California Department of Food and Agriculture’s Senior Farmers’
+        Market Nutrition Program.</p>
+
+    <h2>Published files</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>File</th>
+            <th>Rows</th>
+            <th>Contents</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>california-wic-authorized-farmer-markets-list.csv</code></td>
+            <td>397</td>
+            <td>Authorized farmers' markets, one row per market day.</td>
+        </tr>
+        <tr>
+            <td><code>california-wic-enabled-farmers-list.csv</code></td>
+            <td>385</td>
+            <td>WIC enabled farmers.</td>
+        </tr>
+        <tr>
+            <td><code>*-data-dictionary.csv</code></td>
+            <td></td>
+            <td>Column lists for the two files.</td>
+        </tr>
+        <tr>
+            <td><code>datapackage.json</code></td>
+            <td></td>
+            <td>Dataset metadata.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>How it is stored in our database</h2>
+    <p>Loaded by <code>db/changelog/seed/03-farmers-markets.yaml</code>. Text values are trimmed and empty values are
+        stored as <code>NULL</code>; nothing else changes.</p>
+
+    <h3><code>farmers_market</code></h3>
+    <p>397 rows. A market that opens on more than one day, or runs different seasons, has one row for each.</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Column</th>
+            <th>Type</th>
+            <th>Published column</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>id</code></td>
+            <td>bigint</td>
+            <td>Generated key.</td>
+        </tr>
+        <tr>
+            <td><code>county</code></td>
+            <td>varchar(50)</td>
+            <td>COUNTY</td>
+        </tr>
+        <tr>
+            <td><code>market_name</code></td>
+            <td>varchar(100)</td>
+            <td>MARKET_NAME</td>
+        </tr>
+        <tr>
+            <td><code>location</code></td>
+            <td>varchar(150)</td>
+            <td>LOCATION_OF_MARKET (street address)</td>
+        </tr>
+        <tr>
+            <td><code>city</code></td>
+            <td>varchar(100)</td>
+            <td>CITY</td>
+        </tr>
+        <tr>
+            <td><code>day_of_week</code></td>
+            <td>varchar(10)</td>
+            <td>DAY, such as <code>Saturday</code></td>
+        </tr>
+        <tr>
+            <td><code>hours</code></td>
+            <td>varchar(50)</td>
+            <td>HOUR, such as <code>09:00 AM - 01:00 PM</code></td>
+        </tr>
+        <tr>
+            <td><code>season</code></td>
+            <td>varchar(50)</td>
+            <td>SEASON, such as <code>Year Round</code> or <code>May-Oct</code></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3><code>wic_farmer</code></h3>
+    <p>385 rows.</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Column</th>
+            <th>Type</th>
+            <th>Published column</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>id</code></td>
+            <td>bigint</td>
+            <td>Generated key.</td>
+        </tr>
+        <tr>
+            <td><code>county</code></td>
+            <td>varchar(50)</td>
+            <td>COUNTY</td>
+        </tr>
+        <tr>
+            <td><code>farm_name</code></td>
+            <td>varchar(100)</td>
+            <td>FARM_NAME</td>
+        </tr>
+        <tr>
+            <td><code>certified_producer_1</code></td>
+            <td>varchar(100)</td>
+            <td>CERTIFIED_PRODUCER_1</td>
+        </tr>
+        <tr>
+            <td><code>certified_producer_2</code></td>
+            <td>varchar(100)</td>
+            <td>CERTIFIED_PRODUCER_2. <code>NULL</code> for most farms.</td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="note">The published files have no coordinates, so markets cannot be shown on the map without geocoding the
+        addresses first.</p>
+
+    <h2>API</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Request</th>
+            <th>Returns</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>GET /api/farmers-markets</code></td>
+            <td>Market days ordered by county, market and day. Takes <code>county</code> and <code>city</code>.</td>
+        </tr>
+        <tr>
+            <td><code>GET /api/farmers</code></td>
+            <td>Farmers ordered by county and farm name. Takes <code>county</code>.</td>
+        </tr>
+        </tbody>
+    </table>
+    <pre><code>GET /api/farmers-markets?county=Yolo</code></pre>
+    <pre><code>SELECT market_name, location, city, day_of_week, hours, season
+FROM farmers_market
+WHERE county = 'Yolo'
+ORDER BY market_name, day_of_week;</code></pre>
+{% endblock %}

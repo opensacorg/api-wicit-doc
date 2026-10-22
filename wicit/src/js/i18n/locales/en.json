@@ -18,7 +18,6 @@
   "map.initFailed": "Dang, the map couldn't load on this browser. {reason}",
   "map.geolocationDenied": "Dang, geolocation is disabled.",
   "map.geolocationFailed": "Dang, we can't get your location.",
-  "map.sampleFallback": "Showing sample locations (live data unavailable).",
   "map.locationsFailed": "Unable to load nearby locations.",
   "map.locateTitle": "Center the map on my location",
 
@@ -56,6 +55,7 @@
   "search.error": "Sorry, something has gone wrong.",
   "search.noResults": "No results for &ldquo;{query}&rdquo; found.",
   "search.upc": "UPC: {upc}",
+  "search.plu": "PLU: {plu}",
   "search.resultCount.one": "{shown} of {total} result.",
   "search.resultCount.other": "{shown} of {total} results.",
 

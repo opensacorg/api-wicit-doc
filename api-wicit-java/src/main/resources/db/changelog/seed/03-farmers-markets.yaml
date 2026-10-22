@@ -1,0 +1,64 @@
+# Loads "WIC Enabled Farmers and Authorized Farmers Markets" into farmers_market and wic_farmer.
+databaseChangeLog:
+  - changeSet:
+      id: seed-farmers-market
+      author: wicit
+      context: seed
+      runOnChange: true
+      changes:
+        - sql:
+            sql: >
+              DROP TABLE IF EXISTS stg_farmers_market;
+              CREATE TABLE stg_farmers_market (c0 text, c1 text, c2 text, c3 text, c4 text, c5 text, c6 text)
+        - loadData:
+            tableName: stg_farmers_market
+            file: wic-farmers-markets/california-wic-authorized-farmer-markets-list.csv
+            encoding: UTF-8
+            usePreparedStatements: true
+            columns:
+              - column: { index: 0, name: c0, type: STRING }
+              - column: { index: 1, name: c1, type: STRING }
+              - column: { index: 2, name: c2, type: STRING }
+              - column: { index: 3, name: c3, type: STRING }
+              - column: { index: 4, name: c4, type: STRING }
+              - column: { index: 5, name: c5, type: STRING }
+              - column: { index: 6, name: c6, type: STRING }
+        - sql:
+            sql: >
+              DELETE FROM farmers_market;
+              INSERT INTO farmers_market (county, market_name, location, city, day_of_week, hours, season)
+              SELECT wic_text(c0), wic_text(c1), wic_text(c2), wic_text(c3), wic_text(c4), wic_text(c5), wic_text(c6)
+              FROM stg_farmers_market
+              WHERE wic_text(c1) IS NOT NULL
+        - dropTable:
+            tableName: stg_farmers_market
+
+  - changeSet:
+      id: seed-wic-farmer
+      author: wicit
+      context: seed
+      runOnChange: true
+      changes:
+        - sql:
+            sql: >
+              DROP TABLE IF EXISTS stg_wic_farmer;
+              CREATE TABLE stg_wic_farmer (c0 text, c1 text, c2 text, c3 text)
+        - loadData:
+            tableName: stg_wic_farmer
+            file: wic-farmers-markets/california-wic-enabled-farmers-list.csv
+            encoding: UTF-8
+            usePreparedStatements: true
+            columns:
+              - column: { index: 0, name: c0, type: STRING }
+              - column: { index: 1, name: c1, type: STRING }
+              - column: { index: 2, name: c2, type: STRING }
+              - column: { index: 3, name: c3, type: STRING }
+        - sql:
+            sql: >
+              DELETE FROM wic_farmer;
+              INSERT INTO wic_farmer (county, farm_name, certified_producer_1, certified_producer_2)
+              SELECT wic_text(c0), wic_text(c1), wic_text(c2), wic_text(c3)
+              FROM stg_wic_farmer
+              WHERE wic_text(c1) IS NOT NULL
+        - dropTable:
+            tableName: stg_wic_farmer

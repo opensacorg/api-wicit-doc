@@ -2,7 +2,7 @@ import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { getPosition } from "../lib/geolocation.js";
 import { addNotification, STATUSES } from "../lib/notifications.js";
-import { locationsApiUrl, locationsResourceId, mapboxIntegrationUrl } from "../lib/config.js";
+import { apiUrl, mapboxIntegrationUrl } from "../lib/config.js";
 import { t } from "../i18n/index.js";
 import { escapeHtml } from "../lib/utility.js";
 
@@ -10,7 +10,7 @@ const DEFAULT_ZOOM = 13;
 const MAX_ZOOM = 18;
 const MIN_ZOOM = 10;
 
-/** How long to wait on the locations API before falling back to sample data, in milliseconds. */
+/** How long to wait on the vendors API, in milliseconds. */
 const REQUEST_TIMEOUT = 10000;
 
 /**
@@ -89,50 +89,29 @@ function observeContainerSize(map, container) {
 const clean = (value) => String(value ?? "").trim();
 
 /**
- * Normalize a record from CHHS into a common vendor shape.
+ * Normalize a vendor from the WICit API (`GET /api/vendors/in-bounds`) into the shape the map renders.
  *
- * @param {Object} record - The input record containing vendor details.
- * @param {string} record.VENDOR - The name of the vendor.
- * @param {string} record.ADDRESS - The primary address of the vendor.
- * @param {string} record["SECOND ADDRESS"] - The secondary address of the vendor.
- * @param {string} record.CITY - The city of the vendor.
- * @param {string} record.ZIP - The ZIP code of the vendor.
- * @param {string} record.COUNTY - The county of the vendor.
- * @param {string|number} record.LATITUDE - The latitude of the vendor's location.
- * @param {string|number} record.LONGITUDE - The longitude of the vendor's location.
+ * @param {Object} record - A vendor returned by the API.
+ * @param {string} record.name - The name of the vendor.
+ * @param {string} record.address - The primary address of the vendor.
+ * @param {string|null} record.secondAddress - The secondary address of the vendor.
+ * @param {string} record.city - The city of the vendor.
+ * @param {string} record.zip - The ZIP code of the vendor.
+ * @param {string} record.county - The county of the vendor.
+ * @param {number|null} record.latitude - The latitude of the vendor's location.
+ * @param {number|null} record.longitude - The longitude of the vendor's location.
  * @return {Object} An object containing normalized properties: name, address, secondAddress, city, zip, county, lat, and lng.
- *
- * @see record
  */
-function normalizeLive(record) {
+function normalizeVendor(record) {
   return {
-    name: clean(record["VENDOR"]),
-    address: clean(record["ADDRESS"]),
-    secondAddress: clean(record["SECOND ADDRESS"]),
-    city: clean(record["CITY"]),
-    zip: clean(record["ZIP"]),
-    county: clean(record["COUNTY"]),
-    lat: parseFloat(record["LATITUDE"]),
-    lng: parseFloat(record["LONGITUDE"]),
-  };
-}
-
-/**
- * Normalize a bundled sample record (nested `location`) into the common vendor shape produced by {@link normalizeLive}.
- *
- * @param {Record<string, any>} r - Raw sample record.
- * @returns {object}
- */
-function normalizeSample(r) {
-  return {
-    name: clean(r.vendor),
-    address: clean(r.address),
-    secondAddress: clean(r.second_address),
-    city: clean(r.city),
-    zip: clean(r.zip_code),
-    county: clean(r.county),
-    lat: parseFloat(r.location && r.location.latitude),
-    lng: parseFloat(r.location && r.location.longitude),
+    name: clean(record.name),
+    address: clean(record.address),
+    secondAddress: clean(record.secondAddress),
+    city: clean(record.city),
+    zip: clean(record.zip),
+    county: clean(record.county),
+    lat: parseFloat(record.latitude),
+    lng: parseFloat(record.longitude),
   };
 }
 
@@ -238,11 +217,13 @@ export function initMapView() {
     }
     prevBounds = bounds;
 
-    const sql =
-      `SELECT * FROM "${locationsResourceId}" ` +
-      `WHERE "LONGITUDE" BETWEEN ${bounds.getWest()} AND ${bounds.getEast()} ` +
-      `AND "LATITUDE" BETWEEN ${bounds.getSouth()} AND ${bounds.getNorth()}`;
-    const url = `${locationsApiUrl}?sql=${encodeURIComponent(sql)}`;
+    const url = apiUrl("/api/vendors/in-bounds", {
+      west: bounds.getWest(),
+      south: bounds.getSouth(),
+      east: bounds.getEast(),
+      north: bounds.getNorth(),
+      limit: 1000,
+    });
 
     fetch(url, {
       headers: { Accept: "application/json" },
@@ -252,34 +233,13 @@ export function initMapView() {
         if (!response.ok) throw new Error(`Request failed: ${response.status}`);
         return response.json();
       })
-      .then((data) => {
-        const records = (data.result && data.result.records) || [];
-        renderVendors(records.map(normalizeLive));
-        stopLoading();
-      })
-      .catch(() => useSampleFallback(bounds));
-  }
-
-  /**
-   * Render bundled sample locations within view when the live API is
-   * unreachable.
-   *
-   * @param {L.LatLngBounds} bounds - Current viewport bounds.
-   */
-  function useSampleFallback(bounds) {
-    import("../../../sample_data/wic_locations.json")
-      .then((m) => {
-        const inView = m.default
-          .map(normalizeSample)
-          .filter((v) => !Number.isNaN(v.lat) && bounds.contains([v.lat, v.lng]));
-        renderVendors(inView);
-        addNotification({
-          message: t("map.sampleFallback"),
-          status: STATUSES.INFO,
-        });
+      .then((records) => {
+        renderVendors(records.map(normalizeVendor));
         stopLoading();
       })
       .catch(() => {
+        // Let the next pan or zoom retry this area.
+        prevBounds = null;
         addNotification({
           message: t("map.locationsFailed"),
           status: STATUSES.ERROR,

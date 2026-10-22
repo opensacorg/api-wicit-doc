@@ -1,0 +1,320 @@
+{% extends "base.peb" %}
+{% block title %}Redemption by County{% endblock %}
+{% block content %}
+    <h1>California Women, Infants and Children Program Redemption by County</h1>
+    <p class="lead">Source: <a
+            href="https://data.chhs.ca.gov/dataset/california-women-infants-and-children-program-redemption-by-county">data.chhs.ca.gov/dataset/california-women-infants-and-children-program-redemption-by-county</a>
+    </p>
+
+    <h2>About the dataset</h2>
+    <p>The Women, Infants and Children (WIC) Program is a federally-funded health and nutrition program that provides
+        assistance to pregnant women, new mothers, infants and children under age five. WIC helps California families by
+        providing food benefits to individual participants based on their nutritional need and risk assessment. The food
+        benefits can be used to purchase healthy supplemental foods from about 4,000 WIC authorized vendor stores
+        throughout the State. WIC also provides nutritional education, breastfeeding support, healthcare referrals and
+        other community services. Participants must meet income guidelines and other criteria. Currently, 84 WIC
+        agencies provide services monthly to approximately one million participants at over 500 sites in local
+        communities throughout the State.</p>
+    <p>Prior to June 2019, WIC issued paper food instruments (FIs) to individual participants for purchasing
+        supplemental, nutritious foods. Beginning in June 2019, California WIC began transitioning to a new food
+        delivery system, replacing the FI delivery system with the Electronic Benefit Transfer (EBT) system. California
+        WIC completed this transition in March 2020. With the previous FI delivery system, participants were issued
+        three or four paper FIs per month listing the foods that could be redeemed at authorized vendor stores. In order
+        to take full advantage of their benefits in the FI delivery system, participants had to purchase all of the
+        foods listed on a FI in a single transaction or lose that benefit. In contrast, in the EBT system a family’s
+        benefits are combined and uploaded to one EBT card. Participants can use this card to purchase WIC foods as
+        needed through the benefit expiry date without having to purchase foods that they don’t need yet and without
+        risking losing their benefits.</p>
+    <p>The data files provided contain monthly and annual redemption information from the FI delivery system and the EBT
+        system by the county in which WIC participants redeemed their food benefits. Because FIs are issued and redeemed
+        at the participant level, the FI redemption data are presented with aggregation at the participant level (e.g.,
+        participant category). However, because EBT redemptions only occur at the family level, EBT data can only be
+        presented with aggregation at the family level. Therefore, we provide two types of aggregated data:</p>
+    <p><strong>WIC Redemption by Vendor County by Participant Category</strong> contains the number of FIs redeemed, the
+        dollar amount of FIs redeemed, and the count of unique individual participants, from 2010 to 2018. This data is
+        no longer available beyond 2018 due to transitioning from the FI delivery system to the EBT system.</p>
+    <p><strong>WIC Redemption by Vendor County with Family Counts</strong> contains data from before and after the EBT
+        transition period (i.e., 2010 – present), and provides the count of unique families instead of participants. It
+        comprises three parts:</p>
+    <ul>
+        <li>Part A contains only FI redemption data from 2010 to 2018;</li>
+        <li>Part B contains both the FI redemption data and the EBT redemption data for the EBT transition period that
+            occurred in 2019 and 2020;
+        </li>
+        <li>Part C contains only EBT redemption data for 2021 and forward.</li>
+    </ul>
+    <p>The dollar amount of redemptions and the number of families redeeming benefits are expected to vary from month to
+        month. Many of these monthly variations can be attributed to the number of days and holidays in a month.
+        Additionally, in June 2021 the federal government approved a Cash Value Benefits (CVB) expansion, which resulted
+        in a large increase in monthly EBT redemption amounts. The initial CVB expansion was implemented in California
+        from June 2021 to September 2021 and provided $35 per month for all non-infant participants, increased from $9 -
+        $11. The CVB expansion was subsequently extended several times. Effective October 1, 2023, CVB was set at new
+        inflation-adjusted amounts where pregnant and postpartum individuals receive $47 per month, breastfeeding
+        individuals receive $52 per month, individuals breastfeeding more than one infant receive $78 per month, and
+        children ages 1-5 received $26 per month.</p>
+    <p>To ensure WIC participant and vendor anonymity, the redemption data has been suppressed when number of WIC
+        vendors were less than 3 or number of redeemed participants or families were less than 11. The suppressed cells
+        are annotated as “–“.</p>
+
+    <h2>Published files</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>File</th>
+            <th>Rows</th>
+            <th>Contents</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>2010-2018-part-a-wic-redemptions-by-vendor-county-with-family-counts.csv</code></td>
+            <td>6,785</td>
+            <td>Part A: food instruments, 2010 to 2018.</td>
+        </tr>
+        <tr>
+            <td><code>2019-2020-part-b-wic-redemptions-by-vendor-county-with-family-counts.csv</code></td>
+            <td>1,508</td>
+            <td>Part B: food instruments and EBT, 2019 and 2020.</td>
+        </tr>
+        <tr>
+            <td><code>2021-2025-forward-part-c-wic-ebt-redemptions-by-vendor-county-with-family-counts.csv</code></td>
+            <td>3,770</td>
+            <td>Part C: EBT, 2021 onward.</td>
+        </tr>
+        <tr>
+            <td><code>wic-redemption-by-vendor-county-by-participant-category-data-2010-2018-.csv</code></td>
+            <td>33,851</td>
+            <td>Food instruments by participant category, 2010 to 2018.</td>
+        </tr>
+        <tr>
+            <td><code>datapackage.json</code></td>
+            <td></td>
+            <td>Dataset metadata and column list.</td>
+        </tr>
+        <tr>
+            <td><code>full-description.pdf</code></td>
+            <td></td>
+            <td>CDPH's full description of the dataset.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>How it is stored in our database</h2>
+    <p>Loaded by <code>db/changelog/seed/05-redemptions.yaml</code> into two tables. Parts A, B and C share one table
+        because they have the same grain: one row per vendor county and period.</p>
+
+    <h3><code>redemption_by_family</code></h3>
+    <p>12,063 rows: Parts A, B and C combined.</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Column</th>
+            <th>Type</th>
+            <th>Published column</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>id</code></td>
+            <td>bigint</td>
+            <td>Generated key.</td>
+        </tr>
+        <tr>
+            <td><code>part</code></td>
+            <td>varchar(1)</td>
+            <td>The source file: <code>A</code>, <code>B</code> or <code>C</code>.</td>
+        </tr>
+        <tr>
+            <td><code>vendor_county_code</code></td>
+            <td>smallint</td>
+            <td>Vendor County Code. <code>0</code> is Statewide.</td>
+        </tr>
+        <tr>
+            <td><code>vendor_county</code></td>
+            <td>varchar(50)</td>
+            <td>Vendor County</td>
+        </tr>
+        <tr>
+            <td><code>year</code></td>
+            <td>smallint</td>
+            <td rowspan="2">Obligation Year and Month. <code>2019</code> is an annual row (<code>month</code> is <code>NULL</code>);
+                <code>201901</code> is January 2019.
+            </td>
+        </tr>
+        <tr>
+            <td><code>month</code></td>
+            <td>smallint</td>
+        </tr>
+        <tr>
+            <td><code>families_redeemed</code></td>
+            <td>integer</td>
+            <td>Number of Families Redeemed</td>
+        </tr>
+        <tr>
+            <td><code>food_instruments_redeemed</code></td>
+            <td>integer</td>
+            <td>Number of Food Instruments Redeemed (parts A and B)</td>
+        </tr>
+        <tr>
+            <td><code>food_instrument_dollars</code></td>
+            <td>numeric(15,2)</td>
+            <td>Dollar Amount of Food Instruments (parts A and B)</td>
+        </tr>
+        <tr>
+            <td><code>ebt_transactions</code></td>
+            <td>integer</td>
+            <td>Number of EBT Transactions (parts B and C)</td>
+        </tr>
+        <tr>
+            <td><code>ebt_dollars</code></td>
+            <td>numeric(15,2)</td>
+            <td>Dollar Amount of EBT Transactions (parts B and C)</td>
+        </tr>
+        <tr>
+            <td><code>average_cost_per_family</code></td>
+            <td>numeric(12,2)</td>
+            <td>Average Cost per Family</td>
+        </tr>
+        <tr>
+            <td><code>statewide_infant_formula_rebate</code></td>
+            <td>numeric(15,2)</td>
+            <td>Statewide Infant Formula Rebate. Statewide rows only.</td>
+        </tr>
+        <tr>
+            <td><code>total_cost_adjusted</code></td>
+            <td>numeric(15,2)</td>
+            <td>Total Cost Adjusted. Statewide rows only.</td>
+        </tr>
+        <tr>
+            <td><code>average_cost_adjusted</code></td>
+            <td>numeric(12,2)</td>
+            <td>Average Cost Adjusted. Statewide rows only.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3><code>redemption_by_participant_category</code></h3>
+    <p>33,851 rows, 2010 to 2018.</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Column</th>
+            <th>Type</th>
+            <th>Published column</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>id</code></td>
+            <td>bigint</td>
+            <td>Generated key.</td>
+        </tr>
+        <tr>
+            <td><code>vendor_county</code></td>
+            <td>varchar(50)</td>
+            <td>Vendor Location. Published in capitals; stored in title case (<code>SAN LUIS OBISPO</code> becomes
+                <code>San Luis Obispo</code>) to match the other tables. <code>STATEWIDE</code> and <code>STATEWIDE
+                    ANNUAL</code> both become <code>Statewide</code>.
+            </td>
+        </tr>
+        <tr>
+            <td><code>participant_category</code></td>
+            <td>varchar(50)</td>
+            <td>Participant Category: Breastfeeding Mother, Child, Infant, Non-Breastfeeding Mother or Prenatal. <code>ALL</code>,
+                used on the statewide annual totals, becomes <code>All</code>.
+            </td>
+        </tr>
+        <tr>
+            <td><code>year</code></td>
+            <td>smallint</td>
+            <td rowspan="2">Year Month. <code>2010</code> is an annual row; <code>2010-01</code> is January 2010.</td>
+        </tr>
+        <tr>
+            <td><code>month</code></td>
+            <td>smallint</td>
+        </tr>
+        <tr>
+            <td><code>participants_redeemed</code></td>
+            <td>integer</td>
+            <td>Number of Participants Redeemed</td>
+        </tr>
+        <tr>
+            <td><code>vouchers_redeemed</code></td>
+            <td>integer</td>
+            <td>Number Vouchers Redeemed</td>
+        </tr>
+        <tr>
+            <td><code>total_cost</code></td>
+            <td>numeric(15,2)</td>
+            <td>Total Cost Vouchers</td>
+        </tr>
+        <tr>
+            <td><code>average_cost</code></td>
+            <td>numeric(12,2)</td>
+            <td>Average Cost</td>
+        </tr>
+        <tr>
+            <td><code>statewide_infant_formula_rebate</code></td>
+            <td>numeric(15,2)</td>
+            <td>Statewide Infant Formula Rebate</td>
+        </tr>
+        <tr>
+            <td><code>total_cost_adjusted</code></td>
+            <td>numeric(15,2)</td>
+            <td>Total Cost Vouchers Adjusted</td>
+        </tr>
+        <tr>
+            <td><code>average_cost_adjusted</code></td>
+            <td>numeric(12,2)</td>
+            <td>Average Cost Adjusted</td>
+        </tr>
+        <tr>
+            <td><code>state_average_cost_adjusted</code></td>
+            <td>numeric(12,2)</td>
+            <td>State Average Cost Adjusted</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Notes</h3>
+    <ul>
+        <li>The description says suppressed cells are marked “–”. The family count files actually use <code>-</code> and
+            the participant category file uses <code>*</code>. All of them are stored as <code>NULL</code>.
+        </li>
+        <li>Columns that do not apply to a part are also <code>NULL</code>: no EBT values in part A and no food
+            instrument values in part C. In part B, food instruments stop and EBT starts partway through.
+        </li>
+        <li>Annual rows sit next to monthly rows. Filter on <code>month IS NULL</code> for annual totals, or <code>month
+            IS NOT NULL</code> to sum months yourself.
+        </li>
+    </ul>
+
+    <h2>API</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Request</th>
+            <th>Returns</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>GET /api/redemptions/by-family</code></td>
+            <td>Pages of <code>redemption_by_family</code> rows.</td>
+        </tr>
+        <tr>
+            <td><code>GET /api/redemptions/by-participant-category</code></td>
+            <td>Pages of <code>redemption_by_participant_category</code> rows. Also takes <code>category</code>.</td>
+        </tr>
+        </tbody>
+    </table>
+    <p>Both take <code>county</code>, <code>year</code>, <code>month</code>, <code>annual</code> (<code>true</code> for
+        annual rows only, <code>false</code> for monthly rows only), <code>page</code> and <code>size</code> (up to
+        1,000). For example, the statewide annual totals:</p>
+    <pre><code>GET /api/redemptions/by-family?county=Statewide&amp;annual=true</code></pre>
+    <p>The same query in SQL:</p>
+    <pre><code>SELECT year, part, families_redeemed, food_instrument_dollars, ebt_dollars
+FROM redemption_by_family
+WHERE vendor_county = 'Statewide' AND month IS NULL
+ORDER BY year;</code></pre>
+{% endblock %}

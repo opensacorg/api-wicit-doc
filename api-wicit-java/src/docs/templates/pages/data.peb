@@ -1,0 +1,157 @@
+{% extends "base.peb" %}
+{% block title %}Data{% endblock %}
+{% block content %}
+    <h1>Published WIC data</h1>
+    <p class="lead">The API serves five datasets that the California Department of Public Health (CDPH) publishes on <a
+            href="https://data.chhs.ca.gov/">data.chhs.ca.gov</a>.</p>
+
+    <ul class="cards">
+        <li><a href="data-redemptions.html"><strong>Redemption by County</strong><span>Monthly and annual benefit redemptions by vendor county, 2010 onward.</span></a>
+        </li>
+        <li><a href="data-farmers-markets.html"><strong>Farmers and Farmers' Markets</strong><span>WIC enabled farmers and authorized farmers' markets.</span></a>
+        </li>
+        <li><a href="data-vendors.html"><strong>Authorized Vendors</strong><span>Stores that accept WIC, with their locations.</span></a>
+        </li>
+        <li><a href="data-products.html"><strong>Authorized Product List</strong><span>Every WIC food item by UPC or PLU.</span></a>
+        </li>
+        <li><a href="data-participants.html"><strong>Participants by County</strong><span>Participant counts by county, WIC category and race/ethnicity.</span></a>
+        </li>
+    </ul>
+
+    <h2>Where the files live</h2>
+    <p>The downloaded files are in <code>api-wicit-java/src/main/resources</code>, one folder per dataset. Each folder
+        is named after the dataset's name on data.chhs.ca.gov and holds the CSV files, their data dictionaries, and
+        <code>datapackage.json</code>.</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Folder</th>
+            <th>Dataset</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>california-women-infants-and-children-program-redemption-by-county/</code></td>
+            <td><a href="data-redemptions.html">Redemption by County</a></td>
+        </tr>
+        <tr>
+            <td><code>wic-farmers-markets/</code></td>
+            <td><a href="data-farmers-markets.html">Farmers and Farmers' Markets</a></td>
+        </tr>
+        <tr>
+            <td><code>women-infants-and-children-wic-authorized-vendors/</code></td>
+            <td><a href="data-vendors.html">Authorized Vendors</a></td>
+        </tr>
+        <tr>
+            <td><code>wic-authorized-product-list/</code></td>
+            <td><a href="data-products.html">Authorized Product List</a></td>
+        </tr>
+        <tr>
+            <td><code>cdph-wic-participants-by-county/</code></td>
+            <td><a href="data-participants.html">Participants by County</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2 id="how-the-files-get-into-the-database">How the files get into the database</h2>
+    <p>Liquibase loads the files into PostgreSQL when you run <code>./gradlew update</code> from
+        <code>api-wicit-java</code>. The API does not load data when it starts. The changelogs are in <code>src/main/resources/db/changelog</code>:
+    </p>
+    <table>
+        <thead>
+        <tr>
+            <th>File</th>
+            <th>What it does</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>db.changelog-master.yaml</code></td>
+            <td>The entry point. Includes everything below in order.</td>
+        </tr>
+        <tr>
+            <td><code>schema/001-create-tables.yaml</code></td>
+            <td>Creates the tables and indexes.</td>
+        </tr>
+        <tr>
+            <td><code>schema/002-seed-functions.yaml</code></td>
+            <td>Creates the SQL helper functions that clean the published values.</td>
+        </tr>
+        <tr>
+            <td><code>seed/*.yaml</code></td>
+            <td>One file per dataset. Each loads its CSV files and replaces the rows in its tables.</td>
+        </tr>
+        </tbody>
+    </table>
+    <p>Each seed changeset follows the same steps:</p>
+    <ol>
+        <li>Load the CSV, unchanged, into a staging table where every column is text.</li>
+        <li>Delete the rows in the target table, then insert cleaned, typed rows from the staging table.</li>
+        <li>Drop the staging table.</li>
+    </ol>
+    <p>The seed changesets are marked <code>runOnChange</code>. A changeset's checksum includes its CSV files, so when
+        you replace a file with a newer download, the next <code>./gradlew update</code> reloads only that dataset's
+        tables.</p>
+
+    <h3>Cleaning rules</h3>
+    <p>The published files are formatted for spreadsheets. The seed functions apply these rules to every dataset:</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Function</th>
+            <th>Rule</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>wic_text(v)</code></td>
+            <td>Trims the space padding and stores an empty value as <code>NULL</code>.</td>
+        </tr>
+        <tr>
+            <td><code>wic_numeric(v)</code></td>
+            <td>Removes <code>$</code>, thousands separators and spaces, so <code>"$1,054,621,338.02 "</code> becomes
+                <code>1054621338.02</code>. Suppressed or empty cells (<code>-</code>, <code>–</code>, <code>.</code>,
+                <code>*</code> or blank) become <code>NULL</code>.
+            </td>
+        </tr>
+        <tr>
+            <td><code>wic_period_year(v)</code>, <code>wic_period_month(v)</code></td>
+            <td>Split a period written as <code>2010</code>, <code>201001</code> or <code>2010-01</code> into a year and
+                a month. The month is <code>NULL</code> for annual rows.
+            </td>
+        </tr>
+        <tr>
+            <td><code>wic_csv_fields(line)</code></td>
+            <td>Splits a CSV line that a strict parser rejects. Only the vendor file needs it.</td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="note">A <code>NULL</code> count means the value was suppressed to protect anonymity, or the column does
+        not apply to that row. It never means zero.</p>
+
+    <h2>Downloading the original files</h2>
+    <p>The API also serves the files exactly as they were published:</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Request</th>
+            <th>Returns</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>GET /api/datasets</code></td>
+            <td>Every dataset with its title, source page and files.</td>
+        </tr>
+        <tr>
+            <td><code>GET /api/datasets/{id}</code></td>
+            <td>One dataset. The <code>id</code> is the folder name.</td>
+        </tr>
+        <tr>
+            <td><code>GET /api/datasets/{id}/files/{fileName}</code></td>
+            <td>The file, as a download.</td>
+        </tr>
+        </tbody>
+    </table>
+    <p>The full API reference is the Swagger UI at <code>/swagger-ui.html</code> on a running API.</p>
+{% endblock %}

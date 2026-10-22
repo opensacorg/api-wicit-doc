@@ -1,0 +1,114 @@
+{
+  "accrual_periodicity": "daily",
+  "additional_limitations": "",
+  "citation": "",
+  "contact_email": "wicdata@cdph.ca.gov",
+  "data_collection_tool": "",
+  "data_license": "Terms of Use",
+  "de_identification_method": "",
+  "description": "California farmers provide nutritious food s to families throughout the state, the nation, and the world. The California Department of Public Health/Women, Infants, and Children Division (CDPH/WIC) supports the consumption of fresh, locally grown fruits and vegetables, and encourages shopping with local farmers at community WIC authorized farmers’ markets.\r\n\r\n CDPH/WIC authorizes farmers and farmers’ markets for WIC Farmers’ Market Programs. These farmers are also automatically authorized to participate in the California Department of Food and Agriculture’s Senior Farmers’ Market Nutrition Program.",
+  "extras": {
+    "twitter_popup": []
+  },
+  "geo_coverage": "California",
+  "geographic_granularity": "location point",
+  "keywords": [
+    "FMNP",
+    "Farm",
+    "Farmers",
+    "Farmers Markets",
+    "Market"
+  ],
+  "limitations": "Limitations",
+  "name": "wic-farmers-markets",
+  "program_web_page": "https://www.cdph.ca.gov/Programs/CFH/DWICSN/Pages/Program-Landing1.aspx",
+  "related_resources": "",
+  "resources": [
+    {
+      "format": "CSV",
+      "hash": "042b2ea53428090debd0aed6ddc88619",
+      "name": "california-wic-enabled-farmers-list",
+      "path": "california-wic-enabled-farmers-list.csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "COUNTY",
+            "type": "string"
+          },
+          {
+            "name": "FARM_NAME",
+            "type": "string"
+          },
+          {
+            "name": "CERTIFIED_PRODUCER_1",
+            "type": "string"
+          },
+          {
+            "name": "CERTIFIED_PRODUCER_2",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/29e1c07b-4a4a-46e4-b25d-de180802d0a1/resource/c5f6e053-8b6e-4da5-b1c3-149997bf635e/download/ca-farmers.csv",
+          "title": "California WIC Enabled Farmers List"
+        }
+      ],
+      "title": "California WIC Enabled Farmers List"
+    },
+    {
+      "format": "CSV",
+      "hash": "053c1546ed71bca4bf92f00e5514836a",
+      "name": "california-wic-authorized-farmer-markets-list",
+      "path": "california-wic-authorized-farmer-markets-list.csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "COUNTY",
+            "type": "string"
+          },
+          {
+            "name": "MARKET_NAME",
+            "type": "string"
+          },
+          {
+            "name": "LOCATION_OF_MARKET",
+            "type": "string"
+          },
+          {
+            "name": "CITY",
+            "type": "string"
+          },
+          {
+            "name": "DAY",
+            "type": "string"
+          },
+          {
+            "name": "HOUR",
+            "type": "string"
+          },
+          {
+            "name": "SEASON",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/29e1c07b-4a4a-46e4-b25d-de180802d0a1/resource/99ebc5b3-314c-4d54-b257-c8a8c26bb8c6/download/ca-farmersmarket.csv",
+          "title": "California WIC Authorized Farmer Markets List"
+        }
+      ],
+      "title": "California WIC Authorized Farmer Markets List"
+    }
+  ],
+  "secondary_sources": "",
+  "sources": [
+    {
+      "name": "WIC/DIB/VARE; WIC/CFVPB"
+    }
+  ],
+  "temporal_coverage": "As of date",
+  "title": "WIC Enabled Farmers and Authorized Farmers Markets"
+}

@@ -1,0 +1,169 @@
+{% extends "base.peb" %}
+{% block title %}Authorized Product List{% endblock %}
+{% block content %}
+    <h1>California WIC Authorized Product List</h1>
+    <p class="lead">Source: <a href="https://data.chhs.ca.gov/dataset/wic-authorized-product-list">data.chhs.ca.gov/dataset/wic-authorized-product-list</a>
+    </p>
+
+    <h2>About the dataset</h2>
+    <p>This dataset represents the list of CA WIC authorized food items identified by food category and subcategory.
+        Each item is uniquely identified by a Universal Product Code (UPC) or Price Look-Up code (PLU) for WIC
+        electronic benefit transfer (EBT). The WIC Authorized vendors use the CA Authorized Product List (APL) to
+        transact WIC food items at cash registers. The APL plays a crucial role in supporting WIC EBT purchases. WIC EBT
+        requires vendor systems to maintain the APL to match the scanned food items' UPCs to ensure they are on the APL.
+        The food items identified by UPC and PLU can be found in the data files below. When you download the files,
+        Excel may prompt you to automatically format the data. If prompted, you may want to hit ‘Don’t Convert’ so that
+        Excel leaves the data as is without any formatting or data conversions.</p>
+    <p>The Women, Infants and Children (WIC) Program is a federally-funded health and nutrition program that provides
+        assistance to pregnant women, new mothers, infants, and children under age five. WIC helps California families
+        by providing food benefits to individual participants based on their nutritional need and risk assessment. The
+        food benefits can be used to purchase healthy supplemental foods from approximately 3,800 WIC authorized vendor
+        stores throughout the State. WIC also provides nutritional education, breastfeeding support, healthcare
+        referrals, and other community services. Participants must meet income guidelines and other criteria. Currently,
+        84 WIC agencies provide services monthly to approximately one million participants at several hundred sites in
+        local communities throughout the State.</p>
+
+    <h2>Published files</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>File</th>
+            <th>Rows</th>
+            <th>Contents</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>california-wic-authorized-product-list-upc.csv</code></td>
+            <td>6,808</td>
+            <td>Packaged foods identified by UPC.</td>
+        </tr>
+        <tr>
+            <td><code>california-wic-authorized-product-list-plu.csv</code></td>
+            <td>2,585</td>
+            <td>Produce identified by PLU.</td>
+        </tr>
+        <tr>
+            <td><code>*-data-dictionary.csv</code></td>
+            <td></td>
+            <td>Column lists for the two files.</td>
+        </tr>
+        <tr>
+            <td><code>datapackage.json</code></td>
+            <td></td>
+            <td>Dataset metadata.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>How it is stored in our database</h2>
+    <p>Loaded by <code>db/changelog/seed/02-authorized-products.yaml</code>. The UPC and PLU files have the same
+        columns, apart from the fruit and vegetable type that only the UPC file has, so both go into one table with a
+        <code>code_type</code> column.</p>
+    <h3><code>authorized_product</code></h3>
+    <p>9,393 rows. <code>(code_type, code)</code> is unique, and <code>category_code</code> is indexed.</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Column</th>
+            <th>Type</th>
+            <th>Published column</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>id</code></td>
+            <td>bigint</td>
+            <td>Generated key.</td>
+        </tr>
+        <tr>
+            <td><code>code_type</code></td>
+            <td>varchar(3)</td>
+            <td><code>UPC</code> or <code>PLU</code>, from the source file.</td>
+        </tr>
+        <tr>
+            <td><code>code</code></td>
+            <td>varchar(20)</td>
+            <td>UPC or PLU. Stored as text so the 14-digit UPCs keep their leading zeros, as in
+                <code>00046567002071</code>.
+            </td>
+        </tr>
+        <tr>
+            <td><code>category_code</code></td>
+            <td>varchar(4)</td>
+            <td>CATEGORY, such as <code>19</code>. Published padded with spaces.</td>
+        </tr>
+        <tr>
+            <td><code>category_description</code></td>
+            <td>varchar(100)</td>
+            <td>CATEGORY_DESCRIPTION</td>
+        </tr>
+        <tr>
+            <td><code>subcategory_code</code></td>
+            <td>varchar(4)</td>
+            <td>SUBCATEGORY, such as <code>001</code>.</td>
+        </tr>
+        <tr>
+            <td><code>subcategory_description</code></td>
+            <td>varchar(100)</td>
+            <td>SUBCATEGORY_DESCRIPTION</td>
+        </tr>
+        <tr>
+            <td><code>description</code></td>
+            <td>varchar(200)</td>
+            <td>PRODUCT_DESCRIPTION_AND_SIZE, abbreviated as on a receipt, such as <code>BstY LGBrwn Rice-16OZ</code>.
+            </td>
+        </tr>
+        <tr>
+            <td><code>unit_of_measure</code></td>
+            <td>varchar(10)</td>
+            <td>UOM, such as <code>OZ</code>, <code>GAL</code> or <code>CTR</code>. <code>$$$</code> marks cash value
+                benefit items.
+            </td>
+        </tr>
+        <tr>
+            <td><code>fruit_vegetable_type</code></td>
+            <td>varchar(50)</td>
+            <td>FRUIT_AND_VEGETABLE_TYPE, such as <code>Canned Fruits and Vegetables</code>. UPC file only;
+                <code>NULL</code> for PLUs and most non-produce UPCs.
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="note">Codes are stored as text, never as numbers, for the same reason the description warns about Excel:
+        converting them drops the leading zeros.</p>
+
+    <h2>API</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Request</th>
+            <th>Returns</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>GET /api/products?q=</code></td>
+            <td>Pages of products ordered by description. Every word in <code>q</code> must appear in the code,
+                description, category, subcategory or fruit and vegetable type. Also takes <code>type</code>
+                (<code>UPC</code> or <code>PLU</code>), <code>category</code>, <code>page</code> and <code>size</code>.
+                The "Which foods qualify?" page calls this.
+            </td>
+        </tr>
+        <tr>
+            <td><code>GET /api/products/{code}</code></td>
+            <td>The products with that exact code, or 404.</td>
+        </tr>
+        <tr>
+            <td><code>GET /api/products/categories</code></td>
+            <td>Each category with its number of products.</td>
+        </tr>
+        </tbody>
+    </table>
+    <pre><code>GET /api/products?q=brown%20rice</code></pre>
+    <pre><code>SELECT code_type, code, description, subcategory_description
+FROM authorized_product
+WHERE lower(description || ' ' || subcategory_description) LIKE '%brown%'
+  AND lower(description || ' ' || subcategory_description) LIKE '%rice%'
+ORDER BY description;</code></pre>
+{% endblock %}

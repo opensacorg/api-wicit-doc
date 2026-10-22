@@ -1,0 +1,18 @@
+# Liquibase entry point. Run from api-wicit-java with: ./gradlew update
+#
+# schema/ holds versioned table definitions. Add a new file for each schema change; never edit a
+# changeset that has already been applied.
+#
+# seed/ loads the published CSV files from src/main/resources. Each seed changeset is runOnChange:
+# replacing a CSV with a newer download from data.chhs.ca.gov changes its checksum, so the next
+# ./gradlew update reloads that table.
+databaseChangeLog:
+  - include:
+      file: schema/001-create-tables.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: schema/002-seed-functions.yaml
+      relativeToChangelogFile: true
+  - includeAll:
+      path: seed/
+      relativeToChangelogFile: true

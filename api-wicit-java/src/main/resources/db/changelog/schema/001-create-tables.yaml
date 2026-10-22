@@ -1,0 +1,188 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-vendor
+      author: wicit
+      context: schema
+      changes:
+        - createTable:
+            tableName: vendor
+            remarks: WIC authorized vendor stores
+            columns:
+              - column: { name: id, type: bigint, autoIncrement: true, constraints: { primaryKey: true } }
+              - column: { name: name, type: varchar(200), constraints: { nullable: false } }
+              - column: { name: address, type: varchar(200) }
+              - column: { name: second_address, type: varchar(200) }
+              - column: { name: city, type: varchar(100) }
+              - column: { name: zip, type: varchar(10) }
+              - column: { name: county, type: varchar(50) }
+              - column: { name: latitude, type: double precision }
+              - column: { name: longitude, type: double precision }
+        - createIndex:
+            tableName: vendor
+            indexName: vendor_lat_lng_idx
+            columns:
+              - column: { name: latitude }
+              - column: { name: longitude }
+        - createIndex:
+            tableName: vendor
+            indexName: vendor_county_idx
+            columns:
+              - column: { name: county }
+
+  - changeSet:
+      id: 001-create-authorized-product
+      author: wicit
+      context: schema
+      changes:
+        - createTable:
+            tableName: authorized_product
+            remarks: California WIC Authorized Product List (APL), UPC and PLU items
+            columns:
+              - column: { name: id, type: bigint, autoIncrement: true, constraints: { primaryKey: true } }
+              - column: { name: code_type, type: varchar(3), remarks: UPC or PLU, constraints: { nullable: false } }
+              - column: { name: code, type: varchar(20), constraints: { nullable: false } }
+              - column: { name: category_code, type: varchar(4) }
+              - column: { name: category_description, type: varchar(100) }
+              - column: { name: subcategory_code, type: varchar(4) }
+              - column: { name: subcategory_description, type: varchar(100) }
+              - column: { name: description, type: varchar(200) }
+              - column: { name: unit_of_measure, type: varchar(10) }
+              - column: { name: fruit_vegetable_type, type: varchar(50) }
+        - addUniqueConstraint:
+            tableName: authorized_product
+            columnNames: code_type, code
+            constraintName: authorized_product_code_uk
+        - createIndex:
+            tableName: authorized_product
+            indexName: authorized_product_category_idx
+            columns:
+              - column: { name: category_code }
+
+  - changeSet:
+      id: 001-create-farmers-markets
+      author: wicit
+      context: schema
+      changes:
+        - createTable:
+            tableName: farmers_market
+            remarks: WIC authorized farmers markets, one row per market day
+            columns:
+              - column: { name: id, type: bigint, autoIncrement: true, constraints: { primaryKey: true } }
+              - column: { name: county, type: varchar(50) }
+              - column: { name: market_name, type: varchar(100), constraints: { nullable: false } }
+              - column: { name: location, type: varchar(150) }
+              - column: { name: city, type: varchar(100) }
+              - column: { name: day_of_week, type: varchar(10) }
+              - column: { name: hours, type: varchar(50) }
+              - column: { name: season, type: varchar(50) }
+        - createTable:
+            tableName: wic_farmer
+            remarks: WIC enabled farmers
+            columns:
+              - column: { name: id, type: bigint, autoIncrement: true, constraints: { primaryKey: true } }
+              - column: { name: county, type: varchar(50) }
+              - column: { name: farm_name, type: varchar(100), constraints: { nullable: false } }
+              - column: { name: certified_producer_1, type: varchar(100) }
+              - column: { name: certified_producer_2, type: varchar(100) }
+
+  - changeSet:
+      id: 001-create-participants
+      author: wicit
+      context: schema
+      changes:
+        - createTable:
+            tableName: participants_by_category
+            remarks: WIC participants by county of residence and WIC category
+            columns:
+              - column: { name: id, type: bigint, autoIncrement: true, constraints: { primaryKey: true } }
+              - column: { name: county_code, type: smallint, remarks: 0 is Statewide, constraints: { nullable: false } }
+              - column: { name: county, type: varchar(50), constraints: { nullable: false } }
+              - column: { name: year, type: smallint, constraints: { nullable: false } }
+              - column: { name: month, type: smallint, remarks: Null for annual rows }
+              - column: { name: category, type: varchar(50), constraints: { nullable: false } }
+              - column: { name: certified_participants, type: integer, remarks: Null when suppressed }
+              - column: { name: issued_participants, type: integer, remarks: Null when suppressed }
+              - column: { name: redeemed_participants, type: integer, remarks: Null when suppressed or not reported (2019 onward) }
+        - createIndex:
+            tableName: participants_by_category
+            indexName: participants_by_category_lookup_idx
+            columns:
+              - column: { name: county }
+              - column: { name: year }
+              - column: { name: month }
+        - createTable:
+            tableName: participants_by_race_ethnicity
+            remarks: WIC participants by county of residence and race/ethnicity
+            columns:
+              - column: { name: id, type: bigint, autoIncrement: true, constraints: { primaryKey: true } }
+              - column: { name: county_code, type: smallint, remarks: 0 is Statewide, constraints: { nullable: false } }
+              - column: { name: county, type: varchar(50), constraints: { nullable: false } }
+              - column: { name: year, type: smallint, constraints: { nullable: false } }
+              - column: { name: month, type: smallint, remarks: Null for annual rows }
+              - column: { name: race_ethnicity, type: varchar(50), constraints: { nullable: false } }
+              - column: { name: certified_participants, type: integer, remarks: Null when suppressed }
+              - column: { name: issued_participants, type: integer, remarks: Null when suppressed }
+              - column: { name: redeemed_participants, type: integer, remarks: Null when suppressed or not reported (2019 onward) }
+        - createIndex:
+            tableName: participants_by_race_ethnicity
+            indexName: participants_by_race_ethnicity_lookup_idx
+            columns:
+              - column: { name: county }
+              - column: { name: year }
+              - column: { name: month }
+
+  - changeSet:
+      id: 001-create-redemptions
+      author: wicit
+      context: schema
+      changes:
+        - createTable:
+            tableName: redemption_by_family
+            remarks: WIC redemptions by vendor county with family counts (parts A, B and C)
+            columns:
+              - column: { name: id, type: bigint, autoIncrement: true, constraints: { primaryKey: true } }
+              - column: { name: part, type: varchar(1), remarks: "A = FI 2010-2018, B = FI and EBT 2019-2020, C = EBT 2021 onward", constraints: { nullable: false } }
+              - column: { name: vendor_county_code, type: smallint, remarks: 0 is Statewide, constraints: { nullable: false } }
+              - column: { name: vendor_county, type: varchar(50), constraints: { nullable: false } }
+              - column: { name: year, type: smallint, constraints: { nullable: false } }
+              - column: { name: month, type: smallint, remarks: Null for annual rows }
+              - column: { name: families_redeemed, type: integer }
+              - column: { name: food_instruments_redeemed, type: integer }
+              - column: { name: food_instrument_dollars, type: "numeric(15,2)" }
+              - column: { name: ebt_transactions, type: integer }
+              - column: { name: ebt_dollars, type: "numeric(15,2)" }
+              - column: { name: average_cost_per_family, type: "numeric(12,2)" }
+              - column: { name: statewide_infant_formula_rebate, type: "numeric(15,2)" }
+              - column: { name: total_cost_adjusted, type: "numeric(15,2)" }
+              - column: { name: average_cost_adjusted, type: "numeric(12,2)" }
+        - createIndex:
+            tableName: redemption_by_family
+            indexName: redemption_by_family_lookup_idx
+            columns:
+              - column: { name: vendor_county }
+              - column: { name: year }
+              - column: { name: month }
+        - createTable:
+            tableName: redemption_by_participant_category
+            remarks: WIC food instrument redemptions by vendor county and participant category, 2010-2018
+            columns:
+              - column: { name: id, type: bigint, autoIncrement: true, constraints: { primaryKey: true } }
+              - column: { name: vendor_county, type: varchar(50), constraints: { nullable: false } }
+              - column: { name: participant_category, type: varchar(50), constraints: { nullable: false } }
+              - column: { name: year, type: smallint, constraints: { nullable: false } }
+              - column: { name: month, type: smallint, remarks: Null for annual rows }
+              - column: { name: participants_redeemed, type: integer }
+              - column: { name: vouchers_redeemed, type: integer }
+              - column: { name: total_cost, type: "numeric(15,2)" }
+              - column: { name: average_cost, type: "numeric(12,2)" }
+              - column: { name: statewide_infant_formula_rebate, type: "numeric(15,2)" }
+              - column: { name: total_cost_adjusted, type: "numeric(15,2)" }
+              - column: { name: average_cost_adjusted, type: "numeric(12,2)" }
+              - column: { name: state_average_cost_adjusted, type: "numeric(12,2)" }
+        - createIndex:
+            tableName: redemption_by_participant_category
+            indexName: redemption_by_participant_category_lookup_idx
+            columns:
+              - column: { name: vendor_county }
+              - column: { name: year }
+              - column: { name: month }

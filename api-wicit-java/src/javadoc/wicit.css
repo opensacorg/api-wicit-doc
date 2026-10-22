@@ -1,0 +1,15 @@
+/* The WICit logo that the docsSite task adds to the Javadoc navigation bar, linking back to the docs. The
+   logo's wordmark is dark gray, so it sits on a white chip against the blue bar. */
+.wicit-logo {
+    display: flex;
+    align-items: center;
+    flex: none;
+    margin-right: 8px;
+    padding: 2px 6px;
+    background: #ffffff;
+    border-radius: 4px;
+}
+
+.wicit-logo img {
+    display: block;
+}

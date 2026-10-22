@@ -18,7 +18,6 @@
   "map.initFailed": "Vaya, el mapa no pudo cargarse en este navegador. {reason}",
   "map.geolocationDenied": "Vaya, la geolocalización está desactivada.",
   "map.geolocationFailed": "Vaya, no podemos obtener tu ubicación.",
-  "map.sampleFallback": "Mostrando ubicaciones de ejemplo (los datos en vivo no están disponibles).",
   "map.locationsFailed": "No se pudieron cargar las ubicaciones cercanas.",
   "map.locateTitle": "Centrar el mapa en mi ubicación",
 
@@ -56,6 +55,7 @@
   "search.error": "Lo sentimos, algo salió mal.",
   "search.noResults": "No se encontraron resultados para &ldquo;{query}&rdquo;.",
   "search.upc": "UPC: {upc}",
+  "search.plu": "PLU: {plu}",
   "search.resultCount.one": "{shown} de {total} resultado.",
   "search.resultCount.other": "{shown} de {total} resultados.",
 

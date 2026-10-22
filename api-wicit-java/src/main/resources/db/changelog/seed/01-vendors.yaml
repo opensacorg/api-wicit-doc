@@ -1,0 +1,40 @@
+# Loads "Women, Infants and Children (WIC) Authorized Vendors" into the vendor table.
+#
+# Every seed changeset follows the same steps: load the CSV as text into a staging table, replace
+# the target table's rows with cleaned and typed values, then drop the staging table.
+#
+# This file needs extra care. It is Windows-1252 rather than UTF-8, pads quoted values with spaces
+# after the closing quote, and ends with a "N rows selected." footer, none of which Liquibase's CSV
+# parser accepts. So each line is loaded whole (the separator and quote characters below never appear
+# in the file) and split by wic_csv_fields() in the database. Runs of spaces are collapsed first:
+# every line is padded to about 950 characters, and splitting the short form is much faster.
+databaseChangeLog:
+  - changeSet:
+      id: seed-vendor
+      author: wicit
+      context: seed
+      runOnChange: true
+      changes:
+        - sql:
+            sql: >
+              DROP TABLE IF EXISTS stg_vendor;
+              CREATE TABLE stg_vendor (line text)
+        - loadData:
+            tableName: stg_vendor
+            file: women-infants-and-children-wic-authorized-vendors/women-infants-and-children-wic-authorized-vendors-.csv
+            encoding: windows-1252
+            separator: "\t"
+            quotchar: "~"
+            usePreparedStatements: true
+            columns:
+              - column: { index: 0, name: line, type: STRING }
+        - sql:
+            sql: >
+              DELETE FROM vendor;
+              INSERT INTO vendor (name, address, second_address, city, zip, county, latitude, longitude)
+              SELECT wic_text(f[1]), wic_text(f[2]), wic_text(f[3]), wic_text(f[4]), wic_text(f[5]),
+                     wic_text(f[6]), wic_numeric(f[7])::double precision, wic_numeric(f[8])::double precision
+              FROM (SELECT wic_csv_fields(regexp_replace(line, ' {2,}', ' ', 'g')) AS f FROM stg_vendor) parsed
+              WHERE cardinality(f) = 8 AND wic_text(f[1]) IS NOT NULL AND wic_text(f[2]) IS NOT NULL
+        - dropTable:
+            tableName: stg_vendor

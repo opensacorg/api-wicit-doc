@@ -1,0 +1,89 @@
+# Settings shared by every profile. Secrets are never stored here: they come from environment
+# variables or, for local development, from the git-ignored .env file imported below.
+spring:
+  application:
+    name: wicit-api
+  config:
+    import: optional:file:.env[.properties]
+  profiles:
+    default: dev
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  mvc:
+    problemdetails:
+      enabled: true
+  # Liquibase owns the schema and runs from Gradle (./gradlew update), never at startup. Queries use jOOQ
+  # with the classes generated from that schema.
+  liquibase:
+    enabled: false
+
+server:
+  forward-headers-strategy: framework
+  compression:
+    enabled: true
+    mime-types: application/json,text/csv
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    document-title: WICit API Documentation
+  api-docs:
+    path: /v3/api-docs
+
+wicit:
+  cors:
+    allowed-origin-patterns:
+      - https://findwic.com
+      - https://www.findwic.com
+      # GitHub Pages sites, including forks such as opensacorg.github.io and natebass.github.io.
+      - https://*.github.io
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/app_28c3}
+    username: ${DB_USERNAME:app}
+
+management:
+  endpoint:
+    health:
+      show-details: always
+
+wicit:
+  cors:
+    allowed-origin-patterns:
+      - http://localhost:5173
+      - http://127.0.0.1:5173
+      - http://localhost:4173
+      - https://findwic.com
+      - https://www.findwic.com
+      - https://*.github.io
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+server:
+  port: ${PORT:8080}
+
+management:
+  endpoint:
+    health:
+      show-details: never

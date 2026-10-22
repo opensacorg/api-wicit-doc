@@ -1,0 +1,157 @@
+{% extends "base.peb" %}
+{% block title %}Authorized Vendors{% endblock %}
+{% block content %}
+    <h1>Women, Infants and Children (WIC) Authorized Vendors</h1>
+    <p class="lead">Source: <a
+            href="https://data.chhs.ca.gov/dataset/women-infants-and-children-wic-authorized-vendors">data.chhs.ca.gov/dataset/women-infants-and-children-wic-authorized-vendors</a>
+    </p>
+
+    <h2>About the dataset</h2>
+    <p>This dataset contains the vendor name and location of all currently active vendors authorized to offer
+        supplemental foods to participants for redemption with WIC food instruments and vouchers.</p>
+    <p>The Women, Infants and Children (WIC) Program is a federally-funded health and nutrition program that provides
+        assistance to pregnant women, new mothers, infants and children under age five. WIC helps California families by
+        providing food instruments and vouchers that can be used to purchase healthy supplemental foods from over 4000
+        WIC-authorized vendor stores throughout the State. WIC also provides nutritional education, breastfeeding
+        support and help finding healthcare and other community services. Participants must meet income guidelines and
+        other criteria. Currently, 84 WIC agencies provide services monthly to over 1.45 million participants at over
+        650 sites in local communities throughout the State.</p>
+
+    <h2>Published files</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>File</th>
+            <th>Rows</th>
+            <th>Contents</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>women-infants-and-children-wic-authorized-vendors-.csv</code></td>
+            <td>3,687</td>
+            <td>Active vendors with their address and location.</td>
+        </tr>
+        <tr>
+            <td><code>women-infants-and-children-wic-authorized-vendors--data-dictionary.csv</code></td>
+            <td></td>
+            <td>Column descriptions.</td>
+        </tr>
+        <tr>
+            <td><code>datapackage.json</code></td>
+            <td></td>
+            <td>Dataset metadata.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>How it is stored in our database</h2>
+    <p>Loaded by <code>db/changelog/seed/01-vendors.yaml</code> into the <code>vendor</code> table, which drives the
+        WICit map.</p>
+    <h3><code>vendor</code></h3>
+    <p>3,687 rows. Indexed on <code>(latitude, longitude)</code> for map viewport queries, and on <code>county</code>.
+    </p>
+    <table>
+        <thead>
+        <tr>
+            <th>Column</th>
+            <th>Type</th>
+            <th>Published column</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>id</code></td>
+            <td>bigint</td>
+            <td>Generated key. The dataset has no vendor ID.</td>
+        </tr>
+        <tr>
+            <td><code>name</code></td>
+            <td>varchar(200)</td>
+            <td>VENDOR, with its quotes removed.</td>
+        </tr>
+        <tr>
+            <td><code>address</code></td>
+            <td>varchar(200)</td>
+            <td>ADDRESS</td>
+        </tr>
+        <tr>
+            <td><code>second_address</code></td>
+            <td>varchar(200)</td>
+            <td>SECOND ADDRESS. Empty in the current file, so always <code>NULL</code>.</td>
+        </tr>
+        <tr>
+            <td><code>city</code></td>
+            <td>varchar(100)</td>
+            <td>CITY</td>
+        </tr>
+        <tr>
+            <td><code>zip</code></td>
+            <td>varchar(10)</td>
+            <td>ZIP. Text, to keep leading zeros. 19 vendors have none.</td>
+        </tr>
+        <tr>
+            <td><code>county</code></td>
+            <td>varchar(50)</td>
+            <td>COUNTY</td>
+        </tr>
+        <tr>
+            <td><code>latitude</code></td>
+            <td>double precision</td>
+            <td>LATITUDE. 42 vendors have no location and are not shown on the map.</td>
+        </tr>
+        <tr>
+            <td><code>longitude</code></td>
+            <td>double precision</td>
+            <td>LONGITUDE</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Why this file is loaded differently</h3>
+    <p>Liquibase's CSV parser rejects this file, for three reasons:</p>
+    <ul>
+        <li>Every value is padded with spaces to a fixed width, including after the closing quote of a quoted name:
+            <code>"SAVE MART #609"&nbsp;&nbsp;&nbsp;,11980 HIGHWAY 88&nbsp;&nbsp;&nbsp;,</code></li>
+        <li>It is encoded as Windows-1252, not UTF-8. For example, the apostrophe in <code>RAY’S FOOD PLACE</code> is
+            the single byte <code>0x92</code>.
+        </li>
+        <li>It ends with a blank line and a <code>3687 rows selected.</code> footer.</li>
+    </ul>
+    <p>So the changeset reads the file as Windows-1252 and loads each line whole into a one-column staging table. In the
+        database, runs of spaces are collapsed, then <code>wic_csv_fields()</code> splits each line, accepting the
+        padding around quoted values. Only lines with exactly eight fields and a name and address become vendors, which
+        drops the footer. Three vendor names contain a comma, such as <code>NORTH COAST COOPERATIVE, INC</code>, and are
+        split correctly because the comma is inside quotes.</p>
+
+    <h2>API</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Request</th>
+            <th>Returns</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>GET /api/vendors/in-bounds?west=&amp;south=&amp;east=&amp;north=</code></td>
+            <td>Vendors inside a map viewport, ordered by name. Takes <code>limit</code> (default 500, at most 1,000).
+                The map calls this each time it moves.
+            </td>
+        </tr>
+        <tr>
+            <td><code>GET /api/vendors</code></td>
+            <td>Pages of vendors ordered by name. Takes <code>county</code>, <code>city</code>, <code>page</code> and
+                <code>size</code>.
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <pre><code>GET /api/vendors/in-bounds?west=-121.6&amp;south=38.4&amp;east=-121.3&amp;north=38.7</code></pre>
+    <pre><code>SELECT name, address, city, zip, latitude, longitude
+FROM vendor
+WHERE latitude BETWEEN 38.4 AND 38.7
+  AND longitude BETWEEN -121.6 AND -121.3
+ORDER BY name
+LIMIT 500;</code></pre>
+{% endblock %}

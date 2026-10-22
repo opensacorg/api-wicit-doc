@@ -1,0 +1,592 @@
+{% extends "base.peb" %}
+{% block title %}Backend Setup{% endblock %}
+{% block content %}
+      <h1>Prerequisites</h1>
+    <p class="lead">Install these tools before working on WICit. Both projects support Windows, macOS and Linux.</p>
+
+    <h2>Requirements</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Tool</th>
+            <th>Version</th>
+            <th>Needed for</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Git</td>
+            <td>Any recent</td>
+            <td>Both</td>
+        </tr>
+        <tr>
+            <td>GNU Make</td>
+            <td>4.x</td>
+            <td>Running the root <code>make</code> commands</td>
+        </tr>
+        <tr>
+            <td>JDK</td>
+            <td>27</td>
+            <td>Backend</td>
+        </tr>
+        <tr>
+            <td>Gradle</td>
+            <td>9.8.1, via the included wrapper</td>
+            <td>Backend (no separate install)</td>
+        </tr>
+        <tr>
+            <td>Node.js</td>
+            <td>24</td>
+            <td>Frontend</td>
+        </tr>
+        <tr>
+            <td>Vite+ (<code>vp</code>)</td>
+            <td>Latest</td>
+            <td>Frontend</td>
+        </tr>
+        <tr>
+            <td>pnpm</td>
+            <td>The version in <code>wicit/package.json</code></td>
+            <td>Frontend (downloaded automatically)</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Git</h2>
+    <p>Install Git from <a href="https://git-scm.com/downloads">git-scm.com</a>, then clone the repository:</p>
+    <pre><code>git clone https://github.com/natebass/api-wicit-doc.git</code></pre>
+
+    <h2>GNU Make</h2>
+    <p>The root <code>Makefile</code> wraps the commands for both projects. Make is optional: every target is a short
+        command you can also run by hand from the project folder.</p>
+    <h3>Windows</h3>
+    <pre><code>choco install make</code></pre>
+    <p class="note">On Windows the Makefile runs every command in <code>cmd.exe</code>, so it works from PowerShell,
+        Command Prompt or Git Bash.</p>
+    <h3>macOS</h3>
+    <pre><code>xcode-select --install</code></pre>
+    <h3>Linux (Debian/Ubuntu)</h3>
+    <pre><code>sudo apt install make</code></pre>
+
+    <h2>JDK 27</h2>
+    <p>The backend compiles with a Gradle Java toolchain set to version 27. Install any JDK 27 distribution, such as <a
+            href="https://adoptium.net/">Eclipse Temurin</a>, and check it:</p>
+    <pre><code>java -version</code></pre>
+    <p>You don't need to install Gradle. The <code>gradlew</code> and <code>gradlew.bat</code> wrappers download the
+        correct version the first time they run.</p>
+
+    <h2>Node.js and Vite+</h2>
+    <p>The frontend is built with <a href="https://viteplus.dev/guide">Vite+</a>, which provides the <code>vp</code>
+        command. Install Node.js 24 from <a href="https://nodejs.org/">nodejs.org</a>, then follow the <a
+                href="https://viteplus.dev/guide">Vite+ install guide</a>. Check both:</p>
+    <pre><code>node --version
+vp --version</code></pre>
+    <p>pnpm is pinned in <code>devEngines</code> in <code>wicit/package.json</code> and is downloaded automatically when
+        it is missing.</p>
+
+    <h2>IDEs</h2>
+    <p>Open each application folder as its own project, not the repository root:</p>
+    <ul>
+        <li><code>api-wicit-java</code> in IntelliJ IDEA or another Gradle-aware Java IDE.</li>
+        <li><code>wicit</code> in VS Code. The folder includes recommended extensions in
+            <code>.vscode/extensions.json</code>.
+        </li>
+    </ul>
+
+    <p>Next: <a href="backend.html">set up the backend</a> or <a href="frontend.html">set up the frontend</a>.</p>
+    
+     <h1>Frontend setup</h1>
+    <p class="lead">The WICit website is a vanilla JS Vite+ single-page application.
+    </p>
+
+    <h2>Requirements</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Component</th>
+            <th>Version</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Node.js</td>
+            <td>24</td>
+        </tr>
+        <tr>
+            <td>Vite+</td>
+			<td>1.20</td>
+        </tr>
+        <tr>
+            <td>pnpm</td>
+			<td>12.11.2</td>
+        </tr>
+        <tr>
+            <td>Bootstrap</td>
+			<td>6.0.0-alpha.1</td>
+        </tr>
+        <tr>
+            <td>Leaflet</td>
+            <td>1.9.4</td>
+        </tr>
+        <tr>
+            <td>Sass</td>
+            <td>1.x</td>
+        </tr>
+        </tbody>
+    </table>
+    <p>See <a href="get-started.html">Get started</a> to install Node.js and Vite+.</p>
+    <h2>Configuration</h2>
+    <p>Copy the template to create your local environment file:</p>
+    <pre><code>cd wicit
+cp .env.dist .env</code></pre>
+    <table>
+        <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Purpose</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>VITE_MAPBOX_INTEGRATION_URL</code></td>
+            <td>Mapbox raster tile URL for the map.</td>
+        </tr>
+        <tr>
+            <td><code>VITE_API_BASE_URL</code></td>
+            <td>Use <code>https://api.findwic.com</code> for production and <code>http://localhost:8080</code> for development.</td>
+        </tr>
+        </tbody>
+    </table>
+    <p>The map and the food search need the API running. Start it with <code>make backend</code> in a second terminal;
+        see <a href="backend.html">Backend setup</a>.</p>
+    <p>The <code>Deploy to GitHub Pages</code> workflow reads <code>VITE_MAPBOX_INTEGRATION_URL</code> and <code>VITE_API_BASE_URL</code>
+        from the repository's Actions variables. In a fork, set both under <strong>Settings → Secrets and variables →
+            Actions → Variables</strong>. <code>VITE_API_BASE_URL</code> must be an <code>https://</code> URL, because
+        browsers block requests from an HTTPS page to an HTTP API.</p>
+    <h3>Get a Mapbox URL</h3>
+    <ol>
+        <li>Go to <a href="https://www.mapbox.com/studio/">Mapbox Studio</a> and click <strong>New style</strong>.</li>
+        <li>Select <strong>Classic styles</strong> → <strong>Streets</strong>, then click <strong>Customize</strong>.
+        </li>
+        <li>Click <strong>Share</strong>. Under <strong>Production URL</strong>, copy the <strong>Preview only</strong>
+            URL.
+        </li>
+        <li>Paste it as <code>VITE_MAPBOX_INTEGRATION_URL</code> in <code>.env</code>.</li>
+    </ol>
+    <p class="note">Every <code>VITE_</code> variable ends up in the public browser bundle. Restrict the Mapbox token to
+        your URLs in Mapbox's settings.</p>
+
+	<h2>Translations</h2>
+	<h3>Message catalogs</h3>
+	<p>
+Every catalog is a flat JSON object mapping a message key to the string shown to the reader.
+`en.json` is the source of truth; the runtime falls back to it **per key**, so a catalog that is
+empty, partial, or mid-review always renders — translated where a key exists, English everywhere
+else.
+	</p>
+	<b>Supported languages:</b>
+	<ul>
+		<li>English</li>
+		<li>Spanish</li>
+		<li>Simplified Chinese</li>
+	</ul>
+	<h3>Translating</h3>
+	<ol>
+		<li>Copy the keys you are translating out of `en.json` into the target catalog.</li>
+		<li>Translate the values, leaving `{placeholder}` tokens exactly as written — the runtime
+			substitutes them, and a renamed token is rendered literally so the mistake is visible.</li>
+		<li>Keep any HTML in a value intact. Markup inside a message is trusted and rendered as-is; only
+			placeholder values are escaped. Do not add markup that was not in the English string.</li>
+		<li>Leave out keys you have not translated. Do **not** ship a key with an empty string — an empty
+			value counts as a translation and hides the English fallback.</li>
+	</ol>
+	<h3>Plurals</h3>
+	<p>Keys ending in a CLDR plural category (`.one`, `.other`, and where a language needs them `.zero`,
+`.two`, `.few`, `.many`) are selected at runtime by `tCount()` from the count. Provide whichever
+categories the language actually uses; `.other` is required as the fallback form.</p>
+	<h3>Adding a language</h3>
+<p>Add an entry to `../locales.js` and a `<code>.json` file here. Nothing else needs to change —
+	the switcher, the `<html lang>`/`dir` attributes, and number formatting all read that registry.</p>
+    <p>Every string is rendered through a message catalog. English, in <code>src/js/i18n/locales/en.json</code>, is the
+        source of truth. Other languages fall back to English key by key. To add a language, add it to <code>src/js/i18n/locales.js</code>
+        with a matching JSON catalog. See <code>src/js/i18n/locales/README.md</code> for details.</p>
+
+    <h1>Backend setup</h1>
+    <p class="lead">The WICit API is a Spring Boot application. It serves the <a href="data.html">openly published WIC data</a> from PostgreSQL.</p>
+
+    <h2>Requirements</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Component</th>
+            <th>Version</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Java (toolchain)</td>
+            <td>27</td>
+        </tr>
+        <tr>
+            <td>Gradle (wrapper)</td>
+            <td>9.8.1</td>
+        </tr>
+        <tr>
+            <td>Spring Boot</td>
+            <td>4.1.1</td>
+        </tr>
+        <tr>
+            <td>Spring dependency management plugin</td>
+            <td>1.1.7</td>
+        </tr>
+        <tr>
+            <td>PostgreSQL</td>
+            <td>18 (any recent version works)</td>
+        </tr>
+        <tr>
+            <td>Liquibase</td>
+            <td>4.33.0, run by the <code>org.liquibase.gradle</code> plugin 3.1.0</td>
+        </tr>
+        <tr>
+            <td>jOOQ</td>
+            <td>3.21.7, the version Spring Boot manages, with the <code>org.jooq.jooq-codegen-gradle</code> plugin</td>
+        </tr>
+        <tr>
+            <td>springdoc-openapi</td>
+            <td>3.1.1</td>
+        </tr>
+        </tbody>
+    </table>
+    <p>See <a href="get-started.html">Get started</a> to install the JDK.</p>
+
+    <h3>Starters</h3>
+    <p>Spring Boot 4 split the old <code>spring-boot-starter-web</code> into smaller starters, each with a matching test
+        starter.</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Starter</th>
+            <th>What it adds</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>spring-boot-starter-webmvc</code></td>
+            <td>Spring MVC and Tomcat for the REST API.</td>
+        </tr>
+        <tr>
+            <td><code>spring-boot-starter-jooq</code></td>
+            <td>jOOQ for type-safe SQL, with a <code>DSLContext</code> bound to Spring's transactions.</td>
+        </tr>
+        <tr>
+            <td><code>spring-boot-starter-actuator</code></td>
+            <td>Health checks at <code>/actuator/health</code>.</td>
+        </tr>
+        <tr>
+            <td><code>spring-boot-starter-validation</code></td>
+            <td>Validation of request parameters.</td>
+        </tr>
+        <tr>
+            <td><code>springdoc-openapi-starter-webmvc-ui</code></td>
+            <td>The OpenAPI document and Swagger UI.</td>
+        </tr>
+        <tr>
+            <td><code>spring-boot-starter-webmvc-test</code>, <code>spring-boot-starter-jooq-test</code></td>
+            <td><code>@WebMvcTest</code> and <code>@JooqTest</code> slices. Database tests use an in-memory H2 database
+                that Liquibase builds from the schema changesets (<code>spring-boot-starter-liquibase</code>, tests
+                only).
+                Annotate them with <code>@DatabaseTest</code>.
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Project layout</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Path</th>
+            <th>What it is</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>build.gradle</code></td>
+            <td>Plugins, Java toolchain, dependencies, the Liquibase activity, jOOQ code generation and the docs site
+                task.
+            </td>
+        </tr>
+        <tr>
+            <td><code>src/generated/jooq/</code></td>
+            <td>jOOQ classes generated from the database schema: one class per table (such as <code>Tables.VENDOR</code>)
+                and one record class per row type. Generated by <code>./gradlew jooqCodegen</code> and committed; never
+                edit them by hand.
+            </td>
+        </tr>
+        <tr>
+            <td><code>src/main/java/org/opensac/wicitapi/</code></td>
+            <td>Application source, one package per dataset: <code>vendor</code>, <code>product</code>, <code>farmersmarket</code>,
+                <code>participants</code>, <code>redemption</code> and <code>dataset</code> (file downloads). <code>config</code>
+                holds CORS, OpenAPI and jOOQ settings; <code>common</code> holds paging and shared query conditions.
+            </td>
+        </tr>
+        <tr>
+            <td><code>src/main/resources/application.yaml</code></td>
+            <td>Spring configuration, with <code>dev</code> and <code>prod</code> profiles.</td>
+        </tr>
+        <tr>
+            <td><code>src/main/resources/db/changelog/</code></td>
+            <td>Liquibase changelogs: the schema and the CSV seed.</td>
+        </tr>
+        <tr>
+            <td><code>src/main/resources/&lt;dataset&gt;/</code></td>
+            <td>The published data files. See <a href="data.html">Data</a>.</td>
+        </tr>
+        <tr>
+            <td><code>src/test/</code></td>
+            <td>Tests, <code>DatabaseTest</code> (the database test slice), and <code>application-test.yaml</code> for
+                the H2 test database.
+            </td>
+        </tr>
+        <tr>
+            <td><code>docs/</code></td>
+            <td>Source pages for this documentation site.</td>
+        </tr>
+        </tbody>
+    </table>
+    <p>Each package follows the same shape: a <code>@Repository</code> that runs jOOQ queries against the generated
+        table classes and maps rows to response records, a <code>@Service</code> that holds the logic (limits, paging),
+        and a thin <code>@RestController</code>. Dependencies come in through constructors, so tests can build a
+        service with a fake repository.</p>
+    <p>jOOQ renders table and column names without quotes (see <code>config/JooqConfig.java</code>). Every name in the
+        schema is lower case, so PostgreSQL reads them the same way, and the H2 test database matches them too.</p>
+
+    <h2>Configuration</h2>
+    <p>Settings are in <code>application.yaml</code>. Secrets are never stored there: they come from environment
+        variables. For local development, the API and Gradle also read a <code>.env</code> file in
+        <code>api-wicit-java</code>. It is ignored by Git, so never commit it. Write values without quotes:</p>
+    <pre><code>DB_URL=jdbc:postgresql://localhost:5432/app_28c3
+DB_USERNAME=nateb
+DB_PASSWORD=your-password</code></pre>
+    <table>
+        <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Purpose</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>DB_URL</code></td>
+            <td>JDBC URL of the database. The <code>dev</code> profile defaults to <code>jdbc:postgresql://localhost:5432/app_28c3</code>.
+            </td>
+        </tr>
+        <tr>
+            <td><code>DB_USERNAME</code></td>
+            <td>Database user. The <code>dev</code> profile defaults to <code>nateb</code>.</td>
+        </tr>
+        <tr>
+            <td><code>DB_PASSWORD</code></td>
+            <td>Database password. No default.</td>
+        </tr>
+        <tr>
+            <td><code>SPRING_PROFILES_ACTIVE</code></td>
+            <td><code>dev</code> (the default) or <code>prod</code>.</td>
+        </tr>
+        <tr>
+            <td><code>PORT</code></td>
+            <td>HTTP port in the <code>prod</code> profile. Defaults to 8080.</td>
+        </tr>
+        </tbody>
+    </table>
+    <h3>Profiles</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Profile</th>
+            <th>Differences</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>dev</code></td>
+            <td>Database defaults for a local PostgreSQL. Allows browser requests from the Vite dev server (<code>localhost:5173</code>)
+                and preview server (<code>localhost:4173</code>). Health details are shown.
+            </td>
+        </tr>
+        <tr>
+            <td><code>prod</code></td>
+            <td>Every database setting must come from the environment. Health details are hidden.</td>
+        </tr>
+        </tbody>
+    </table>
+    <h3>Allowed origins (CORS)</h3>
+    <p>The website runs on a different origin from the API, so the API lists the origins allowed to call it under <code>wicit.cors.allowed-origin-patterns</code>.
+        Every profile allows <code>https://findwic.com</code>, <code>https://www.findwic.com</code> and <code>https://*.github.io</code>,
+        so forks such as <code>opensacorg.github.io/wicit</code> and <code>natebass.github.io/wicit</code> work without
+        changes. The API is read-only and only allows <code>GET</code> requests.</p>
+
+    <h2 id="set-up-the-database">Set up the database</h2>
+    <ol>
+        <li>Create the database and user in PostgreSQL, if they do not exist.</li>
+        <li>Put the connection settings in <code>api-wicit-java/.env</code>, as above.</li>
+        <li>Create the schema and load the CSV files:
+            <pre><code>cd api-wicit-java
+./gradlew update</code></pre>
+        </li>
+    </ol>
+    <p>The first run takes about two minutes. Later runs only reload datasets whose files changed. See <a
+            href="data.html#how-the-files-get-into-the-database">how the files get into the database</a>.</p>
+    <p>Other useful Liquibase tasks:</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Command</th>
+            <th>What it does</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>./gradlew status</code></td>
+            <td>Lists changesets that have not run yet.</td>
+        </tr>
+        <tr>
+            <td><code>./gradlew history</code></td>
+            <td>Lists the changesets that have run.</td>
+        </tr>
+        <tr>
+            <td><code>./gradlew update -PliquibaseContexts=schema</code></td>
+            <td>Applies schema changes without loading data.</td>
+        </tr>
+        <tr>
+            <td><code>./gradlew dropAll</code></td>
+            <td>Drops every table, to start over. Never run it against production.</td>
+        </tr>
+        </tbody>
+    </table>
+    <p>To update the data, replace the files in <code>src/main/resources/&lt;dataset&gt;/</code> with a newer download
+        and run <code>./gradlew update</code>.</p>
+
+    <h3>Change the schema</h3>
+    <ol>
+        <li>Add a new file under <code>db/changelog/schema/</code> and include it in
+            <code>db.changelog-master.yaml</code>.
+            Never edit a schema changeset that has already run.
+        </li>
+        <li>Apply it to your local database with <code>./gradlew update</code>.</li>
+        <li>Regenerate the jOOQ classes from that database with <code>./gradlew jooqCodegen</code>. It reads the same
+            <code>DB_</code> settings as Liquibase.
+        </li>
+        <li>Commit the changelog and the changed files in <code>src/generated/jooq/</code> together.</li>
+    </ol>
+    <p>The generated classes are committed so that building the API, and the documentation workflow, never need a
+        database. If a query no longer compiles after regenerating, the schema change broke it.</p>
+
+    <h2>Run, build and test</h2>
+    <p>From the repository root:</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Command</th>
+            <th>What it does</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>make backend-db</code></td>
+            <td>Creates the schema and loads the CSV files with <code>./gradlew update</code>.</td>
+        </tr>
+        <tr>
+            <td><code>make backend</code></td>
+            <td>Runs the API at <a href="http://localhost:8080">localhost:8080</a> with <code>bootRun</code>.</td>
+        </tr>
+        <tr>
+            <td><code>make backend-build</code></td>
+            <td>Compiles and packages the API, skipping tests.</td>
+        </tr>
+        <tr>
+            <td><code>make backend-test</code></td>
+            <td>Runs the tests. They use H2 and do not need PostgreSQL.</td>
+        </tr>
+        <tr>
+            <td><code>make backend-clean</code></td>
+            <td>Deletes the <code>build/</code> folder.</td>
+        </tr>
+        <tr>
+            <td><code>make docs</code></td>
+            <td>Builds this site with the Javadoc into <code>api-wicit-java/build/site</code>.</td>
+        </tr>
+        <tr>
+            <td><code>make docs-preview</code></td>
+            <td>Builds this site and opens it in your browser.</td>
+        </tr>
+        </tbody>
+    </table>
+    <p>Without Make, run Gradle from <code>api-wicit-java</code>. Use <code>gradlew.bat</code> on Windows and <code>./gradlew</code>
+        on macOS and Linux:</p>
+    <pre><code>cd api-wicit-java
+./gradlew bootRun
+./gradlew test
+./gradlew docsSite</code></pre>
+
+    <h2>Endpoints</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Path</th>
+            <th>What it serves</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>/api/vendors</code>, <code>/api/vendors/in-bounds</code></td>
+            <td><a href="data-vendors.html">Authorized vendors</a>, for the map.</td>
+        </tr>
+        <tr>
+            <td><code>/api/products</code></td>
+            <td><a href="data-products.html">Authorized products</a>, for the food search.</td>
+        </tr>
+        <tr>
+            <td><code>/api/farmers-markets</code>, <code>/api/farmers</code></td>
+            <td><a href="data-farmers-markets.html">Farmers and farmers' markets</a>.</td>
+        </tr>
+        <tr>
+            <td><code>/api/participants/…</code></td>
+            <td><a href="data-participants.html">Participants by county</a>.</td>
+        </tr>
+        <tr>
+            <td><code>/api/redemptions/…</code></td>
+            <td><a href="data-redemptions.html">Redemptions by county</a>.</td>
+        </tr>
+        <tr>
+            <td><code>/api/datasets</code></td>
+            <td>Downloads of the original published files.</td>
+        </tr>
+        <tr>
+            <td><code>/swagger-ui.html</code></td>
+            <td>Interactive API reference. The OpenAPI document is at <code>/v3/api-docs</code>.</td>
+        </tr>
+        <tr>
+            <td><code>/actuator/health</code></td>
+            <td>Health check, including the database connection. <code>/actuator/health/liveness</code> and <code>/actuator/health/readiness</code>
+                are also available.
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p>Errors are returned as <a href="https://www.rfc-editor.org/rfc/rfc9457">RFC 9457</a> problem details, such as
+        <code>{"status":404,"title":"Not Found","detail":"…"}</code>.</p>
+
+    <h2>Deployment</h2>
+    <p>The API runs on an AWS EC2 instance with PostgreSQL on the same machine, behind Caddy for HTTPS. See
+        <a href="deploy.html">Hosting</a> for the full setup.</p>
+
+    <h2>Documentation site</h2>
+    <p>The <code>docsSite</code> Gradle task generates the Javadoc and copies it to <code>build/site/api</code>, next to
+        the pages from <code>docs/</code>. Open <code>build/site/index.html</code> in a browser to preview the site.</p>
+    <p>On every push to <code>master</code> that changes <code>api-wicit-java/</code>, the <code>Deploy docs to GitHub
+        Pages</code> workflow builds the site and publishes it to <a href="https://natebass.github.io/api-wicit-doc/">natebass.github.io/api-wicit-doc</a>.
+    </p>
+    <p>Write Javadoc comments on public classes and methods. They appear in the <a href="api/index.html">API
+        reference</a>.</p>
+{% endblock %}

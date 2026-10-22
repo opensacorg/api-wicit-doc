@@ -1,0 +1,140 @@
+{
+  "accrual_periodicity": "monthly",
+  "additional_limitations": "",
+  "citation": "California Department of Public Health, Center for Family Health, Women, Infants, and Children (WIC) Division, ca-wic-apl-2020-01-30.xlsx",
+  "contact_email": "WICdata@cdph.ca.gov",
+  "data_collection_tool": "Public Submission and International Federation Produce Standards.",
+  "data_license": "Terms of Use",
+  "de_identification_method": "",
+  "description": "This dataset represents the list of CA WIC authorized food items identified by food category and subcategory. Each item is uniquely identified by a Universal Product Code (UPC) or Price Look-Up code (PLU) for WIC electronic benefit transfer (EBT). The WIC Authorized vendors use the CA Authorized Product List (APL) to transact WIC food items at cash registers. The APL plays a crucial role in supporting WIC EBT purchases. WIC EBT requires vendor systems to maintain the APL to match the scanned food items' UPCs to ensure they are on the APL. The food items identified by UPC and PLU can be found in the data files below. When you download the files, Excel may prompt you to automatically format the data. If prompted, you may want to hit ‘Don’t Convert’ so that Excel leaves the data as is without any formatting or data conversions.\r\n\r\nThe Women, Infants and Children (WIC) Program is a federally-funded health and nutrition program that provides assistance to pregnant women, new mothers, infants, and children under age five. WIC helps California families by providing food benefits to individual participants based on their nutritional need and risk assessment. The food benefits can be used to purchase healthy supplemental foods from approximately 3,800 WIC authorized vendor stores throughout the State. WIC also provides nutritional education, breastfeeding support, healthcare referrals, and other community services. Participants must meet income guidelines and other criteria. Currently, 84 WIC agencies provide services monthly to approximately one million participants at several hundred sites in local communities throughout the State.\r\n",
+  "extras": {
+    "twitter_popup": [
+      "Twitter_Popup"
+    ]
+  },
+  "geo_coverage": "California",
+  "geographic_granularity": "statewide",
+  "keywords": [
+    "APL",
+    "Authorized",
+    "CA APL",
+    "CFH",
+    "Coronovirus",
+    "Covid",
+    "Covid-19",
+    "Covid19",
+    "WIC",
+    "WIC EBT",
+    "WIC food",
+    "WIC product"
+  ],
+  "limitations": "Limitations",
+  "name": "wic-authorized-product-list-apl",
+  "program_web_page": "https://www.cdph.ca.gov/Programs/CFH/DWICSN/Pages/Program-Landing1.aspx",
+  "related_resources": "https://www.cdph.ca.gov/Programs/CFH/DWICSN/Pages/WICFoods/UPCSubmissions.aspx\r\n\r\nhttps://www.ifpsglobal.com/plu-codes-search\r\n\r\n",
+  "resources": [
+    {
+      "format": "CSV",
+      "hash": "429dfcf722bf1e66d54032209f60de4a",
+      "name": "california-wic-authorized-product-list-plu",
+      "path": "california-wic-authorized-product-list-plu.csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "PLU",
+            "type": "string"
+          },
+          {
+            "name": "CATEGORY",
+            "type": "string"
+          },
+          {
+            "name": "CATEGORY_DESCRIPTION",
+            "type": "string"
+          },
+          {
+            "name": "SUBCATEGORY",
+            "type": "string"
+          },
+          {
+            "name": "SUBCATEGORY_DESCRIPTION",
+            "type": "string"
+          },
+          {
+            "name": "PRODUCT_DESCRIPTION_AND_SIZE",
+            "type": "string"
+          },
+          {
+            "name": "UOM",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/f34e156d-370d-4ba4-817c-2b62bdd0b8d9/resource/3fbc9a83-bc1d-433e-a9a6-ae04db089bad/download/ca-wic-apl-plu.csv",
+          "title": "California WIC Authorized Product List (PLU)"
+        }
+      ],
+      "title": "California WIC Authorized Product List (PLU)"
+    },
+    {
+      "format": "CSV",
+      "hash": "453103424a09e235e7c99a8dba34ea1f",
+      "name": "california-wic-authorized-product-list-upc",
+      "path": "california-wic-authorized-product-list-upc.csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "UPC",
+            "type": "string"
+          },
+          {
+            "name": "CATEGORY",
+            "type": "string"
+          },
+          {
+            "name": "CATEGORY_DESCRIPTION",
+            "type": "string"
+          },
+          {
+            "name": "SUBCATEGORY",
+            "type": "string"
+          },
+          {
+            "name": "SUBCATEGORY_DESCRIPTION",
+            "type": "string"
+          },
+          {
+            "name": "PRODUCT_DESCRIPTION_AND_SIZE",
+            "type": "string"
+          },
+          {
+            "name": "UOM",
+            "type": "string"
+          },
+          {
+            "name": "FRUIT_AND_VEGETABLE_TYPE",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/f34e156d-370d-4ba4-817c-2b62bdd0b8d9/resource/ba9a5a8a-c9bd-4c19-afca-da1c3a2e137f/download/ca-wic-apl-upc.csv",
+          "title": "California WIC Authorized Product List (UPC)"
+        }
+      ],
+      "title": "California WIC Authorized Product List (UPC)"
+    }
+  ],
+  "secondary_sources": "State staff collection of UPCs \r\n\r\nhttps://www.fns.usda.gov/wic/women-infants-and-children-wic\r\n\r\nhttps://www.fns.usda.gov/wic/ebt\r\n\r\nEBT Final Rule: https://www.fns.usda.gov/wic/fr-030116\r\n",
+  "sources": [
+    {
+      "name": "California Department of Public Health, Center for Family Health, Women, Infants, and Children (WIC) Division",
+      "web": "https://www.cdph.ca.gov/Programs/CFH/DWICSN/Pages/Program-Landing1.aspx"
+    }
+  ],
+  "temporal_coverage": "Continually Updated - last update is in the dataset header",
+  "title": "California WIC Authorized Product List"
+}

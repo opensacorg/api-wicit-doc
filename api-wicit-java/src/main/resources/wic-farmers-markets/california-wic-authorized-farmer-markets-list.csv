@@ -1,0 +1,398 @@
+COUNTY,MARKET_NAME,LOCATION_OF_MARKET,CITY,DAY,HOUR,SEASON
+Alameda,Alameda Tuesday and Saturday FM,710 HAIGHT AVE,Alameda,Saturday,09:00 AM - 01:00 PM,Year Round
+Alameda,Alameda Tuesday and Saturday FM,710 HAIGHT AVE,Alameda,Tuesday,09:00 AM - 01:00 PM,Year Round
+Alameda,Bayfair CFM,0 EAST 14TH ST AND FAIRMONT DR,San Leandro,Saturday,09:00 AM - 01:00 PM,Year Round
+Alameda,Castro Valley FM ,REDWOOD RD & NORBRIDGE AVE,Castro Valley,Saturday,09:00 AM - 01:00 PM,Year Round 
+Alameda,Downtown Berkeley FM,CENTER ST AND MLK JR WAY,Berkeley,Saturday,10:00 AM - 02:30 PM,Year Round
+Alameda,Downtown San Leandro CFM,300 ESTUDILLO AVE,San Leandro,Wednesday,03:00 PM - 07:00 PM,Apr-Oct
+Alameda,Dublin CFM,4201 CENTRAL PKWY.,Dublin,Thursday,04:00 PM - 08:00 PM,Apr 1-Sep 30
+Alameda,Grand Lake FM,746 GRAND AVE,Oakland,Saturday,09:00 AM - 02:00 PM,Year Round
+Alameda,Hayward Farmers Market,777 B ST,Hayward,Saturday,09:00 AM - 01:00 PM,Year Round
+Alameda,Irvington FM,4039 BAY ST,Fremont,Sunday,09:00 AM - 02:00 PM,Year Round
+Alameda,Kaiser Dublin CFM,3100 DUBLIN BLVD,Dublin,Tuesday,10:00 AM - 02:00 PM,April-November
+Alameda,Kaiser Permanente Oakland CFM,3600 BROADWAY,Oakland,Friday,09:30 AM - 01:30 PM,Year round
+Alameda,Kaiser Permanente San Leandro CFM,2500 MERCED ST.,San Leandro,Tuesday,09:30 AM - 01:30 PM,Year Round
+Alameda,Livermore Downtown FM - Sundays,206 S J ST,Livermore,Sunday,09:00 AM - 01:00 PM,Year Round
+Alameda,Livermore Downtown FM - Thursdays,2155 3RD ST,Livermore,Thursday,04:00 PM - 08:00 PM,Apr 9 - Oct 8
+Alameda,Montclair CFM,LA SALLE AVE BETWEEN MOUNTAIN AND MORAGA ,Oakland,Sunday,09:00 AM - 01:00 PM,Year Round 
+Alameda,Newark CFM,2086 NEWPARK MALL,Newark,Sunday,09:00 AM - 01:00 PM,Year Round
+Alameda,Niles Fremont FM,37573 NILES BLVD,Fremont,Saturday,09:00 AM - 01:00 PM,Year Round
+Alameda,North Berkeley FM,SHATTUCK AVE AND VINE ST,Berkeley,Thursday,03:00 PM - 07:00 PM,Year Round
+Alameda,Old Oakland FM ,9TH ST BETWEEN BROADWAY AND CLAY ,Oakland,Friday,08:00 AM - 02:00 PM,Year Round 
+Alameda,Pleasanton CFM,46 West Angela,Pleasanton,Saturday,09:00 AM - 01:00 PM,Year Round
+Alameda,South Berkeley FM,ADELINE AND 63RD ST,Berkeley,Tuesday,02:00 PM - 06:30 PM,Year Round
+Alameda,South Berkeley FM,ADELINE AND 63RD ST,Berkeley,Wednesday, - ,Year Round
+Alameda,Temescal FM,5300 CLAREMONT AVE,Oakland,Sunday,09:00 AM - 01:00 PM,Year Round 
+Alameda,Union City CFM,30940 Watkins St,Union City,Saturday,09:00 AM - 01:00 PM,Year Round
+Alameda,West Oakland FM,1809 PERALTA ST,Oakland,Sunday,10:00 AM - 02:00 PM,Year Round
+Butte,Chico Saturday CCFM,200 WALL ST,Chico,Saturday,07:30 AM - 01:00 PM,Year Round
+Butte,Chico Wednesday CFM,801 East Ave,Chico,Wednesday,07:30 AM - 12:00 PM,Year Round
+Butte,Oroville Downtown Weds Market,1212 MYERS ST,Oroville,Wednesday,08:00 AM - 01:00 PM,May - Oct
+Butte,Sunday Meriam Park Market,1950 MARKET PLACE,Chico,Sunday,09:00 AM - 12:00 PM,May-Oct
+Calaveras,West Point FM,364 MAIN ST,West Point,Thursday,04:00 PM - 07:00 PM,Jun 16 - Oct 23
+Contra Costa,Brentwood CFM (NoCal),655 FIRST ST ,Brentwood,Saturday,08:00 AM - 12:00 PM,Year Round
+Contra Costa,Concord Tuesday CFM,0 SALVIO AND GRANT ST,Concord,Tuesday,10:00 AM - 02:00 PM,Year Round
+Contra Costa,Danville CFM,205 RAILROAD AVE,Danville,Saturday,09:00 AM - 01:00 PM,Year Round
+Contra Costa,Diablo Valley CFM,N WIGET LN. & MITCHELL DR,Walnut Creek,Saturday,09:00 AM - 01:00 PM,Year Round
+Contra Costa,Kaiser Antioch CFM,4501 SAND CREEK RD,Antioch,Thursday,09:30 AM - 01:30 PM,April - October
+Contra Costa,Kaiser Permanente Richmond CFM,901 NEVIN AVE,North Richmond,Thursday,09:30 AM - 02:00 PM,Year Round
+Contra Costa,Kaiser Permanente Walnut Creek CFM,1425 S MAIN ST,Walnut Creek,Wednesday,09:30 AM - 02:00 PM,Year Round
+Contra Costa,Martinez FM,700 MAIN ST,Martinez,Sunday,09:00 AM - 01:00 PM,Year Round
+Contra Costa,Moraga Farmers' Market,1455 MORAGA WAY,Moraga,Sunday,09:00 AM - 01:00 PM,Year round
+Contra Costa,Orinda FM,14-24 ORINDA WAY,Orinda,Saturday,09:00 AM - 01:00 PM,Jan-Dec
+Contra Costa,Pinole CFM,798 Fernandez St,Pinole,Saturday,09:00 AM - 01:00 PM,Year Round
+Contra Costa,Richmond CFM,325 CIVIC CENTER PLAZA,Richmond,Friday,07:00 AM - 01:00 PM,Year Round
+Contra Costa,Rivertown CFM,"RIVERTOWN DISTRICT, 3RD & I ST",Antioch,Sunday,09:00 AM - 01:00 PM,June - October
+Contra Costa,Rossmoor FM,1001 GOLDEN RAIN RD ,Walnut Creek,Friday,09:00 AM - 01:00 PM,May-Oct
+Contra Costa,San Ramon FM,6000 BOLLINGER CANYON ROAD,San Ramon,Saturday,09:00 AM - 01:00 PM,Year Round
+Contra Costa,Walnut Creek FM,1799 LOCUST ST,Walnut Creek,Sunday,09:00 AM - 01:00 PM,Year Round
+Del Norte,Downtown Crescent City FM,240 H STREET,Crescent City,Wednesday,09:00 AM - 02:00 PM,June - Oct
+Fresno,Market on Kern,2325  KERN ST,Fresno,Wednesday,09:00 AM - 01:00 PM,May-Oct
+Fresno,Yo'Ville Farmers Market ,872 ATCHISON CT ,Fresno,Sunday,08:00 AM - 01:00 PM,April-Oct 
+Humboldt,Arcata Plaza FM,800 G ST,Arcata,Saturday,09:00 AM - 02:00 PM,Year Round
+Humboldt,Eureka Friday Night FM,E. ST. BETWEEN 2ND AND 3RD,Eureka,Friday,05:30 PM - 08:30 PM,Jul-Sep
+Humboldt,Fortuna FM,10TH ST BETWEEN MAIN AND L ST,Fortuna,Tuesday,03:00 PM - 06:00 PM,Jun-Oct
+Humboldt,Garberville FM,766 LOCUST ST,Garberville,Friday,11:00 AM - 03:00 PM,May-Nov 20
+Humboldt,Henderson Center FM,F AND HENDERSON ST,Eureka,Thursday,10:00 AM - 01:30 PM,Jun-Oct
+Humboldt,McKinleyville FM,2167 CENTRAL AVE,Mckinleyville,Thursday,03:00 PM - 06:00 PM,Jul-Oct
+Humboldt,Miranda FM,HWY 254 AND AVE OF THE GIANTS,Miranda,Tuesday,02:00 PM - 06:00 PM,May-Oct
+Humboldt,Old Town Eureka FM,2ND AND F ST,Eureka,Tuesday,10:00 AM - 01:00 PM,Jul-Oct
+Humboldt,Potawot Community Garden FM,1600 WEEOT WAY,Arcata,Tuesday,12:00 PM - 02:00 PM,Jun-Oct
+Humboldt,Shelter Cove FM,1661 Upper Pacific Dr,Whitethorn,Tuesday,11:00 AM - 03:00 PM,May-Oct
+Kern,City of Ridgecrest FM,217 BALSAM ST,Ridgecrest,Wednesday,05:00 PM - 08:00 PM,Year Round
+Kern,From the Farmhouse Farmers' Market,2819 F ST,Bakersfield,Saturday,07:45 AM - 12:00 PM,Year Round
+Kern,Haggin Oaks FM,8800 MING AVE,Bakersfield,Sunday,09:00 AM - 02:00 PM,Year Round
+Kern,Riverlakes FM,3825 RIVERLAKES DR,Bakersfield,Saturday,09:00 AM - 01:00 PM,Year Round 
+Kern,Shafter Farmers,320 CENTRAL AVE,Shafter,Saturday,10:00 AM - 02:00 PM,Jun-Oct
+Kern,Tesch Family Farm Delano Community Health Center,1508 GARCES HWY,Delano,Tuesday,03:00 PM - 05:00 PM,Year Round
+Kern,Tesch Family Farm Lamont Community Health Center,8787 HALL RD,Lamont,Tuesday,03:00 PM - 05:00 PM,Year Round
+Kings,Thursday Night Market Place,113 COURT ST,Hanford,Thursday,05:30 PM - 09:00 PM,May-Oct
+Lake,Clearlake CFM,14077 Lakeshore Dr,Clearlake,Wednesday,10:00 AM - 01:00 PM,Apr-Oct
+Lake,Library Park Tuesday Morning Market,225 PARK ST,Lakeport,Tuesday,10:00 AM - 01:00 PM,May-Sep
+Lake,The Sat Morn Mkt at The Mercantile,4350 THOMAS DR & HWY 29,Finley,Saturday,10:00 AM - 01:00 PM,Year Round
+Lassen,LARP Co-Op Janesville FM ,464-420 S CHURCH ST ,Janesville,Thursday,04:00 PM - 07:00 PM,Jun-Sept
+Lassen,LARP Co-Op Susanville FM,50 N GAY ST,Susanville,Sunday,08:00 AM - 12:00 PM,Jun-Sept
+Los Angeles,Adams and Vermont CFM,1432 W ADAMS BLVD,Los Angeles,Wednesday,02:30 PM - 06:30 PM,Year Round
+Los Angeles,Adventist Health White Memorial FM,1720 E CESAR E CHAVEZ AVE,Los Angeles,Thursday,10:00 AM - 02:00 PM,Year Round
+Los Angeles,Alhambra Sunday CFM,100 S 2ND ST,Alhambra,Sunday,08:00 AM - 01:00 PM,Year Round
+Los Angeles,Atwater Village FM,3528 LARGA AVE,Los Angeles,Sunday,09:00 AM - 02:00 PM,Year Round
+Los Angeles,Brentwood CFM (SoCal),741 GRETNA GREEN WAY,Los Angeles,Sunday,09:00 AM - 02:00 PM,Year Round
+Los Angeles,Bunker Hill FM @ Bank of America Plaza,333 S HOPE ST,Los Angeles,Tuesday,10:00 AM - 02:00 PM,Year Round
+Los Angeles,Burbank FM,150 N THIRD STREET,Burbank,Saturday,08:00 AM - 12:00 PM,Year Round
+Los Angeles,Canyon Country Farmers Market,18410 SIERRA HIGHWAY,Santa Clarita,Wednesday,04:00 PM - 08:00 PM,Year Round
+Los Angeles,Carson FM presented by Kaiser Permanente,18600 S FIGUEROA ST,Gardena,Tuesday,10:00 AM - 02:00 PM,Year Round
+Los Angeles,Central Avenue FM,4301 S CENTRAL AVE,Los Angeles,Thursday,09:00 AM - 02:00 PM,Year Round
+Los Angeles,Cerritos CFM,17785 CENTER CT DR N,Cerritos,Saturday,08:00 AM - 12:00 PM,Year Round
+Los Angeles,Claremont Farmers and Artisans Market,HARVARD AVE N & W 1ST ST,Claremont,Sunday,08:00 AM - 01:00 PM,Year Round
+Los Angeles,Compton College FM,1111 E. ARTESA BLVD,Compton,Wednesday,03:00 PM - 07:30 PM,Year Round
+Los Angeles,Covina CFM,400 N CITRUS AVE,Covina,Friday,05:00 PM - 08:00 PM,Year Round
+Los Angeles,Crenshaw FM,5730 CRENSHAW BLVD,Los Angeles,Saturday,10:00 AM - 03:00 PM,Year Round
+Los Angeles,Culver City FM,3800 MAIN ST,Culver City,Tuesday,02:00 PM - 07:00 PM,Year Round
+Los Angeles,Downey CFM,11102 LA REINA AVE,Downey,Saturday,09:00 AM - 01:00 PM,Year Round
+Los Angeles,Downtown Long Beach CFM,301 N PROMENADE AVE,Long Beach,Friday,10:00 AM - 02:00 PM,Year Round
+Los Angeles,Downtown Santa Monica FM,3RD ST PROMENADE ON ARIZONA AVE,Santa Monica,Saturday,08:00 AM - 01:00 PM,Year Round
+Los Angeles,EAST LA FARMERS' MARKET,4801 E 3RD ST,Los Angeles,Saturday,08:00 AM - 01:00 PM,Year Round
+Los Angeles,East Hollywood CFM,5448 HOLLYWOOD BLVD,Los Angeles,Monday,03:30 PM - 07:30 PM,Year Round
+Los Angeles,East Hollywood CFM,5448 HOLLYWOOD BLVD,Los Angeles,Thursday,03:30 PM - 07:30 PM,Year Round
+Los Angeles,Echo Park FM,1146 Logan St,Los Angeles,Friday,03:00 PM - 07:30 PM,Year Round
+Los Angeles,El Nido FM,11243 GLENOAKS BLVD,Pacoima,Saturday,09:00 AM - 02:00 PM,Year Round
+Los Angeles,Encino FM,17400 VICTORY BLVD,Van Nuys,Sunday,08:00 AM - 01:00 PM,Year Round
+Los Angeles,Farm Habit Farmers' Market at Cedars-Sinai,8370 ALDEN DR,Los Angeles,Wednesday,11:00 AM - 02:00 PM,Year Round
+Los Angeles,FigAt7th,735 S FIGUEROA ST,Los Angeles,Thursday,10:00 AM - 02:00 PM,Year Round
+Los Angeles,Freedom Summer FM,1400 E 118TH ST,Los Angeles,Thursday,04:00 PM - 07:00 PM,July - August
+Los Angeles,Gardena FM,13000 VAN NESS,Gardena,Saturday,08:30 AM - 12:30 PM,Year Round
+Los Angeles,Glendora Village Farmers' Market,224  N. GLENDORA AVE ,Glendora,Wednesday,05:00 PM - 09:00 PM,Year Round 
+Los Angeles,Harbor City FM presented by Kaiser Permanante,25825 S VERMONT BOULEVARD,Harbor City,Wednesday,10:00 AM - 02:00 PM,Year Round
+Los Angeles,Helen Albert CFM (West Hollywood),1200 N VISTA,Los Angeles,Monday,09:00 AM - 01:00 PM,Year Round
+Los Angeles,Hollywood FM,1600 IVAR AVE,Los Angeles,Sunday,08:00 AM - 01:00 PM,Year Round
+Los Angeles,Hollywood Park FM,1213 S DISTRICT DR,Inglewood,Saturday,09:00 AM - 01:00 PM,Year Round
+Los Angeles,Huntington Park CFM,3401 E FLORENCE AVE ,Huntington Park,Wednesday,08:30 AM - 01:30 PM,Year Round
+Los Angeles,La Canada CFM,1346 FOOTHILL BLVD,La Canada,Saturday,09:00 AM - 01:00 PM,Year Round
+Los Angeles,La Cienega @ 18th Street,1801 LA CIENEGA BLVD,Los Angeles,Saturday,09:00 AM - 02:00 PM,YEAR-ROUND
+Los Angeles,La Cienega Farmers Market @ KPWLA,6041 CADILLAC AVE & CIENEGA BOULEVARD,Los Angeles,Thursday,08:30 AM - 02:00 PM,Year Round
+Los Angeles,La Mirada,13810 LA MIRADA BLVD,La Mirada,Saturday,09:00 AM - 01:00 PM,Year Round
+Los Angeles,Larchmont Village CFM Sunday,209 N LARCHMONT BLVD,Los Angeles,Sunday,10:00 AM - 02:00 PM,Year Round
+Los Angeles,Lincoln Heights CFM,2800 NORTH BROADWAY,Los Angeles,Wednesday,03:00 PM - 07:00 PM,Year Round
+Los Angeles,Little Tokyo FM,240 SAN PEDRO ST,Los Angeles,Saturday,09:00 AM - 02:00 PM,Year Round
+Los Angeles,Long Beach Bixby Knolls CFM,4500 ATLANTIC AVE,Long Beach,Thursday,03:00 PM - 07:00 PM,Year Round
+Los Angeles,Long Beach Marina CFM,6530 N MARINA DR ,Long Beach,Sunday,09:00 AM - 02:00 PM,Year Round
+Los Angeles,Los Angeles River Farmers Market,1245 N SPRING ST,Los Angeles,Thursday,03:00 PM - 07:30 PM,Year Round
+Los Angeles,Main Street Canoga Park FM,7248 OWENSMOUTH AVE,Canoga Park,Saturday,09:00 AM - 01:30 PM,Year Round
+Los Angeles,Mar Vista CFM,3826 GRAND VIEW BLVD,Los Angeles,Sunday,09:00 AM - 02:00 PM,Year Round
+Los Angeles,Melrose Place CFM,8400 MELROSE PL,Los Angeles,Sunday,10:00 AM - 02:00 PM,Year Round
+Los Angeles,Miracle Mile CFM,5700 WILSHIRE BLVD,Los Angeles,Wednesday,11:00 AM - 03:00 PM,Year Round
+Los Angeles,Monterey Park CFM,350 S. MC PHERRIN AVE,Monterey Park,Thursday,04:00 PM - 09:00 PM,Year Round
+Los Angeles,Norwalk CFM,12700 NORWALK BLVD,Norwalk,Tuesday,09:00 AM - 01:00 PM,Year Round
+Los Angeles,Old Town Newhall Farmers Market,24500 MAIN STREET,Newhall,Saturday,08:30 AM - 01:00 PM,Year Round
+Los Angeles,Pasadena Victory Park CFM,2900 BLOCK OF N SIERRA MADRE BLVD,Pasadena,Saturday,08:30 AM - 12:30 PM,Year Round
+Los Angeles,Pasadena Villa Parke CFM,363 E VILLA & GARFIELD AVE,Pasadena,Tuesday,08:30 AM - 12:30 PM,Year Round
+Los Angeles,Pico Rivera CFM,9528 BEVERLY BLVD,Pico Rivera,Wednesday,05:00 PM - 09:00 PM,Apr - Jul
+Los Angeles,Playa Vista FM,12775 MILLENIUM DR,Playa Vista,Saturday,09:00 AM - 02:00 PM,Year Round
+Los Angeles,Pomona Valley CFM,PEARL ST AND GAREY AVE,Pomona,Saturday,09:00 AM - 01:00 PM,Year Round
+Los Angeles,Porter Ranch,20000 RINALDI ST,Porter Ranch,Sunday,10:00 AM - 02:00 PM,Year Round
+Los Angeles,Rosemead FM,4343 ENCINITAS,Rosemead,Monday,05:00 PM - 09:00 PM,Apr-Sep
+Los Angeles,Santa Clarita CFM,26455 ROCKWELL CANYON RD,Santa Clarita,Sunday,08:30 AM - 12:00 PM,Year Round
+Los Angeles,Santa Monica Main Street CFM,2640 MAIN ST AND OCEAN PARK BLVD,Santa Monica,Sunday,08:30 AM - 01:30 PM,Year Round
+Los Angeles,Santa Monica Virginia Avenue Park CFM,2200 VIRGINIA AVE,Santa Monica,Saturday,08:00 AM - 01:00 PM,Year Round
+Los Angeles,Santa Monica Wednesday CFM, 2nd St and Arizona Ave,Santa Monica,Wednesday,08:00 AM - 01:00 PM,Year Round
+Los Angeles,Sherman Oaks Tuesday CFM,14006 RIVERSIDE DR,Sherman Oaks,Tuesday,02:00 PM - 06:00 PM,Year Round
+Los Angeles,South Park FM,1099 S GRAND,Los Angeles,Saturday,09:00 AM - 02:00 PM,Year Round
+Los Angeles,South Pasadena FM,913 MERIDIAN,South Pasadena,Thursday,04:00 PM - 08:00 PM,Mar-Oct
+Los Angeles,South Pasadena FM,913 MERIDIAN,South Pasadena,Thursday,04:00 PM - 08:00 PM,Nov-Dec
+Los Angeles,South Pasadena FM,913 MERIDIAN,South Pasadena,Thursday,04:00 PM - 08:00 PM,Nov-Feb
+Los Angeles,Southgate CFM,4900 SOUTHERN AVE,South Gate,Monday,08:30 AM - 01:30 PM,Year Round
+Los Angeles,Temple City CFM,9701 E LAS TUNAS DR,Temple City,Sunday,07:30 AM - 12:30 PM,Year Round
+Los Angeles,The 323 Farmers' Market,4018 City Terrace Drive,Los Angeles,Thursday,04:00 PM - 08:00 PM,Year Round
+Los Angeles,Torrance Certified Farmers' Market,2200 CRENSHAW AVE,Torrance,Saturday,08:00 AM - 01:00 PM,Year Round
+Los Angeles,Torrance Certified Farmers' Market,2200 CRENSHAW AVE,Torrance,Tuesday,08:00 AM - 01:00 PM,Year Round
+Los Angeles,Watts Willowbrook FM,1670 E 120TH ST,Los Angeles,Wednesday,09:00 AM - 02:00 PM,Year Round
+Los Angeles,West Covina FM,195 S GLENDORA AVE,West Covina,Saturday,09:00 AM - 01:00 PM,Year Round
+Los Angeles,Westwood Village FM,1030 BROXTON AVE,Los Angeles,Thursday,12:00 PM - 05:00 PM,Year Round
+Los Angeles,Wilshire-Fairfax FM,6026 WILSHIRE BLVD,Los Angeles,Tuesday,03:30 PM - 07:30 PM,Year Round 
+Los Angeles,Wilshire/La Brea FM,5300  WILSHIRE BLVD,Los Angeles,Sunday,10:00 AM - 02:00 PM,Year Round
+Madera,Madera FM,1604 SUNRISE AVE,Madera,Thursday,03:00 PM - 06:00 PM,07/10 - 09/25
+Madera,Madera FM,1604 SUNRISE AVE,Madera,Thursday,03:00 PM - 06:00 PM,07/2026-09/2026
+Madera,Madera FM,1604 SUNRISE AVE,Madera,Thursday,03:00 PM - 06:00 PM,07/2027-09/2027
+Madera,Tesoro Viejo FM ,4150 TOWN CENTER BLVD ,Madera,Thursday,05:00 PM - 08:00 PM,Year Round 
+Marin,Downtown Novato Community FM,901 SHERMAN AVE,Novato,Tuesday,04:00 PM - 08:00 PM,May-Oct
+Marin,Fairfax Community FM,124 BOLINAS RD,Fairfax,Wednesday,04:00 PM - 08:00 PM,May-Oct
+Marin,Point Reyes FM,11250 STATE RTE 1,Point Reyes Station,Saturday,09:00 AM - 02:00 PM,May-Sept
+Marin,Sunday Marin Civic Center,3501 CIVIC CENTER DR,San Rafael,Sunday,08:00 AM - 01:00 PM,Year Round 
+Marin,Thursday Marin Civic Center,10 AVE OF THE FLAGS,San Rafael,Thursday,08:00 AM - 01:00 PM,Year Round
+Mariposa,Mariposa CFM,5029 STROMING RD,Mariposa,Wednesday,04:30 PM - 06:30 PM,May-Oct
+Mendocino,Fort Bragg CFM,400 400 NORTH FRANKLIN,Fort Bragg,Wednesday,02:00 PM - 06:00 PM,Year Round
+Mendocino,Laytonville CFM,44400 WILLIS AVE,Laytonville,Tuesday,02:00 PM - 05:00 PM,Year Round
+Mendocino,Mendocino CFM,44920 MAIN ST,Mendocino,Friday,12:00 PM - 03:00 PM,May - October
+Mendocino,Ukiah CFM,399 SCHOOL ST,Ukiah,Saturday,09:00 AM - 12:30 PM,Year Round
+Merced,Original Merced County CFM,16TH & CANAL,Merced,Saturday,08:00 AM - 11:00 AM,Year Round
+Modoc,Alturas FM,508 SOUTH MAIN STREET,Alturas,Saturday,09:00 AM - 12:00 PM,July - Sept
+Modoc,Cedarville Farmers Market,501 MAIN STREET,Cedarville,Saturday,09:00 AM - 12:00 PM,July-Sept 
+Monterey,Alisal Community CFM,632 E ALISAL & S PEARL ST,Salinas,Tuesday,11:00 AM - 04:00 PM,May-Oct
+Monterey,Barnyard CFM,3690 THE BARNYARD,Carmel,Tuesday,09:00 AM - 01:00 PM,May-Sep
+Monterey,Del Monte CFM,1410 DEL MONTE CENTER,Monterey,Sunday,08:00 AM - 12:00 PM,May-Oct
+Monterey,Del Monte Fridays,1410 DEL MONTE CENTER,Monterey,Friday,10:00 AM - 02:00 PM,Year Round
+Monterey,Marina CFM,215 RESERVATION RD,Marina,Sunday,10:00 AM - 02:00 PM,Year Round
+Monterey,Natividad CFM,1441 CONSTITUTION BLVD,Salinas,Wednesday,11:00 AM - 03:30 PM,May-Oct
+Monterey,North County FM,11261 Crane St,Castroville,Thursday,02:00 PM - 07:00 PM,Year Round
+Monterey,Pacific Grove CFM,CENTRAL & GRAND AVE,Pacific Grove,Monday,03:00 PM - 07:00 PM,Year Round
+Monterey,Salinas Valley Memorial Hospital CFM,450 EAST ROMIE LANE,Salinas,Friday,12:30 PM - 05:00 PM,May-Nov
+Monterey,Seaside CFM,1259  CANYON DEL REY BLVD,Seaside,Thursday,03:00 PM - 07:00 PM,Year round
+Napa,Calistoga FM,1235 WASHINGTON ST,Calistoga,Saturday,09:00 AM - 01:00 PM,Year Round
+Napa,Downtown Napa FM,1100 WEST ST,Napa,Tuesday,08:00 AM - 12:00 PM,Year Round
+Nevada,Grass Valley FM,650 FREEMAN LN,Grass Valley,Saturday,08:00 AM - 12:30 PM,Apr-Nov
+Nevada,Grass Valley FM,650 FREEMAN LN,Grass Valley,Tuesday,08:30 AM - 01:00 PM,Apr-Nov
+Nevada,Nevada City CFM (Summer),OUTDOORS ON UNION ST,Nevada City,Saturday,08:30 AM - 01:00 PM,Apr-Dec
+Nevada,Nevada City CFM (Winter),505 MAIN ST,Nevada City,Saturday,09:00 AM - 01:00 PM,Jan-Apr
+Nevada,Truckee CFM,10500 BROCKWAY RD,Truckee,Tuesday,08:00 AM - 01:00 PM,May 1- Oct 31
+Nevada,Truckee CFM,10500 BROCKWAY RD,Truckee,Tuesday,08:00 AM - 01:00 PM,May 11-Oct 19
+Nevada,Truckee CFM,10500 BROCKWAY RD,Truckee,Tuesday,08:00 AM - 01:00 PM,May-Oct
+Nevada,Truckee CFM,10500 BROCKWAY RD,Truckee,Tuesday,08:00 AM - 01:00 PM,May-Oct 
+Orange,Costa Mesa (SOCO) FM,3315 HYLAND AVE,Costa Mesa,Saturday,09:00 AM - 02:00 PM,Year Round
+Orange,Costa Mesa CFM,88 FAIR DR,Costa Mesa,Thursday,09:00 AM - 01:00 PM,Year Round
+Orange,Cypress CFM,4505 KATELLA AVE,Cypress,Saturday,09:00 AM - 02:00 PM,Year Round
+Orange,Fullerton CFM,801 West Valencia Drive,Fullerton,Wednesday,08:30 AM - 12:30 PM,Year Round
+Orange,Irvine CFM,0 BONITA CYN & TURTLE RD,Irvine,Saturday,08:00 AM - 12:00 PM,Year Round
+Orange,Laguna Hills CFM,EL TORO RD & I-5,Laguna Beach,Friday,09:00 AM - 01:00 PM,Year Round
+Orange,Mesa Verde FM,HARBOR BLVD AND MESA VERDE,Costa Mesa,Tuesday,10:00 AM - 02:00 PM,Year Round
+Orange,Newport Beach FM,NEWPORT BEACH PIER,Newport Beach,Sunday,09:00 AM - 01:00 PM,Year Round
+Orange,Orange Home Grown ,303 WEST PALM AVE,Orange,Saturday,09:00 AM - 01:00 PM,Year Round 
+Orange,Tustin CFM,EL CAMINO REAL & 3RD ST,Tustin,Wednesday,09:00 AM - 01:00 PM,Year Round
+Placer,Auburn Old Town CFM,150 AUBURN FOLSOM RD,Auburn,Saturday,08:00 AM - 12:00 PM,Year Round
+Placer,Historic Downtown Lincoln FM,554 F ST ,Lincoln,Thursday,05:00 PM - 08:30 PM,Apr-Dec
+Placer,Lincoln Hills FM,965 ORCHARD CREEK LANE,Lincoln,Wednesday,08:00 AM - 12:00 PM,Jun-Oct '25
+Placer,Lincoln Hills FM,965 ORCHARD CREEK LANE,Lincoln,Wednesday,08:00 AM - 12:00 PM,Jun-Oct '26
+Placer,Lincoln Hills FM,965 ORCHARD CREEK LANE,Lincoln,Wednesday,08:00 AM - 12:00 PM,Jun-Oct '27
+Placer,Roseville Fountains,GALLERIA BOULEVARD & E ROSEVILLE PARKWAY,Roseville,Tuesday,08:30 AM - 01:00 PM,Year Round
+Placer,Tahoe City FM,400 N LAKE BLVD,Tahoe City,Thursday,08:00 AM - 01:00 PM,May-Oct
+Riverside,Canyon Lake CFM,31516 RAILROAD CYN RD,Menifee,Sunday,09:00 AM - 01:30 PM,Year Round
+Riverside,Corona CFM,530 CORONA MALL,Corona,Saturday,08:30 AM - 12:30 PM,Year Round
+Riverside,County of Riverside CFM,4080 LEMON ST,Riverside,Wednesday,08:30 AM - 01:30 PM,Year Round
+Riverside,Downtown Riverside FM,3521 MAIN ST,Riverside,Saturday,08:00 AM - 01:00 PM,Year Round
+Riverside,Farm House Collective CFM,1393 UNIVERSITY Ave,Riverside,Friday,10:00 AM - 03:00 PM,Year Round
+Riverside,Galleria at Tyler Riverside CFM,3485 TYLER ST,Riverside,Sunday,08:00 AM - 01:00 PM,Year Round
+Riverside,Moreno Valley CFM,26520 CACTUS AVE,Moreno Valley,Thursday,08:00 AM - 01:00 PM,Year Round
+Riverside,Murrieta CFM,24510 VILLAGE WALK PLAZA,Murrieta,Sunday,09:00 AM - 01:00 PM,Year Round
+Riverside,Old Town Temecula CFM,28464 OLD TOWN FRONT ST,Temecula,Saturday,08:00 AM - 12:30 PM,Year Round
+Riverside,Palm Springs CFM,2300 E BARISTO RD,Palm Springs,Saturday,08:00 AM - 01:00 PM,Year Round
+Riverside,San Jacinto Valley CFM,2575 S SAN JACINTO AVE,San Jacinto,Thursday,08:00 AM - 01:00 PM,Year Round
+Riverside,TEMECULA PROMENADE MALL CFM,40820 WINCHESTER RD,Rancho California,Wednesday,09:00 AM - 01:00 PM,Year Round
+Riverside,Vail Headquarters CFM,32115 TEMECULA PARKWAY,Temecula,Tuesday,09:00 AM - 01:00 PM,Year Round
+Sacramento,Arden Fair FM,1689 ARDEN WAY,Sacramento,Saturday,09:00 AM - 02:00 PM,Jan-Nov
+Sacramento,Arden-Arcade CFM,2400 BUTANO DR,Sacramento,Saturday,08:00 AM - 12:00 PM,Year Round
+Sacramento,Bodega Days FM,910 I STREET,Sacramento,Thursday,10:00 AM - 01:00 PM,May-Sep
+Sacramento,Capitol Mall CFM,1300 7th St,Sacramento,Wednesday,09:00 AM - 01:00 PM,May-Oct
+Sacramento,Carmichael FM,5750 GRANT AVE,Carmichael,Sunday,09:00 AM - 02:00 PM,Year Round
+Sacramento,Elk Grove CFM,8245 LAGUNA BLVD,Elk Grove,Saturday,08:00 AM - 12:00 PM,Year Round
+Sacramento,Fair Oaks FM,11549 FAIR OAKS BLVD,Fair Oaks,Tuesday,09:00 AM - 02:00 PM,Year Round
+Sacramento,Florin CFM,3001 FLORIN RD,Sacramento,Thursday,08:00 AM - 12:00 PM,Year Round
+Sacramento,Kaiser Permanente South Sacramento CFM,6600 BRUCEVILLE RD,Sacramento,Friday,09:00 AM - 02:00 PM,Year Round
+Sacramento,Meadowview CFM,3501 MEADOWVIEW RD,Sacramento,Sunday,09:00 AM - 01:00 PM,May - October
+Sacramento,Midtown Farmers Market,1050 20TH ST,Sacramento,Saturday,08:00 AM - 01:00 PM,Year Round
+Sacramento,Oak Park FM,3500 5th Ave,Sacramento,Saturday,09:00 AM - 01:00 PM,Apr-Nov
+Sacramento,Orangevale Farmers' Market,6826 HAZEL AVE,Orangevale,Thursday,03:00 PM - 08:00 PM,May-Oct
+Sacramento,Rancho Cordova CFM,11164 FOLSOM BLVD,Rancho Cordova,Saturday,08:00 AM - 12:00 PM,Year Round
+San Benito,Hollister CFM,SAN BENITO ST between 5th and 7th St,Hollister,Wednesday,03:00 PM - 07:00 PM,Year Round
+San Bernardino,Barstow FM,800 BARSTOW RD,Barstow,Saturday, - ,Year- Round
+San Bernardino,Barstow FM,800 BARSTOW RD,Barstow,Sunday,10:00 AM - 02:00 PM,Year- Round
+San Bernardino,Big Bear CFM,42900 BIG BEAR BLVD,Big Bear,Tuesday,08:30 AM - 01:00 PM,Apr-Sep
+San Bernardino,CFM @ Yucca Valley Founders Plaza,55762 29 PALMS HWY ,Yucca Valley,Wednesday,08:00 AM - 01:00 PM,Year Round 
+San Bernardino,High Desert CFM,18422 BEAR VALLEY ROAD,Victorville,Thursday,08:00 AM - 12:00 PM,Year Round
+San Bernardino,Joshua Tree CFM,61651 29 Palms Highway,Joshua Tree,Saturday,08:00 AM - 01:00 PM,Year Round
+San Bernardino,Phelan CFM,4128 WARBLER RD,Phelan,Monday,02:00 PM - 06:00 PM,Year Round
+San Bernardino,Rialto CFM,290 W RIALTO AVE,Rialto,Wednesday,10:00 AM - 02:00 PM,Year Round
+San Bernardino,San Bernardino CFM,349 NORTH E STREET,San Bernardino,Tuesday,08:00 AM - 01:00 PM,Year Round
+San Bernardino,Wrightwood CFM,1275 HWY 2,Wrightwood,Friday,04:00 PM - 07:00 PM,Year Round
+San Diego,ASCENDKemet CFM,21 W Island Ave,San Diego,Friday,03:00 PM - 07:00 PM,Year Round
+San Diego,ASCENDKemet CFM Marina District,201 W ISLAND AVE,San Diego,Friday,03:00 PM - 07:00 PM,Year Round
+San Diego,ASCENDKemet CFM of City Heights ,4325 WIGHTMAN,San Diego,Saturday,10:00 AM - 02:00 PM,Year Round
+San Diego,ASCENDKemet CFM of City Heights ,4325 WIGHTMAN,San Diego,Sunday, - ,Year Round
+San Diego,ASCENDKemet CFM of East Village ,1372 ISLAND AVENUE,San Diego,Thursday,03:00 PM - 07:00 PM,Year Round
+San Diego,Escondido CFM and Other Purveyors,E GRAND AVE & N JUNIPER ST,Escondido,Tuesday,02:30 PM - 07:00 PM,Jun-Sep
+San Diego,Escondido CFM and Other Purveyors,E GRAND AVE & N JUNIPER ST,Escondido,Tuesday,02:30 PM - 07:00 PM,Oct-May
+San Diego,Fallbrook Certified Farmers Market,111 South Main Ave,Fallbrook,Saturday,09:00 AM - 01:30 PM,Year Round
+San Diego,Hidden CFM,123 WOODWARD AVE,Escondido,Sunday,09:00 AM - 01:00 PM,Year Round
+San Diego,Hillcrest CFM,3960 NORMAL ST,San Diego,Sunday,09:00 AM - 02:00 PM,Year Round
+San Diego,La Jolla CFM,7300 GIRARD AVE,La Jolla,Sunday,09:00 AM - 01:00 PM,Year Round
+San Diego,Little Italy Mercato CFM,501 W DATE ST,San Diego,Saturday,08:00 AM - 02:00 PM,Year Round
+San Diego,Little Italy Mercato CFM,501 W DATE ST,San Diego,Wednesday,09:30 AM - 01:30 PM,Year Round
+San Diego,Oak Park Farmers Market SD,1755 EUCLID AVE,San Diego,Saturday,03:00 PM - 07:00 PM,Year Round
+San Diego,Oceanside CFM,PIER VIEW WAY AND N COAST HWY,Oceanside,Thursday,09:00 AM - 01:00 PM,Year Round
+San Diego,Pacific Beach Tuesday CFM,4500 BAYARD ST,San Diego,Tuesday,02:00 PM - 07:00 PM,Year Round
+San Diego,Poway CFM,14134 MIDLAND RD AND TEMPLE ST,Poway,Saturday,08:00 AM - 01:00 PM,Year Round
+San Diego,San Marcos CFM,250 NORTH CITY DR,San Marcos,Tuesday,03:00 PM - 07:00 PM,Year Round
+San Diego,Santee CFM,9626  CARLTON HILLS BLVD,Santee,Wednesday,03:00 PM - 07:00 PM,Mar-Oct
+San Diego,Santee CFM,9626  CARLTON HILLS BLVD,Santee,Wednesday,03:00 PM - 07:00 PM,Nov-Feb
+San Diego,Vista FM,325 S MELROSE DR,Vista,Saturday,08:00 AM - 12:00 PM,Year Round
+San Francisco,Castro FM,290 NOE ST,San Francisco,Wednesday,03:00 PM - 07:00 PM,Apr-Nov
+San Francisco,Clement Street FM,244 CLEMENT ST,San Francisco,Sunday,09:00 AM - 02:00 PM,Year Round
+San Francisco,Divisadero CFM,1377 FELL ST,San Francisco,Saturday,09:00 AM - 01:00 PM,Year Round
+San Francisco,Ferry Plaza Saturday FM,THE EMBARCADERO - Ferry Building,San Francisco,Saturday,08:00 AM - 02:00 PM,Year Round
+San Francisco,Ferry Plaza Thursday FM,THE EMBARCADERO - Ferry Building,San Francisco,Thursday,10:00 AM - 02:00 PM,Year Round
+San Francisco,Ferry Plaza Tuesday FM,THE EMBARCADERO - Ferry Building,San Francisco,Tuesday,10:00 AM - 02:00 PM,Year Round
+San Francisco,Fillmore CFM,1700 O'FARRELL ST ,San Francisco,Saturday,09:00 AM - 01:00 PM,Year Round
+San Francisco,Fort Mason Center CFM,2 MARINA BLVD,San Francisco,Sunday,09:30 AM - 01:30 PM,Year Round
+San Francisco,Heart of the City Sunday FM,1 UNITED NATIONS PLAZA,San Francisco,Monday, - ,Year Round
+San Francisco,Heart of the City Sunday FM,1 UNITED NATIONS PLAZA,San Francisco,Sunday,07:00 AM - 05:00 PM,Year Round
+San Francisco,Inner Sunset CFM,1315  8TH AVE,San Francisco,Sunday,09:00 AM - 01:00 PM,Year Round
+San Francisco,Mission Community Market ,22 BARTLETT ST ,San Francisco,Thursday,03:00 PM - 07:00 PM,Mar-Nov
+San Francisco,Outer Sunset FM & Mercantile,1994 37TH AVE,San Francisco,Sunday,09:00 AM - 02:00 PM,Year Round
+San Francisco,Stonestown FM,501 BUCKINGHAM WAY,San Francisco,Sunday,09:00 AM - 01:00 PM,Year Round
+San Joaquin,Downtown Tracy FM,900 CENTRAL AVE,Tracy,Saturday,08:00 AM - 01:00 PM,Year Round
+San Joaquin,"Golden Villa Farmers Market, LLC",255 S SUTTER ST,Stockton,Saturday,05:00 AM - 10:00 AM,Year Round
+San Joaquin,Weberstown FM,4950 PACIFIC AVE,Stockton,Sunday,08:00 AM - 01:00 PM,Year Round
+San Joaquin,Weberstown FM,4950 PACIFIC AVE,Stockton,Thursday,08:00 AM - 01:00 PM,Year Round
+San Luis Obispo,Arroyo Grande Saturday Afternoons CFM,193 OLAHAN ALLEY,Arroyo Grande,Saturday,12:00 PM - 02:30 PM,Year Round
+San Luis Obispo,Arroyo Grande Wednesday Mornings CFM,1464 E GRAND AVE,Arroyo Grande,Wednesday,08:30 AM - 11:00 AM,Year Round
+San Luis Obispo,Atascadero FM,0 EL CAMINO REAL AND EAST MALL AVE,Atascadero,Wednesday,03:00 PM - 05:30 PM,Year Round
+San Luis Obispo,Baywood/Los Osos CFM,200 SANTA MARIA AVE,Los Osos,Monday,02:00 PM - 04:30 PM,Year Round
+San Luis Obispo,Cambria CFM,1000 MAIN ST,Cambria,Friday,02:30 PM - 05:30 PM,May-Sep
+San Luis Obispo,Cambria CFM,1000 MAIN ST,Cambria,Friday,02:30 PM - 05:30 PM,Oct-Apr
+San Luis Obispo,Country Farm & Craft Market,0 11TH & SPRING ST,Paso Robles,Saturday,09:00 AM - 01:00 PM,Year Round
+San Luis Obispo,Downtown SLO FM,HIGUERA STREET BETWEEN CHORRO AND OSOS ST,San Luis Obispo,Thursday,06:00 PM - 09:00 PM,Year round
+San Luis Obispo,Morro Bay Main St Saturday FM,MAIN ST AND MORRO BAY BLVD,Morro Bay,Saturday,02:30 PM - 05:30 PM,Year Round
+San Luis Obispo,Morro Bay Thursday Afternoons CFM,2650 MAIN ST,Morro Bay,Thursday,02:00 PM - 04:30 PM,Year Round
+San Luis Obispo,Paso Robles FM,11TH AND SPRING ST,Paso Robles,Tuesday,09:30 AM - 12:00 PM,Year Round
+San Luis Obispo,SLO Saturday Mornings CFM,325 MADONNA RD,San Luis Obispo,Saturday,08:00 AM - 10:45 AM,Year Round
+San Luis Obispo,SLO Tuesday FM @ Farm Supply,224 TANK FARM RD,San Luis Obispo,Tuesday,02:30 PM - 05:00 PM,Year Round
+San Luis Obispo,San Luis Obispo Sat,325 MADONNA RD,San Luis Obispo,Saturday,08:00 AM - 10:45 AM,Year Round
+San Luis Obispo,Templeton CFM,6TH AND CROCKER ST,Templeton,Saturday,09:00 AM - 12:30 PM,Year Round
+San Mateo,Belmont CFM,1201 EL CAMINO REAL,Belmont,Sunday,09:00 AM - 01:00 PM,Year Round
+San Mateo,Coastside FM - Half Moon Bay,225 CABRILLO HWY,Half Moon Bay,Saturday,09:00 AM - 01:00 PM,April - Dec
+San Mateo,Coastside FM - Pacifica,400 OLD COUNTY RD,Pacifica,Wednesday,09:00 AM - 01:00 PM,Apr-Dec
+San Mateo,Daly City CFM,133 SERRAMONTE CENTER,Daly City,Thursday,09:00 AM - 01:00 PM,Year Round
+San Mateo,Redwood City Kiwanis CFM,500 ARGUELLO ST,Redwood City,Saturday,08:00 AM - 01:00 PM,Apr-Nov
+San Mateo,San Carlos CFM,600 LAUREL ST ,San Carlos,Sunday,09:00 AM - 01:00 PM,Year Round 
+San Mateo,San Mateo (CSM) CFM,1700 WEST HILLSDALE BLVD,San Mateo,Saturday,09:00 AM - 01:00 PM,Year Round
+San Mateo,San Mateo at 25th Avenue,194 W 25TH AVE,San Mateo,Tuesday,03:00 PM - 07:00 PM,May-Oct
+Santa Barbara,Carpinteria CFM,800 BLOCK OF LINDEN AVE,Carpinteria,Thursday,02:30 PM - 06:30 PM,Year Round
+Santa Barbara,Downtown Santa Barbara CFM,0 00 E/W BLOCKS CARRILLO ST & 900-1000 BLOCKS STATE ST,Santa Barbara,Saturday,08:00 AM - 01:00 PM,Year Round
+Santa Barbara,Goleta CFM,7004 MARKETPLACE DR,Santa Barbara,Sunday,10:00 AM - 02:00 PM,Year Round
+Santa Barbara,Montecito CFM,0 1100-1200 BLOCKS OF COAST VILLAGE RD,Santa Barbara,Friday,08:00 AM - 11:15 AM,Year Round
+Santa Barbara,Old Town Santa Barbara CFM,0 600-800 BLOCKS OF STATE ST,Santa Barbara,Tuesday,03:00 PM - 06:30 PM,Year Round
+Santa Barbara,Route One Farmers' Market,3745 CONSTELLATION ROAD,Lompoc,Sunday,10:00 AM - 02:00 PM,Year Round
+Santa Barbara,Solvang Village CFM,0 COPENHAGEN DR & 1ST ST,Ballard,Wednesday,02:30 PM - 06:00 PM,Year Round
+Santa Clara,Alum Rock CFM,23 N WHITE ROAD,San Jose,Sunday,08:00 AM - 12:00 PM,Year Round
+Santa Clara,Berryessa FM,1376 PIEDMONT RD,San Jose,Saturday,09:00 AM - 01:00 PM,May-Nov
+Santa Clara,Blossom Hill CFM,925 BLOSSOM HILL RD,San Jose,Sunday,09:00 AM - 01:00 PM,Year Round
+Santa Clara,California Ave Farmers Market ,490 CALIFORNIA AVE,Palo Alto,Sunday,09:00 AM - 01:00 PM,Year Round
+Santa Clara,Campbell FM ,CAMPBELL AND CENTRAL AVE,Campbell,Sunday,09:00 AM - 01:00 PM,Year Round
+Santa Clara,Creekside FM,10455 MILLER AVE,Cupertino,Friday,08:00 AM - 12:00 PM,Year Round
+Santa Clara,De Anza College,21250 Stevens Creek Blvd,Cupertino,Sunday,09:00 AM - 01:00 PM,Year Rounds
+Santa Clara,East Palo Alto Community FM,2555 PULGAS AVE,E Palo Alto,Wednesday,08:30 AM - 12:30 PM,Apr 17-Nov 20
+Santa Clara,Evergreen CFM,4055 EVERGREEN VILLAGE SQUARE,San Jose,Sunday,09:00 AM - 01:00 PM,Year Round
+Santa Clara,Evergreen CFM,4055 EVERGREEN VILLAGE SQUARE,San Jose,Wednesday,09:00 AM - 01:00 PM,Year Round
+Santa Clara,Kaiser Permanente San Jose CFM,250 HOSPITAL PKWY,San Jose,Tuesday,09:30 AM - 01:30 PM,Year Round
+Santa Clara,Kaiser Santa Clara CFM,710 LAWRENCE EXPY,Santa Clara,Friday,09:30 AM - 01:30 PM,Year Round
+Santa Clara,Los Altos CFM,200 STATE ST,Los Altos,Thursday,04:00 PM - 08:00 PM,May-Oct 
+Santa Clara,Los Gatos FM,15  MONTEBELLO WAY ,Los Gatos,Saturday, - ,Year Round
+Santa Clara,Los Gatos FM,15  MONTEBELLO WAY ,Los Gatos,Sunday,09:00 AM - 01:00 PM,Year Round
+Santa Clara,Milpitas FM,882 GREAT MALL DRIVE,Milpitas,Sunday,08:00 AM - 01:00 PM,Year Round
+Santa Clara,Morgan Hill CFM,0 3RD & DEPOT ST,Morgan Hill,Saturday,09:00 AM - 01:00 PM,Year Round
+Santa Clara,Mountain View CFM,600 W EVELYN AVE,Mountain View,Sunday,09:00 AM - 01:00 PM,Year Round
+Santa Clara,Santa Clara Farmers Market,950 JACKSON ST ,Santa Clara,Saturday,09:00 AM - 01:00 PM,Year Round
+Santa Clara,Santa Teresa CFM,5585 COTTLE RD ,San Jose,Saturday,09:00 AM - 01:00 PM,Year Round
+Santa Clara,Santana Row FM,377 SANTA CLARA,San Jose,Wednesday,04:00 PM - 08:00 PM,May-Sept
+Santa Clara,Saratoga CFM,0 FRUITVALE & ALLENDALE,Saratoga,Saturday,09:00 AM - 01:00 PM,Year Round
+Santa Clara,Sunnyvale CFM,W WASHINGTON & S MURPHY AVE,Sunnyvale,Saturday,09:00 AM - 01:00 PM,Year Round 
+Santa Clara,VA Palo Alto CFM,3801 MIRANDA AVE,Palo Alto,Wednesday,09:30 AM - 01:00 PM,May-Nov
+Santa Clara,Willow Glen FM,1425 LINCOLN AVE,San Jose,Saturday,09:00 AM - 01:00 PM,Year Round 
+Santa Cruz,Aptos CFM,6500 SOQUEL DR,Aptos,Saturday,08:00 AM - 12:00 PM,Year Round
+Santa Cruz,Felton FM,120 RUSSELL AVE,Felton,Tuesday,01:30 PM - 05:30 PM,May-Oct
+Santa Cruz,Live Oak CFM,21517 EAST CLIFF DR,Santa Cruz,Sunday,09:00 AM - 01:00 PM,Year Round
+Santa Cruz,Pajaro Valley CFM,328 UNION ST,Watsonville,Friday,02:00 PM - 07:00 PM,Year Round
+Shasta,Burney CFM,37427 STATE HWY 299E,Burney,Wednesday,03:00 PM - 06:00 PM,Jun-Sep
+Shasta,Marilyn Miller FM,1700 BLOCKS OF CHURN CREEK RD,Redding,Tuesday,07:30 AM - 12:00 PM,Jun-Oct
+Shasta,Redding CFM,777 CYPRESS AVE,Redding,Saturday,07:30 AM - 12:00 PM,Apr-Dec
+Shasta,Turtle Bay CFM,844 Sundial Bridge,Redding,Sunday,08:00 AM - 12:00 PM,Jun-Oct
+Siskiyou,Dunsmuir FM,5840 DUNSMUIR AVE,Dunsmuir,Thursday,04:00 PM - 06:30 PM,Jun-Sep
+Siskiyou,Etna CFM,514 N HWY 3,Etna,Saturday,10:00 AM - 12:00 PM,Saturday
+Siskiyou,Etna CFM,514 N HWY 3,Etna,Saturday,10:00 AM - 12:00 PM,Wed !x/mo; 
+Siskiyou,Etna CFM,514 N HWY 3,Etna,Wednesday,06:00 PM - 08:00 PM,Saturday
+Siskiyou,Etna CFM,514 N HWY 3,Etna,Wednesday,06:00 PM - 08:00 PM,Wed !x/mo; 
+Siskiyou,Happy Camp FM,63709 HWY 96 ACROSS FROM BIG FOOT,Happy Camp,Thursday,06:00 PM - 08:00 PM,Jun - Oct
+Siskiyou,Mount Shasta FM,205  CHESTNUT ST,Mount Shasta,Monday,04:30 PM - 07:00 PM,May - Oct
+Siskiyou,Weed FM,450 College Ave,Weed,Wednesday,03:30 PM - 06:00 PM,Jun-Sep
+Siskiyou,Yreka Community CFM,600 BLOCK W MINER ST,Yreka,Friday,04:00 PM - 06:30 PM,Jun - Oct
+Solano,Fairfield CFM,600 TEXAS ST,Fairfield,Thursday,03:00 PM - 07:00 PM,May-Sep
+Solano,Kaiser Permanente Vallejo CFM,975 SERENO ,Vallejo,Friday,10:00 AM - 02:00 PM,Year round
+Solano,Vallejo CFM,400 GEORGIA ST,Vallejo,Saturday,09:00 AM - 02:00 PM,Year Round
+Sonoma,Cotati Community FM,8167 LA PLAZA,Cotati,Wednesday,04:30 PM - 07:30 PM,Summer
+Sonoma,Healdsburg CFM Tue,0 PLAZA ST BETWEEN HEALDSBURG AVE & CENTER ST.,Healdsburg,Tuesday,09:00 AM - 01:00 PM,Apr-Oct
+Sonoma,Healdsburg Saturday CFM,0 VINE & NORTH ST,Healdsburg,Saturday,08:30 AM - 12:00 PM,May-Nov
+Sonoma,Occidental Community Farmers' Market, Main and 2nd St,Occidental,Thursday,04:00 PM - 08:00 PM,May-Oct
+Sonoma,Petaluma East Side FM,320 N MCDOWELL BLVD,Petaluma,Tuesday,09:30 AM - 01:30 PM,Year Round
+Sonoma,Petaluma Saturday CFM,CORNER OF PETALUMA BLVD & D ST,Bloomfield,Saturday,02:00 PM - 05:00 PM,May-Nov
+Sonoma,Rohnert Park FM,500 CITY CENTER DR,Rohnert Park,Friday,02:00 PM - 08:00 PM,Jun-Aug
+Sonoma,Rohnert Park FM,500 CITY CENTER DR,Rohnert Park,Friday,02:00 PM - 08:00 PM,Sep-May
+Sonoma,Santa Rosa Community Saturday FM,1501 FARMERS LANE,Santa Rosa,Saturday,08:30 AM - 01:00 PM,Year Round
+Sonoma,Santa Rosa Community Wednesday FM,1501 FARMERS LANE,Santa Rosa,Wednesday,09:00 AM - 01:00 PM,Year Round
+Sonoma,Santa Rosa Original CFM,50 MARK WEST SPRINGS RD,Santa Rosa,Saturday,08:30 AM - 01:00 PM,Year Round
+Sonoma,Santa Rosa Original CFM,50 MARK WEST SPRINGS RD,Santa Rosa,Wednesday, - ,Year Round
+Sonoma,Santa Rosa Original CFM - WIC Satellite,1450 GUERNEVILLE RD,Santa Rosa,Thursday,09:00 AM - 12:00 PM,Jul-Aug
+Sonoma,Windsor CFM,701 MCCLELLAND DR,Windsor,Sunday,09:30 AM - 12:30 PM,Apr - Dec
+Sonoma,Windsor CFM,701 MCCLELLAND DR,Windsor,Thursday,05:00 PM - 08:00 PM,Apr - Dec
+Stanislaus,Kaiser Permanente Modesto,4601 DALE RD,Modesto,Monday,09:30 AM - 01:30 PM,Year Round
+Stanislaus,Modesto CFM,16TH ST BETWEEN H & I ST,Modesto,Saturday,08:00 AM - 01:00 PM,Mar-Dec
+Stanislaus,Modesto CFM,16TH ST BETWEEN H & I ST,Modesto,Thursday,08:00 AM - 01:00 PM,Mar-Dec
+Stanislaus,Turlock CFM,E MAIN ST BETWEEN S CENTER AND S PALM ST,Turlock,Saturday,08:00 AM - 01:00 PM,Mar-Dec
+Sutter,Yuba City CFM,PLUMAS ST & C ST.,Yuba City,Saturday,08:00 AM - 12:00 PM,May-Sep 30
+Sutter,Yuba City CFM,PLUMAS ST & C ST.,Yuba City,Saturday,08:00 AM - 12:00 PM,May-Sept 
+Tehama,Wednesday Night Downtown Market,633 WASHINGTON ST,Red Bluff,Wednesday,05:00 PM - 08:00 PM,Jun-Aug
+Trinity,Weaverville CFM,691 MAIN ST,Weaverville,Wednesday,04:00 PM - 07:00 PM,May 24-Oct 25
+Tulare,City of Dinuba,289 S L ST,Dinuba,Friday,06:00 PM - 09:00 PM,Jun-Jul
+Tuolumne,Sonora CFM,THEALL & STEWARD ST,Sonora,Saturday,07:30 AM - 11:30 AM,05/17 - 10/11
+Ventura,Adventist Health Simi Valley CFM,3000 SYCAMORE DR,Simi Valley,Tuesday,11:00 AM - 03:00 PM,Year Round
+Ventura,Camarillo CFM,2220 VENTURA BLVD,Camarillo,Saturday,08:00 AM - 12:00 PM,Year Round
+Ventura,Downtown Oxnard FM,500 C ST,Oxnard,Thursday,09:00 AM - 01:30 PM,Year Round
+Ventura,Downtown Ventura CFM,200 MAIN STREET,Ventura,Saturday,08:30 AM - 12:00 PM,Year Round
+Ventura,Midtown Ventura CFM,3301 E MAIN ST,Ventura,Wednesday,09:00 AM - 01:00 PM,Year Round
+Ventura,Ojai CFM,300 E MATILIJA ST,Ojai,Sunday,09:00 AM - 01:00 PM,Year Round
+Ventura,Saticoy Farmers Market,11321 VIOLETA ST,Ventura,Sunday,10:00 AM - 02:00 PM,Feb-Dec
+Ventura,Simi Valley CFM,2757 TAPO CANYON RD,Simi Valley,Friday,11:00 AM - 03:30 PM,Year Round
+Ventura,Thousand Oaks CFM,350 E HILLCREST DR,Thousand Oaks,Thursday,11:00 AM - 04:00 PM,Year Round
+Yolo,Davis Saturday CFM,301 C ST,Davis,Saturday,08:00 AM - 01:00 PM,Year Round
+Yolo,Davis Wednesday CFM,0 3RD & C ST,Davis,Wednesday,03:00 PM - 06:00 PM,Apr-Aug
+Yolo,Davis Wednesday CFM,0 3RD & C ST,Davis,Wednesday,03:00 PM - 06:00 PM,Sept-Dec
+Yolo,Sutter Davis Hospital FM,2000 SUTTER PL,Davis,Thursday,10:00 AM - 01:00 PM,Year Round
+Yolo,The Woodland Saturday FM,250 FIRST ST,Woodland,Saturday,09:00 AM - 12:00 PM,May-Oct 15
+Yolo,The Woodland Tuesday FM,250 FIRST ST,Woodland,Tuesday,11:00 AM - 02:00 PM,Jun-Aug

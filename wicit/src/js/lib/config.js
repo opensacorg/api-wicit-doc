@@ -6,15 +6,24 @@
 export const mapboxIntegrationUrl = import.meta.env.VITE_MAPBOX_INTEGRATION_URL || "";
 
 /**
- * The endpoint for the California WIC vendor locations.
+ * The base URL of the WICit API, without a trailing slash.
  *
  * @type {string}
  */
-export const locationsApiUrl = import.meta.env.VITE_LOCATIONS_API_URL;
+export const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || "").replace(/\/$/, "");
 
 /**
- * The datastore resource id queried by {@link locationsApiUrl}.
+ * Build a URL for an API path with query parameters. Parameters that are null or undefined are left out.
  *
- * @type {string}
+ * @param {string} path - The API path, such as `/api/products`.
+ * @param {Record<string, string | number | boolean | null | undefined>} [params] - Query parameters.
+ * @returns {string}
  */
-export const locationsResourceId = import.meta.env.VITE_LOCATIONS_RESOURCE_ID;
+export function apiUrl(path, params = {}) {
+  const query = new URLSearchParams();
+  for (const [key, value] of Object.entries(params)) {
+    if (value !== null && value !== undefined) query.set(key, String(value));
+  }
+  const search = query.toString();
+  return `${apiBaseUrl}${path}${search ? `?${search}` : ""}`;
+}

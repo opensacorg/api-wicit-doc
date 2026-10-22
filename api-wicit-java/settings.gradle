@@ -1,1 +1,9 @@
+// jOOQ publishes its Gradle plugin to Maven Central, not the Gradle Plugin Portal.
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
 rootProject.name = 'wicit-api'

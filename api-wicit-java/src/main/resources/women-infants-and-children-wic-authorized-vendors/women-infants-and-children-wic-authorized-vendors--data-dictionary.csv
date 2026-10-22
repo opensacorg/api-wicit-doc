@@ -1,0 +1,13 @@
+column,type,label,description
+VENDOR,text,,"Vendor name
+"
+ADDRESS,text,,"Street address
+"
+SECOND ADDRESS,text,,This is filled if there is a second address line
+CITY,text,,"City
+"
+ZIP,text,,
+COUNTY,text,,"County
+"
+LATITUDE,numeric,,
+LONGITUDE,numeric,,

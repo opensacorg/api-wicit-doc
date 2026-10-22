@@ -1,0 +1,76 @@
+# Helpers the seed changesets use to turn the published text values into typed columns.
+databaseChangeLog:
+  - changeSet:
+      id: 002-seed-functions
+      author: wicit
+      context: seed
+      runOnChange: true
+      changes:
+        - sql:
+            splitStatements: false
+            sql: |
+              -- Parses counts and dollar amounts such as "1,234", "$1,054,621,338.02 " and "-12.5".
+              -- Suppressed or empty cells ("", "-", "–", ".", "*") become NULL.
+              CREATE OR REPLACE FUNCTION wic_numeric(v text) RETURNS numeric
+              LANGUAGE sql IMMUTABLE AS $$
+                SELECT CASE WHEN cleaned ~ '^-?[0-9]*[.]?[0-9]+$' THEN cleaned::numeric END
+                FROM (SELECT regexp_replace(coalesce(v, ''), '[^0-9.-]', '', 'g') AS cleaned) c
+              $$;
+
+              -- Year from a period written as "2010", "201001" or "2010-01".
+              CREATE OR REPLACE FUNCTION wic_period_year(v text) RETURNS smallint
+              LANGUAGE sql IMMUTABLE AS $$
+                SELECT substr(regexp_replace(v, '[^0-9]', '', 'g'), 1, 4)::smallint
+              $$;
+
+              -- Month from a period, or NULL when the period is a whole year.
+              CREATE OR REPLACE FUNCTION wic_period_month(v text) RETURNS smallint
+              LANGUAGE sql IMMUTABLE AS $$
+                SELECT CASE WHEN length(digits) = 6 THEN substr(digits, 5, 2)::smallint END
+                FROM (SELECT regexp_replace(v, '[^0-9]', '', 'g') AS digits) d
+              $$;
+
+              -- Trims padding and turns an empty value into NULL.
+              CREATE OR REPLACE FUNCTION wic_text(v text) RETURNS text
+              LANGUAGE sql IMMUTABLE AS $$
+                SELECT nullif(btrim(v), '')
+              $$;
+
+              -- Splits one CSV line into trimmed fields. Unlike a strict RFC 4180 parser it accepts
+              -- padding after a closing quote, such as "SAVE MART #609"   , which the vendor file uses.
+              CREATE OR REPLACE FUNCTION wic_csv_fields(line text) RETURNS text[]
+              LANGUAGE plpgsql IMMUTABLE AS $$
+              DECLARE
+                fields text[] := '{}';
+                field text := '';
+                in_quotes boolean := false;
+                ch text;
+                i integer := 1;
+              BEGIN
+                IF line IS NULL THEN
+                  RETURN NULL;
+                END IF;
+                WHILE i <= length(line) LOOP
+                  ch := substr(line, i, 1);
+                  IF in_quotes THEN
+                    IF ch = '"' AND substr(line, i + 1, 1) = '"' THEN
+                      field := field || '"';
+                      i := i + 1;
+                    ELSIF ch = '"' THEN
+                      in_quotes := false;
+                    ELSE
+                      field := field || ch;
+                    END IF;
+                  ELSIF ch = '"' THEN
+                    in_quotes := true;
+                  ELSIF ch = ',' THEN
+                    fields := fields || btrim(field);
+                    field := '';
+                  ELSE
+                    field := field || ch;
+                  END IF;
+                  i := i + 1;
+                END LOOP;
+                RETURN fields || btrim(field);
+              END
+              $$;

@@ -1,0 +1,29 @@
+{#- The layout every page extends. A page fills the title and content blocks; the build passes in the page
+    name, which picks the current navigation link. -#}
+{%- set section = (page | slice(0, 4)) == "data" ? "data" : page -%}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>{% if page == "index" %}{{ block("title") | raw }}{% else %}{{ block("title") | raw }} · WICit Documentation{% endif %}</title>
+    <link href="favicon.ico" rel="icon">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <nav>
+        <a {{ current("index", section) | raw }}class="brand" href="index.html"><img alt="WICit" height="30" src="logo.svg" width="75"></a>
+        <a {{ current("get-started", section) | raw }}href="get-started.html">Get started</a>
+        <a {{ current("data", section) | raw }}href="data.html">Data</a>
+        <a {{ current("deploy", section) | raw }}href="deploy.html">AWS</a>
+        <a href="api/index.html">Javadoc</a>
+        <a href="https://api.findwic.com/swagger-ui/index.html">API Explorer</a>
+    </nav>
+</header>
+<main>
+{% block content %}{% endblock %}
+</main>
+</body>
+</html>
+{% macro current(name, section) %}{% if name == section %}aria-current="page" {% endif %}{% endmacro %}

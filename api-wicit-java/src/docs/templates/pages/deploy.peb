@@ -1,0 +1,640 @@
+{% extends "base.peb" %}
+{% block title %}Deployment{% endblock %}
+{% block content %}
+    <h1>Deploy the API to EC2</h1>
+    <p class="lead">The API runs on an AWS EC2 instance, with PostgreSQL on the same machine. The instance serves only
+        the backend. The website is hosted on GitHub Pages and calls the API over HTTPS.</p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Setting</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Elastic IP</td>
+            <td><code>44.254.208.38</code></td>
+        </tr>
+        <tr>
+            <td>Public DNS name</td>
+            <td><code>ec2-44-254-208-38.us-west-2.compute.amazonaws.com</code></td>
+        </tr>
+        <tr>
+            <td>API URL</td>
+            <td><code>https://44.254.208.38</code>, or <code>https://api.findwic.com</code> once its DNS record is set
+                up
+            </td>
+        </tr>
+        <tr>
+            <td>Database user</td>
+            <td><code>app</code></td>
+        </tr>
+        <tr>
+            <td>Database name</td>
+            <td><code>app_</code> followed by four hex characters, such as <code>app_1a2b</code>. These pages write it
+                as <code>app_xxxx</code>.
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p>The commands below assume Amazon Linux 2023, the <code>ec2-user</code> login user, and the repository cloned to
+        <code>/home/ec2-user/api-wicit-doc</code>. Change the paths if yours differ.</p>
+
+    <h2>How requests reach the API</h2>
+    <p>The website is served over HTTPS, and browsers block its requests to a plain HTTP API. So
+        <a href="https://caddyserver.com/">Caddy</a> listens on ports 80 and 443, gets a free certificate from Let's
+        Encrypt, and forwards requests to the API on <code>127.0.0.1:8080</code>. The API and PostgreSQL only listen on
+        the instance itself.</p>
+    <pre><code>Browser (GitHub Pages site)
+  → https://44.254.208.38      Caddy, ports 80 and 443
+  → http://127.0.0.1:8080      Spring Boot API
+  → localhost:5432             PostgreSQL</code></pre>
+    <p class="note">Let's Encrypt does not issue certificates for <code>*.amazonaws.com</code> names, so the API uses
+        the Elastic IP address instead. Certificates for an IP address last about six days. Caddy renews them
+        automatically. To use <code>api.findwic.com</code> instead, see
+        <a href="#use-api-findwic-com">Use api.findwic.com</a>.</p>
+
+    <h2>1. Open the ports</h2>
+    <p>In the EC2 console, edit the instance's security group so its inbound rules are:</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Port</th>
+            <th>Source</th>
+            <th>Why</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>22 (SSH)</td>
+            <td>Your IP only</td>
+            <td>Administration.</td>
+        </tr>
+        <tr>
+            <td>80 (HTTP)</td>
+            <td><code>0.0.0.0/0</code></td>
+            <td>Let's Encrypt checks this port before it issues a certificate. Caddy redirects everything else to
+                HTTPS.
+            </td>
+        </tr>
+        <tr>
+            <td>443 (HTTPS)</td>
+            <td><code>0.0.0.0/0</code></td>
+            <td>The API.</td>
+        </tr>
+        </tbody>
+    </table>
+    <p>Do not open 8080 or 5432.</p>
+
+    <h2>2. Add swap</h2>
+    <p>A <code>t2.micro</code> has 1 GB of memory for the API, PostgreSQL and Caddy together. Add 2 GB of swap so a
+        busy moment slows the instance down instead of stopping a process:</p>
+    <pre><code>sudo dd if=/dev/zero of=/swapfile bs=1M count=2048
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+echo '/swapfile none swap defaults 0 0' | sudo tee -a /etc/fstab</code></pre>
+
+    <h2 id="install-jdk">3. Install JDK 27</h2>
+    <p>Install Amazon Corretto 27 from its tarball into <code>/opt/java</code>. The link
+        <code>/opt/java/corretto-27</code> points to the installed version, so the service file and
+        <code>PATH</code> don't change when you upgrade:</p>
+    <pre><code>sudo dnf install -y wget
+cd /tmp
+wget https://corretto.aws/downloads/latest/amazon-corretto-27-x64-linux-jdk.tar.gz
+sudo mkdir -p /opt/java
+sudo tar -xzf amazon-corretto-27-x64-linux-jdk.tar.gz -C /opt/java
+ls /opt/java</code></pre>
+    <p><code>ls</code> shows the folder the tarball created, such as <code>amazon-corretto-27.0.1.8.1-linux-x64</code>.
+        The version in the name changes with each release. Link the folder, check the link works, and put Java on
+        everyone's <code>PATH</code>:</p>
+    <pre><code>sudo ln -sfn "$(ls -d /opt/java/amazon-corretto-27* | sort -V | tail -1)" /opt/java/corretto-27
+/opt/java/corretto-27/bin/java -version
+echo 'export JAVA_HOME=/opt/java/corretto-27
+export PATH="$JAVA_HOME/bin:$PATH"' | sudo tee /etc/profile.d/java.sh
+source /etc/profile.d/java.sh
+java -version</code></pre>
+    <p>The API runs on this JDK. Gradle never runs on the instance. To upgrade later, extract the new
+        tarball, point the link at the new folder, and restart the API.</p>
+
+    <h2>4. Set up PostgreSQL</h2>
+    <p>Install PostgreSQL 18, create its data folder, and start it at boot:</p>
+    <pre><code>sudo dnf install -y postgresql18 postgresql18-server postgresql18-contrib
+sudo postgresql-setup --initdb
+sudo systemctl enable --now postgresql</code></pre>
+    <p>Create the <code>app</code> user and the database. Pick four hex characters for the name, and a strong
+        password:</p>
+    <pre><code>sudo -u postgres psql -c "create user app with password 'your-password';"
+sudo -u postgres psql -c "create database app_xxxx owner app;"</code></pre>
+    <p>By default, PostgreSQL on Amazon Linux checks local network connections with <code>ident</code>, which rejects
+        passwords. The API connects over <code>localhost</code> with a password, so change those lines. Open the file
+        with <code>sudo nano /var/lib/pgsql/data/pg_hba.conf</code> and change the <code>host</code> lines for
+        <code>127.0.0.1/32</code> and <code>::1/128</code> to use <code>scram-sha-256</code>:</p>
+    <pre><code>host    all    all    127.0.0.1/32    scram-sha-256
+host    all    all    ::1/128         scram-sha-256</code></pre>
+    <p>Then restart PostgreSQL and check that the <code>app</code> user can connect. Put your password and database
+        name in place of <code>PASSWORD</code> and <code>app_xxxx</code>:</p>
+    <pre><code>sudo systemctl restart postgresql
+psql "postgresql://app:PASSWORD@localhost:5432/app_xxxx" -c 'select version();'</code></pre>
+    <p>PostgreSQL only listens on <code>localhost</code> unless you change <code>listen_addresses</code>, so leave that
+        setting alone. If the password contains characters that have a meaning in URLs, such as <code>@</code>,
+        <code>/</code> or <code>:</code>, percent-encode them in this command. In the <code>.env</code> file below,
+        write the password as it is.</p>
+
+    <h2>5. Set the environment variables</h2>
+    <p>The API reads one file, <code>api-wicit-java/.env</code>, whether you start it by hand or as a service. Git
+        ignores it, so it is never
+        committed. Create it:</p>
+    <pre><code>cd ~/api-wicit-doc/api-wicit-java
+nano .env</code></pre>
+    <p>Write each value on one line, without quotes:</p>
+    <pre><code>SPRING_PROFILES_ACTIVE=prod
+DB_URL=jdbc:postgresql://localhost:5432/app_xxxx
+DB_USERNAME=app
+DB_PASSWORD=your-password
+SERVER_ADDRESS=127.0.0.1
+PORT=8080</code></pre>
+    <p>Then make it readable only by you:</p>
+    <pre><code>chmod 600 .env</code></pre>
+    <table>
+        <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Value on EC2</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>SPRING_PROFILES_ACTIVE</code></td>
+            <td><code>prod</code>. Requires every database setting and hides health details.</td>
+        </tr>
+        <tr>
+            <td><code>DB_URL</code></td>
+            <td>The JDBC URL. It has no user or password, unlike the <code>psql</code> URL.</td>
+        </tr>
+        <tr>
+            <td><code>DB_USERNAME</code></td>
+            <td><code>app</code></td>
+        </tr>
+        <tr>
+            <td><code>DB_PASSWORD</code></td>
+            <td>The <code>app</code> user's password.</td>
+        </tr>
+        <tr>
+            <td><code>SERVER_ADDRESS</code></td>
+            <td><code>127.0.0.1</code>, so the API only accepts connections from Caddy on the same machine.</td>
+        </tr>
+        <tr>
+            <td><code>PORT</code></td>
+            <td><code>8080</code>, the port Caddy forwards to.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>6. Connect from your computer</h2>
+    <p>A <code>t2.micro</code> can't run Gradle: building the API or loading the data on it runs out of memory and
+        freezes the instance. So you build and seed on your own computer, then upload the results. The instance only
+        runs Java, PostgreSQL and Caddy.</p>
+    <p>Each step below says whether its commands run in PowerShell on your computer or on the server over SSH. In
+        PowerShell, set the key and server once per window:</p>
+    <pre><code>$Key = "C:\Users\nateb\Downloads\Wicit_Secret_Key2.pem"
+$Server = "ec2-user@44.254.208.38"</code></pre>
+    <p>SSH refuses a key file that other users can read. Remove the inherited permissions so only you can read it.
+        This only needs doing once:</p>
+    <pre><code>icacls $Key /inheritance:r /grant:r "${env:USERNAME}:R"</code></pre>
+    <p>Check the connection:</p>
+    <pre><code>ssh -i $Key $Server "echo connected"</code></pre>
+
+    <h2 id="load-the-data">7. Load the data</h2>
+    <p>Seed your local database, copy it to a dump file, and restore that file on the server. The dump includes
+        Liquibase's own tables, so both databases agree on which changesets have run.</p>
+    <p>On your computer, bring the local database up to date and dump it. It uses the local settings in
+        <code>api-wicit-java/.env</code>, such as <code>app_28c3</code> and the <code>nateb</code> user:</p>
+    <pre><code>cd C:\Users\nateb\Source\Repos\api-wicit-doc\api-wicit-java
+.\gradlew.bat update
+pg_dump -h localhost -U nateb -d app_28c3 --format=custom --no-owner --no-privileges --file "$env:TEMP\wicit.dump"
+scp -i $Key "$env:TEMP\wicit.dump" "${Server}:/tmp/wicit.dump"</code></pre>
+    <p>On the server, restore it into the <code>app</code> database. <code>--clean</code> replaces any tables that are
+        already there, and <code>--single-transaction</code> leaves the database unchanged if anything fails:</p>
+    <p>Stop the API first if it is already running, whichever way you started it. Each command does nothing if the API
+        isn't running that way:</p>
+    <pre><code>sudo systemctl stop wicit-api 2&gt;/dev/null      # the service
+pkill -f '[w]icit-api-0.0.1-SNAPSHOT.jar'           # a manual run</code></pre>
+    <p>Then restore:</p>
+    <pre><code>pg_restore -h localhost -U app -d app_xxxx --no-owner --no-privileges --clean --if-exists --single-transaction /tmp/wicit.dump
+rm /tmp/wicit.dump</code></pre>
+    <p>Then check the row counts:</p>
+    <pre><code>psql "postgresql://app:PASSWORD@localhost:5432/app_xxxx" -c "
+select 'vendor' as table_name, count(*) from vendor
+union all select 'authorized_product', count(*) from authorized_product
+union all select 'farmers_market', count(*) from farmers_market
+union all select 'wic_farmer', count(*) from wic_farmer
+union all select 'participants_by_category', count(*) from participants_by_category
+union all select 'participants_by_race_ethnicity', count(*) from participants_by_race_ethnicity
+union all select 'redemption_by_family', count(*) from redemption_by_family
+union all select 'redemption_by_participant_category', count(*) from redemption_by_participant_category;"</code></pre>
+    <p>Every table should have rows, with the same counts as your local database.</p>
+
+    <h2 id="build-and-upload">8. Build and upload the API</h2>
+    <p>On your computer, build the jar and copy it to the server. It uploads under a temporary name and is then moved
+        into place, so a running API never reads a half-copied file:</p>
+    <pre><code>cd C:\Users\nateb\Source\Repos\api-wicit-doc\api-wicit-java
+.\gradlew.bat bootJar
+ssh -i $Key $Server "mkdir -p ~/api-wicit-doc/api-wicit-java/build/libs"
+scp -i $Key build\libs\wicit-api-0.0.1-SNAPSHOT.jar "${Server}:api-wicit-doc/api-wicit-java/build/libs/wicit-api.jar.new"
+ssh -i $Key $Server "mv ~/api-wicit-doc/api-wicit-java/build/libs/wicit-api.jar.new ~/api-wicit-doc/api-wicit-java/build/libs/wicit-api-0.0.1-SNAPSHOT.jar"</code></pre>
+    <p>A jar built on Windows runs on Linux unchanged. It includes the
+        dataset files and doesn't need a database to build.</p>
+
+    <h2 id="run-the-api">9. Run the API</h2>
+    <p>There are two ways to run the API. Use one at a time: both listen on port 8080, so stop one before starting the
+        other.</p>
+    <table>
+        <thead>
+        <tr>
+            <th></th>
+            <th>Manual</th>
+            <th>systemd service</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Survives logging out of SSH</td>
+            <td>Yes, with <code>nohup</code></td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>Survives a reboot</td>
+            <td>No. Start it again by hand.</td>
+            <td>Yes. It starts at boot.</td>
+        </tr>
+        <tr>
+            <td>Restarts if it crashes</td>
+            <td>No</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>Logs</td>
+            <td><code>~/wicit-api.log</code></td>
+            <td><code>journalctl -u wicit-api</code></td>
+        </tr>
+        </tbody>
+    </table>
+    <p>In both, <code>-Xmx384m</code> caps the heap so the API, PostgreSQL and Caddy fit in 1 GB.</p>
+
+    <h3 id="run-manually">Option 1: Run it manually</h3>
+    <p>Start the API in the background from <code>api-wicit-java</code>. The API reads <code>.env</code> from the
+        folder it starts in, so run it from there:</p>
+    <pre><code>cd ~/api-wicit-doc/api-wicit-java
+nohup java -Xmx384m -jar build/libs/wicit-api-0.0.1-SNAPSHOT.jar &gt; ~/wicit-api.log 2&gt;&amp;1 &amp;</code></pre>
+    <p><code>nohup</code> keeps it running after you log out of SSH. It stops when the instance reboots. Check that it
+        started with the <code>prod</code> profile and is healthy:</p>
+    <pre><code>grep 'profile is active' ~/wicit-api.log
+curl http://127.0.0.1:8080/actuator/health</code></pre>
+    <p>The log should say <code>The following 1 profile is active: "prod"</code>, and the health check returns
+        <code>{"status":"UP"}</code> once the API has connected to the database. It can take half a minute to start.
+        To follow the log, run <code>tail -f ~/wicit-api.log</code>.</p>
+    <p>To check whether it is running, and to stop it:</p>
+    <pre><code>pgrep -af wicit-api
+pkill -f '[w]icit-api-0.0.1-SNAPSHOT.jar'</code></pre>
+    <p>To run it in the foreground instead, for example while you debug, leave out <code>nohup</code>, the redirect and
+        the <code>&amp;</code>. The log then prints to the terminal, and <kbd>Ctrl</kbd>+<kbd>C</kbd> stops it. It
+        also stops when you log out.</p>
+
+    <h3 id="run-as-a-service">Option 2: Run it as a systemd service</h3>
+    <p>systemd starts the API at boot and restarts it if it stops. If the API is running manually, stop it first with
+        <code>pkill -f '[w]icit-api-0.0.1-SNAPSHOT.jar'</code>. Then create the service file. Copy the whole command,
+        through the final <code>EOF</code>. It replaces the file, so running it again is safe:</p>
+    <pre><code>sudo tee /etc/systemd/system/wicit-api.service &gt; /dev/null &lt;&lt;'EOF'
+[Unit]
+Description=WICit API
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+User=ec2-user
+WorkingDirectory=/home/ec2-user/api-wicit-doc/api-wicit-java
+EnvironmentFile=/home/ec2-user/api-wicit-doc/api-wicit-java/.env
+ExecStart=/opt/java/corretto-27/bin/java -Xmx384m -jar build/libs/wicit-api-0.0.1-SNAPSHOT.jar
+SuccessExitStatus=143
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF</code></pre>
+    <p>Start the service, set it to start at boot, and check it:</p>
+    <pre><code>sudo systemctl daemon-reload
+sudo systemctl enable --now wicit-api
+systemctl status wicit-api
+curl http://127.0.0.1:8080/actuator/health</code></pre>
+    <p>To follow the logs, run <code>journalctl -u wicit-api -f</code>. Other commands you may need:</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Command</th>
+            <th>What it does</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>sudo systemctl restart wicit-api</code></td>
+            <td>Restarts the API, for example after uploading a new jar.</td>
+        </tr>
+        <tr>
+            <td><code>sudo systemctl stop wicit-api</code></td>
+            <td>Stops it until the next start or reboot.</td>
+        </tr>
+        <tr>
+            <td><code>sudo systemctl disable wicit-api</code></td>
+            <td>Stops it from starting at boot, but keeps the service.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3 id="remove-the-service">Go back to running it manually</h3>
+    <p>To roll back from the service to the manual way, stop the service, turn off its start at boot, and delete it:</p>
+    <pre><code>sudo systemctl disable --now wicit-api
+sudo rm /etc/systemd/system/wicit-api.service
+sudo systemctl daemon-reload
+sudo systemctl reset-failed wicit-api 2&gt;/dev/null || true
+systemctl status wicit-api</code></pre>
+    <p>The last command should say <code>Unit wicit-api.service could not be found</code>. Nothing else changes: the
+        jar, <code>.env</code> and the database stay as they are. Start the API as in
+        <a href="#run-manually">Option 1</a>. To switch back to the service later, repeat
+        <a href="#run-as-a-service">Option 2</a>.</p>
+
+    <h2>10. Serve it over HTTPS with Caddy</h2>
+    <p>Caddy has no package for Amazon Linux, so download its single binary and give it a system user:</p>
+    <pre><code>sudo curl -fL -o /usr/local/bin/caddy "https://caddyserver.com/api/download?os=linux&amp;arch=amd64"
+sudo chmod +x /usr/local/bin/caddy
+caddy version
+sudo groupadd --system caddy
+sudo useradd --system --gid caddy --create-home --home-dir /var/lib/caddy --shell /sbin/nologin caddy
+sudo mkdir -p /etc/caddy</code></pre>
+    <p>Create <code>/etc/systemd/system/caddy.service</code>. This is Caddy's standard service file. It lets Caddy
+        listen on ports 80 and 443 without running as root:</p>
+    <pre><code>sudo tee /etc/systemd/system/caddy.service &gt; /dev/null &lt;&lt;'EOF'
+[Unit]
+Description=Caddy
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=notify
+User=caddy
+Group=caddy
+ExecStart=/usr/local/bin/caddy run --environ --config /etc/caddy/Caddyfile
+ExecReload=/usr/local/bin/caddy reload --config /etc/caddy/Caddyfile --force
+TimeoutStopSec=5s
+LimitNOFILE=1048576
+PrivateTmp=true
+ProtectSystem=full
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy=multi-user.target
+EOF</code></pre>
+    <p>Create <code>/etc/caddy/Caddyfile</code>:</p>
+    <pre><code>sudo tee /etc/caddy/Caddyfile &gt; /dev/null &lt;&lt;'EOF'
+{
+	# Requests to an IP address carry no server name, so tell Caddy which certificate to use.
+	default_sni 44.254.208.38
+}
+
+44.254.208.38 {
+	# Let's Encrypt only issues IP address certificates with its short-lived profile.
+	tls {
+		issuer acme {
+			profile shortlived
+		}
+	}
+	encode gzip
+	reverse_proxy 127.0.0.1:8080
+}
+EOF</code></pre>
+    <p>Check the file, then start Caddy and watch it get the certificate:</p>
+    <pre><code>caddy validate --config /etc/caddy/Caddyfile
+sudo systemctl daemon-reload
+sudo systemctl enable --now caddy
+journalctl -u caddy -f</code></pre>
+    <p>Then check from your own computer:</p>
+    <pre><code>curl https://44.254.208.38/actuator/health</code></pre>
+    <p>The API reads the <code>X-Forwarded-*</code> headers Caddy sends, so links it generates, such as in Swagger UI
+        at <code>https://44.254.208.38/swagger-ui.html</code>, use HTTPS.</p>
+    <p class="note">If Let's Encrypt refuses the IP address certificate, use the host name
+        <code>44-254-208-38.sslip.io</code>, which resolves to the same address. Put it in place of both
+        <code>44.254.208.38</code> lines in the Caddyfile and remove the global options block and the <code>tls</code>
+        block. Caddy then gets an ordinary 90-day certificate. Many people share sslip.io's Let's Encrypt limits, so an
+        IP address certificate or <a href="#use-api-findwic-com">api.findwic.com</a> is more reliable.</p>
+
+    <h2 id="point-the-website-at-the-api">11. Point the website at the API</h2>
+    <p>The website reads the API's address from <code>VITE_API_BASE_URL</code> when it is built. In the GitHub
+        repository that publishes the website, go to Settings → Secrets and variables → Actions → Variables. Set the
+        <code>VITE_API_BASE_URL</code> repository variable to <code>https://44.254.208.38</code>, with no trailing
+        slash. Then run the <code>Deploy to GitHub Pages</code> workflow again.</p>
+    <p>The API already allows requests from <code>https://*.github.io</code>, so no CORS change is needed. To check it
+        from your computer:</p>
+    <pre><code>curl -sI -H "Origin: https://natebass.github.io" https://44.254.208.38/api/datasets | grep -i access-control-allow-origin</code></pre>
+
+    <h2>Update the server</h2>
+    <p>After you change the code, build and upload the jar from your computer as in <a href="#build-and-upload">step
+        8</a>, then restart the API. If it runs as a service:</p>
+    <pre><code>ssh -i $Key $Server "sudo systemctl restart wicit-api"</code></pre>
+    <p>If it runs manually, stop it and start it again. A command sent over <code>ssh</code> doesn't load
+        <code>PATH</code> from <code>/etc/profile.d</code>, so it uses Java's full path. The brackets in
+        <code>[w]icit</code> stop <code>pkill</code> from matching, and killing, the SSH command itself:</p>
+    <pre><code>ssh -i $Key $Server "pkill -f '[w]icit-api-0.0.1-SNAPSHOT.jar'; sleep 3; cd ~/api-wicit-doc/api-wicit-java &amp;&amp; nohup /opt/java/corretto-27/bin/java -Xmx384m -jar build/libs/wicit-api-0.0.1-SNAPSHOT.jar &gt; ~/wicit-api.log 2&gt;&amp;1 &lt; /dev/null &amp;"</code></pre>
+    <p>After you change the schema or replace a data file, run <code>.\gradlew.bat update</code> locally, then dump,
+        upload and restore the database as in <a href="#load-the-data">step 7</a>. Restart the API afterwards.</p>
+    <p>Pull on the server too, so its copy of the repository matches what is running:</p>
+    <pre><code>ssh -i $Key $Server "cd ~/api-wicit-doc &amp;&amp; git pull"</code></pre>
+    <p class="note">Never run <code>./gradlew</code> on the instance. If it freezes, stop and start it from the EC2
+        console. The Elastic IP stays the same.</p>
+
+    <h2>Troubleshooting</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Problem</th>
+            <th>What to check</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>The service fails with <code>status=203/EXEC</code></td>
+            <td>systemd can't run <code>/opt/java/corretto-27/bin/java</code>. Run
+                <code>/opt/java/corretto-27/bin/java -version</code>. If it fails, recreate the link as in
+                <a href="#install-jdk">step 3</a>.
+            </td>
+        </tr>
+        <tr>
+            <td>The API stops at startup</td>
+            <td>For the service, <code>journalctl -u wicit-api -n 100</code>. For a manual run,
+                <code>tail -n 100 ~/wicit-api.log</code>. A missing <code>DB_</code> variable or a wrong password shows
+                up here.
+            </td>
+        </tr>
+        <tr>
+            <td>The instance freezes or the API is killed</td>
+            <td>The instance ran out of memory. Stop and start it from the EC2 console, check that swap is on with
+                <code>swapon --show</code>, and never run Gradle on it.
+            </td>
+        </tr>
+        <tr>
+            <td><code>Port 8080 was already in use</code></td>
+            <td>The API is already running the other way. Check with <code>pgrep -af wicit-api</code> and
+                <code>systemctl status wicit-api</code>, and stop one of them.
+            </td>
+        </tr>
+        <tr>
+            <td>Caddy can't get a certificate</td>
+            <td><code>journalctl -u caddy -n 100</code>. Check that ports 80 and 443 are open to everyone in the
+                security group.
+            </td>
+        </tr>
+        <tr>
+            <td>The browser blocks the website's requests</td>
+            <td>Open the developer console. A mixed-content error means <code>VITE_API_BASE_URL</code> starts with
+                <code>http://</code>. A CORS error means the website's origin isn't allowed in
+                <code>application.yaml</code>.
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2 id="use-api-findwic-com">Use api.findwic.com</h2>
+    <p>The <code>findwic.com</code> domain is managed in Route 53 in the organization's WICit AWS account. Point
+        <code>api.findwic.com</code> at the Elastic IP to give the API a stable name with an ordinary 90-day
+        certificate.</p>
+
+    <h3>Sign in with the SystemAdministrator role</h3>
+    <p>Open the organization's AWS access portal, expand the <strong>WICit</strong> account, and choose
+        <strong>SystemAdministrator</strong>, not AdministratorAccess. Use the least access the task needs.
+        SystemAdministrator includes full Route 53 access (<code>route53:*</code>) and can also edit the EC2 security
+        group.</p>
+
+    <h3>Add the DNS record</h3>
+    <ol>
+        <li>Open <strong>Route 53 → Hosted zones</strong> and choose <code>findwic.com</code>. If the zone isn't
+            there, the domain's DNS is hosted somewhere else. Run <code>dig NS findwic.com</code> to see which name
+            servers answer for it, and add the record there.
+        </li>
+        <li>Choose <strong>Create record</strong> and enter:
+            <table>
+                <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Record name</td>
+                    <td><code>api</code></td>
+                </tr>
+                <tr>
+                    <td>Record type</td>
+                    <td><code>A</code></td>
+                </tr>
+                <tr>
+                    <td>Alias</td>
+                    <td>Off. An Elastic IP isn't an alias target.</td>
+                </tr>
+                <tr>
+                    <td>Value</td>
+                    <td><code>44.254.208.38</code></td>
+                </tr>
+                <tr>
+                    <td>TTL</td>
+                    <td><code>300</code></td>
+                </tr>
+                <tr>
+                    <td>Routing policy</td>
+                    <td>Simple routing</td>
+                </tr>
+                </tbody>
+            </table>
+        </li>
+        <li>Choose <strong>Create records</strong>.</li>
+    </ol>
+    <p>No other record is needed. Don't add an <code>AAAA</code> record unless the instance has an IPv6 address.</p>
+
+    <h3>Check the CAA records</h3>
+    <p>CAA records list which certificate authorities may issue certificates for the domain. Check for them:</p>
+    <pre><code>dig +short CAA findwic.com</code></pre>
+    <p>If this prints nothing, Let's Encrypt is allowed and there is nothing to do. If it prints records and none of
+        them is <code>0 issue "letsencrypt.org"</code>, add that value to the existing <code>CAA</code> record for
+        <code>findwic.com</code> in the hosted zone.</p>
+
+    <h3>Check that the name resolves</h3>
+    <pre><code>dig +short api.findwic.com</code></pre>
+    <p>It should print <code>44.254.208.38</code>, usually within a few minutes.</p>
+
+    <h3>Or add it with the AWS CLI</h3>
+    <p>To use the CLI, set up a profile for the same account and role through the access portal, then sign in:</p>
+    <pre><code>aws configure sso --profile wicit-sysadmin
+aws sso login --profile wicit-sysadmin</code></pre>
+    <p>Find the hosted zone ID, then create or update the record:</p>
+    <pre><code>aws route53 list-hosted-zones-by-name --dns-name findwic.com --profile wicit-sysadmin \
+  --query 'HostedZones[0].Id' --output text
+
+aws route53 change-resource-record-sets --profile wicit-sysadmin \
+  --hosted-zone-id ZONE_ID \
+  --change-batch '{
+    "Comment": "WICit API on EC2",
+    "Changes": [{
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "api.findwic.com",
+        "Type": "A",
+        "TTL": 300,
+        "ResourceRecords": [{"Value": "44.254.208.38"}]
+      }
+    }]
+  }'</code></pre>
+    <p>Put the ID from the first command, without the <code>/hostedzone/</code> prefix, in place of
+        <code>ZONE_ID</code>.</p>
+
+    <h3>Serve the domain from Caddy</h3>
+    <p>Replace the whole of <code>/etc/caddy/Caddyfile</code>. Don't append to it: the global options block, the one
+        with no address, must come first and appear only once. Keep the IP address block until the website has
+        switched, so both addresses work in the meantime:</p>
+    <pre><code>sudo tee /etc/caddy/Caddyfile &gt; /dev/null &lt;&lt;'EOF'
+{
+	default_sni 44.254.208.38
+}
+
+api.findwic.com {
+	encode gzip
+	reverse_proxy 127.0.0.1:8080
+}
+
+44.254.208.38 {
+	tls {
+		issuer acme {
+			profile shortlived
+		}
+	}
+	encode gzip
+	reverse_proxy 127.0.0.1:8080
+}
+EOF</code></pre>
+    <p>Check the file, then reload Caddy and check the new name:</p>
+    <pre><code>caddy validate --config /etc/caddy/Caddyfile
+sudo systemctl reload caddy
+curl https://api.findwic.com/actuator/health</code></pre>
+    <p>If the reload fails, Caddy keeps running with its old configuration, so the new name gets a TLS error such as
+        <code>tlsv1 alert internal error</code>. Read the full error with
+        <code>journalctl -u caddy --no-pager -n 30</code>, fix the file, and reload again.</p>
+    <p>If Caddy can't get the certificate, check that the DNS record resolves and that ports 80 and 443 are open.</p>
+
+    <h3>Switch the website</h3>
+    <p>Set the <code>VITE_API_BASE_URL</code> repository variable to <code>https://api.findwic.com</code> and run the
+        <code>Deploy to GitHub Pages</code> workflow again, as in <a href="#point-the-website-at-the-api">step
+            11</a>. No CORS change is needed: the API allows the website's origins, and its own host name doesn't
+        matter for CORS.</p>
+    <p>Once the website uses the new name, you can remove the global options block and the
+        <code>44.254.208.38</code> block from the Caddyfile and reload Caddy.</p>
+{% endblock %}

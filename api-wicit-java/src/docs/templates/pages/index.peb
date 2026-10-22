@@ -1,0 +1,57 @@
+{% extends "base.peb" %}
+{% block title %}WICit Documentation{% endblock %}
+{% block content %}
+    <h1>WICit Documentation</h1>
+    <p class="lead">Developer documentation for WICit, the site that helps Californians find where to shop with WIC.</p>
+
+    <ul class="cards">
+        <li><a href="get-started.html"><strong>Prerequisites</strong><span>Tools to install before working on either project.</span></a>
+        </li>
+        <li><a href="get-started.html"><strong>Backend
+            setup</strong><span>The Spring Boot API in <code>api-wicit-java</code>.</span></a></li>
+        <li><a href="deploy.html"><strong>Deployment</strong><span>Run the API on EC2 behind HTTPS.</span></a>
+        </li>
+        <li><a href="get-started.html"><strong>Frontend setup</strong><span>The Vite+ website in <code>wicit</code>.</span></a>
+        </li>
+        <li><a href="data.html"><strong>Published data</strong><span>The CDPH WIC datasets and how they are stored in the database.</span></a>
+        </li>
+        <li><a href="api/index.html"><strong>API
+            reference</strong><span>Javadoc generated from the API source.</span></a></li>
+    </ul>
+
+    <h2>Repository layout</h2>
+    <p>This repository holds both applications. Run commands from the repository root with <code>make</code>, and open
+        each application folder in its own IDE window.</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Path</th>
+            <th>What it is</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>Makefile</code></td>
+            <td>Commands to run, build and test both applications. Run <code>make</code> to list them.</td>
+        </tr>
+        <tr>
+            <td><code>api-wicit-java/</code></td>
+            <td>The backend API: Java, Spring Boot and Gradle.</td>
+        </tr>
+        <tr>
+            <td><code>api-wicit-java/src/docs/</code></td>
+            <td>The source of this site.</td>
+        </tr>
+        <tr>
+            <td><code>wicit/</code></td>
+            <td>The frontend website: JavaScript, Vite+ and pnpm.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Quick start</h2>
+    <pre><code>git clone https://github.com/natebass/api-wicit-doc.git
+cd api-wicit-doc
+make backend     # start the API
+make frontend    # start the website at http://localhost:5173</code></pre>
+{% endblock %}

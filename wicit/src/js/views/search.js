@@ -1,26 +1,28 @@
 import { formatNumber, t, tCount, tHtml } from "../i18n/index.js";
+import { apiUrl } from "../lib/config.js";
 import { escapeHtml } from "../lib/utility.js";
 
 const RESULTS_PER_PAGE = 25;
 const DEBOUNCE = 200;
 
-/** @type {Promise<object[]> | null} Memoized promise for the bundled food dataset. */
-let foodsPromise = null;
-
 /**
- * Lazily load and cache the bundled approved-foods dataset.
+ * Search the California WIC Authorized Product List through the WICit API.
  *
- * @returns {Promise<object[]>}
+ * @param {string} query - Words to search for.
+ * @param {AbortSignal} signal - Cancels the request when a newer search starts.
+ * @returns {Promise<{items: object[], totalItems: number}>}
  */
-function loadFoods() {
-  if (!foodsPromise) {
-    foodsPromise = import("../../../sample_data/foods.json").then((m) => m.default);
-  }
-  return foodsPromise;
+async function searchProducts(query, signal) {
+  const response = await fetch(apiUrl("/api/products", { q: query, size: RESULTS_PER_PAGE }), {
+    headers: { Accept: "application/json" },
+    signal,
+  });
+  if (!response.ok) throw new Error(`Request failed: ${response.status}`);
+  return response.json();
 }
 
 /**
- * "Which Foods Qualify?" search page. Searches the bundled sample food list client-side.
+ * "Which Foods Qualify?" search page. Searches the authorized product list on the API.
  *
  * @returns {string} HTML for the search view.
  */
@@ -57,6 +59,8 @@ export function initSearchView() {
 
   let timeout = 0;
   let hasResults = false;
+  /** @type {AbortController | null} The request for the latest search, cancelled when another starts. */
+  let inFlight = null;
 
   /** HTML renderers for each state of the search results panel. */
   const render = {
@@ -69,8 +73,13 @@ export function initSearchView() {
         .map(
           (result) => `
             <li class="list-group-item">
-              ${escapeHtml(result["Brand Name"])} ${escapeHtml(result["Product Name"])}
-              <div class="upc">${tHtml("search.upc", { upc: result["UPC"] })}</div>
+              ${escapeHtml(result.description)}
+              <div class="category">${escapeHtml(result.subcategoryDescription ?? result.categoryDescription ?? "")}</div>
+              <div class="upc">${
+                result.codeType === "PLU"
+                  ? tHtml("search.plu", { plu: result.code })
+                  : tHtml("search.upc", { upc: result.code })
+              }</div>
             </li>`,
         )
         .join("");
@@ -87,8 +96,9 @@ export function initSearchView() {
   /** Read the input, debounce, and render the matching results state. */
   const submit = () => {
     const query = input.value.trim();
+    clearTimeout(timeout);
+    inFlight?.abort();
     if (!query) {
-      clearTimeout(timeout);
       hasResults = false;
       stateEl.innerHTML = render.initial();
       return;
@@ -96,33 +106,18 @@ export function initSearchView() {
 
     if (!hasResults) stateEl.innerHTML = render.pending();
 
-    clearTimeout(timeout);
     timeout = window.setTimeout(async () => {
+      const controller = new AbortController();
+      inFlight = controller;
       try {
-        const foods = await loadFoods();
-        const needle = query.toLowerCase();
-        const matches = foods.filter(
-          (food) =>
-            String(food["UPC"] ?? "")
-              .toLowerCase()
-              .includes(needle) ||
-            String(food["Brand Name"] ?? "")
-              .toLowerCase()
-              .includes(needle) ||
-            String(food["Product Name"] ?? "")
-              .toLowerCase()
-              .includes(needle) ||
-            String(food["Tags"] ?? "")
-              .toLowerCase()
-              .includes(needle),
-        );
-        hasResults = matches.length > 0;
-        if (matches.length) {
-          stateEl.innerHTML = render.results(matches.slice(0, RESULTS_PER_PAGE), matches.length);
-        } else {
-          stateEl.innerHTML = render.noResults(query);
-        }
-      } catch {
+        const page = await searchProducts(query, controller.signal);
+        hasResults = page.items.length > 0;
+        stateEl.innerHTML = hasResults
+          ? render.results(page.items, page.totalItems)
+          : render.noResults(query);
+      } catch (error) {
+        if (controller.signal.aborted) return;
+        console.error("Product search failed:", error);
         hasResults = false;
         stateEl.innerHTML = render.error();
       }

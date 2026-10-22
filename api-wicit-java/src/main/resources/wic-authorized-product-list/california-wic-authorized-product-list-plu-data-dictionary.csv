@@ -1,0 +1,8 @@
+column,type,label,description
+PLU,text,,
+CATEGORY,text,,
+CATEGORY_DESCRIPTION,text,,
+SUBCATEGORY,text,,
+SUBCATEGORY_DESCRIPTION,text,,
+PRODUCT_DESCRIPTION_AND_SIZE,text,,
+UOM,text,,

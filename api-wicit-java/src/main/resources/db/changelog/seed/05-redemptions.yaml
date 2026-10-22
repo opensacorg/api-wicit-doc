@@ -1,0 +1,148 @@
+# Loads "California Women Infants and Children Program Redemption by County".
+# Parts A, B and C (family counts) go into redemption_by_family; the 2010-2018 participant category
+# file goes into redemption_by_participant_category.
+databaseChangeLog:
+  - changeSet:
+      id: seed-redemption-by-family
+      author: wicit
+      context: seed
+      runOnChange: true
+      changes:
+        - sql:
+            sql: >
+              DROP TABLE IF EXISTS stg_redemption_part_a;
+              DROP TABLE IF EXISTS stg_redemption_part_b;
+              DROP TABLE IF EXISTS stg_redemption_part_c;
+              CREATE TABLE stg_redemption_part_a (c0 text, c1 text, c2 text, c3 text, c4 text, c5 text, c6 text, c7 text, c8 text, c9 text);
+              CREATE TABLE stg_redemption_part_b (c0 text, c1 text, c2 text, c3 text, c4 text, c5 text, c6 text, c7 text, c8 text, c9 text, c10 text, c11 text);
+              CREATE TABLE stg_redemption_part_c (c0 text, c1 text, c2 text, c3 text, c4 text, c5 text, c6 text, c7 text, c8 text, c9 text)
+        - loadData:
+            tableName: stg_redemption_part_a
+            file: california-women-infants-and-children-program-redemption-by-county/2010-2018-part-a-wic-redemptions-by-vendor-county-with-family-counts.csv
+            encoding: UTF-8
+            usePreparedStatements: true
+            columns:
+              - column: { index: 0, name: c0, type: STRING }
+              - column: { index: 1, name: c1, type: STRING }
+              - column: { index: 2, name: c2, type: STRING }
+              - column: { index: 3, name: c3, type: STRING }
+              - column: { index: 4, name: c4, type: STRING }
+              - column: { index: 5, name: c5, type: STRING }
+              - column: { index: 6, name: c6, type: STRING }
+              - column: { index: 7, name: c7, type: STRING }
+              - column: { index: 8, name: c8, type: STRING }
+              - column: { index: 9, name: c9, type: STRING }
+        - loadData:
+            tableName: stg_redemption_part_b
+            file: california-women-infants-and-children-program-redemption-by-county/2019-2020-part-b-wic-redemptions-by-vendor-county-with-family-counts.csv
+            encoding: UTF-8
+            usePreparedStatements: true
+            columns:
+              - column: { index: 0, name: c0, type: STRING }
+              - column: { index: 1, name: c1, type: STRING }
+              - column: { index: 2, name: c2, type: STRING }
+              - column: { index: 3, name: c3, type: STRING }
+              - column: { index: 4, name: c4, type: STRING }
+              - column: { index: 5, name: c5, type: STRING }
+              - column: { index: 6, name: c6, type: STRING }
+              - column: { index: 7, name: c7, type: STRING }
+              - column: { index: 8, name: c8, type: STRING }
+              - column: { index: 9, name: c9, type: STRING }
+              - column: { index: 10, name: c10, type: STRING }
+              - column: { index: 11, name: c11, type: STRING }
+        - loadData:
+            tableName: stg_redemption_part_c
+            file: california-women-infants-and-children-program-redemption-by-county/2021-2025-forward-part-c-wic-ebt-redemptions-by-vendor-county-with-family-counts.csv
+            encoding: UTF-8
+            usePreparedStatements: true
+            columns:
+              - column: { index: 0, name: c0, type: STRING }
+              - column: { index: 1, name: c1, type: STRING }
+              - column: { index: 2, name: c2, type: STRING }
+              - column: { index: 3, name: c3, type: STRING }
+              - column: { index: 4, name: c4, type: STRING }
+              - column: { index: 5, name: c5, type: STRING }
+              - column: { index: 6, name: c6, type: STRING }
+              - column: { index: 7, name: c7, type: STRING }
+              - column: { index: 8, name: c8, type: STRING }
+              - column: { index: 9, name: c9, type: STRING }
+        - sql:
+            sql: >
+              DELETE FROM redemption_by_family;
+              INSERT INTO redemption_by_family (part, vendor_county_code, vendor_county, year, month, families_redeemed,
+                                                food_instruments_redeemed, food_instrument_dollars, average_cost_per_family,
+                                                statewide_infant_formula_rebate, total_cost_adjusted, average_cost_adjusted)
+              SELECT 'A', wic_numeric(c0)::smallint, wic_text(c1), wic_period_year(c2), wic_period_month(c2),
+                     wic_numeric(c3)::integer, wic_numeric(c4)::integer, wic_numeric(c5), wic_numeric(c6),
+                     wic_numeric(c7), wic_numeric(c8), wic_numeric(c9)
+              FROM stg_redemption_part_a
+              WHERE wic_text(c2) IS NOT NULL;
+              INSERT INTO redemption_by_family (part, vendor_county_code, vendor_county, year, month, families_redeemed,
+                                                food_instruments_redeemed, food_instrument_dollars, ebt_transactions,
+                                                ebt_dollars, average_cost_per_family, statewide_infant_formula_rebate,
+                                                total_cost_adjusted, average_cost_adjusted)
+              SELECT 'B', wic_numeric(c0)::smallint, wic_text(c1), wic_period_year(c2), wic_period_month(c2),
+                     wic_numeric(c3)::integer, wic_numeric(c4)::integer, wic_numeric(c5), wic_numeric(c6)::integer,
+                     wic_numeric(c7), wic_numeric(c8), wic_numeric(c9), wic_numeric(c10), wic_numeric(c11)
+              FROM stg_redemption_part_b
+              WHERE wic_text(c2) IS NOT NULL;
+              INSERT INTO redemption_by_family (part, vendor_county_code, vendor_county, year, month, families_redeemed,
+                                                ebt_transactions, ebt_dollars, average_cost_per_family,
+                                                statewide_infant_formula_rebate, total_cost_adjusted, average_cost_adjusted)
+              SELECT 'C', wic_numeric(c0)::smallint, wic_text(c1), wic_period_year(c2), wic_period_month(c2),
+                     wic_numeric(c3)::integer, wic_numeric(c4)::integer, wic_numeric(c5), wic_numeric(c6),
+                     wic_numeric(c7), wic_numeric(c8), wic_numeric(c9)
+              FROM stg_redemption_part_c
+              WHERE wic_text(c2) IS NOT NULL
+        - dropTable:
+            tableName: stg_redemption_part_a
+        - dropTable:
+            tableName: stg_redemption_part_b
+        - dropTable:
+            tableName: stg_redemption_part_c
+
+  - changeSet:
+      id: seed-redemption-by-participant-category
+      author: wicit
+      context: seed
+      runOnChange: true
+      changes:
+        - sql:
+            sql: >
+              DROP TABLE IF EXISTS stg_redemption_by_category;
+              CREATE TABLE stg_redemption_by_category (c0 text, c1 text, c2 text, c3 text, c4 text, c5 text, c6 text, c7 text, c8 text, c9 text, c10 text)
+        - loadData:
+            tableName: stg_redemption_by_category
+            file: california-women-infants-and-children-program-redemption-by-county/wic-redemption-by-vendor-county-by-participant-category-data-2010-2018-.csv
+            encoding: UTF-8
+            usePreparedStatements: true
+            columns:
+              - column: { index: 0, name: c0, type: STRING }
+              - column: { index: 1, name: c1, type: STRING }
+              - column: { index: 2, name: c2, type: STRING }
+              - column: { index: 3, name: c3, type: STRING }
+              - column: { index: 4, name: c4, type: STRING }
+              - column: { index: 5, name: c5, type: STRING }
+              - column: { index: 6, name: c6, type: STRING }
+              - column: { index: 7, name: c7, type: STRING }
+              - column: { index: 8, name: c8, type: STRING }
+              - column: { index: 9, name: c9, type: STRING }
+              - column: { index: 10, name: c10, type: STRING }
+        - sql:
+            # County names are published in capitals here; they are stored in title case to match the
+            # other tables. "STATEWIDE ANNUAL" becomes "Statewide" (its rows are annual) and "ALL" becomes "All".
+            sql: >
+              DELETE FROM redemption_by_participant_category;
+              INSERT INTO redemption_by_participant_category (vendor_county, participant_category, year, month,
+                                                              participants_redeemed, vouchers_redeemed, total_cost, average_cost,
+                                                              statewide_infant_formula_rebate, total_cost_adjusted,
+                                                              average_cost_adjusted, state_average_cost_adjusted)
+              SELECT CASE WHEN upper(wic_text(c0)) LIKE 'STATEWIDE%' THEN 'Statewide' ELSE initcap(wic_text(c0)) END,
+                     CASE WHEN upper(wic_text(c1)) = 'ALL' THEN 'All' ELSE wic_text(c1) END,
+                     wic_period_year(c2), wic_period_month(c2),
+                     wic_numeric(c3)::integer, wic_numeric(c4)::integer, wic_numeric(c5), wic_numeric(c6),
+                     wic_numeric(c7), wic_numeric(c8), wic_numeric(c9), wic_numeric(c10)
+              FROM stg_redemption_by_category
+              WHERE wic_text(c2) IS NOT NULL
+        - dropTable:
+            tableName: stg_redemption_by_category

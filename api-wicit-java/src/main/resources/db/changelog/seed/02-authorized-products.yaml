@@ -1,0 +1,60 @@
+# Loads the "California WIC Authorized Product List" UPC and PLU files into authorized_product.
+databaseChangeLog:
+  - changeSet:
+      id: seed-authorized-product
+      author: wicit
+      context: seed
+      runOnChange: true
+      changes:
+        - sql:
+            sql: >
+              DROP TABLE IF EXISTS stg_product_upc;
+              DROP TABLE IF EXISTS stg_product_plu;
+              CREATE TABLE stg_product_upc (c0 text, c1 text, c2 text, c3 text, c4 text, c5 text, c6 text, c7 text);
+              CREATE TABLE stg_product_plu (c0 text, c1 text, c2 text, c3 text, c4 text, c5 text, c6 text)
+        - loadData:
+            tableName: stg_product_upc
+            file: wic-authorized-product-list/california-wic-authorized-product-list-upc.csv
+            encoding: UTF-8
+            usePreparedStatements: true
+            columns:
+              - column: { index: 0, name: c0, type: STRING }
+              - column: { index: 1, name: c1, type: STRING }
+              - column: { index: 2, name: c2, type: STRING }
+              - column: { index: 3, name: c3, type: STRING }
+              - column: { index: 4, name: c4, type: STRING }
+              - column: { index: 5, name: c5, type: STRING }
+              - column: { index: 6, name: c6, type: STRING }
+              - column: { index: 7, name: c7, type: STRING }
+        - loadData:
+            tableName: stg_product_plu
+            file: wic-authorized-product-list/california-wic-authorized-product-list-plu.csv
+            encoding: UTF-8
+            usePreparedStatements: true
+            columns:
+              - column: { index: 0, name: c0, type: STRING }
+              - column: { index: 1, name: c1, type: STRING }
+              - column: { index: 2, name: c2, type: STRING }
+              - column: { index: 3, name: c3, type: STRING }
+              - column: { index: 4, name: c4, type: STRING }
+              - column: { index: 5, name: c5, type: STRING }
+              - column: { index: 6, name: c6, type: STRING }
+        - sql:
+            sql: >
+              DELETE FROM authorized_product;
+              INSERT INTO authorized_product (code_type, code, category_code, category_description, subcategory_code,
+                                              subcategory_description, description, unit_of_measure, fruit_vegetable_type)
+              SELECT 'UPC', wic_text(c0), wic_text(c1), wic_text(c2), wic_text(c3), wic_text(c4), wic_text(c5),
+                     wic_text(c6), wic_text(c7)
+              FROM stg_product_upc
+              WHERE wic_text(c0) IS NOT NULL;
+              INSERT INTO authorized_product (code_type, code, category_code, category_description, subcategory_code,
+                                              subcategory_description, description, unit_of_measure)
+              SELECT 'PLU', wic_text(c0), wic_text(c1), wic_text(c2), wic_text(c3), wic_text(c4), wic_text(c5),
+                     wic_text(c6)
+              FROM stg_product_plu
+              WHERE wic_text(c0) IS NOT NULL
+        - dropTable:
+            tableName: stg_product_upc
+        - dropTable:
+            tableName: stg_product_plu

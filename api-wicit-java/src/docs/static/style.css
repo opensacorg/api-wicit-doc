@@ -1,0 +1,196 @@
+:root {
+    color-scheme: light dark;
+    --bg: #ffffff;
+    --fg: #1f2328;
+    --muted: #59636e;
+    --accent: #0b6e4f;
+    --border: #d1d9e0;
+    --code-bg: #f6f8fa;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0d1117;
+        --fg: #e6edf3;
+        --muted: #9198a1;
+        --accent: #3fb68b;
+        --border: #3d444d;
+        --code-bg: #151b23;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+header {
+    border-bottom: 1px solid var(--border);
+}
+
+header nav,
+main {
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+header nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 20px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+header nav a {
+    color: var(--muted);
+    text-decoration: none;
+}
+
+header nav a:hover,
+header nav a[aria-current="page"] {
+    color: var(--fg);
+}
+
+header nav {
+    align-items: center;
+}
+
+header nav a.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--fg);
+    font-weight: 600;
+    margin-right: auto;
+}
+
+header nav a.brand img {
+    display: block;
+}
+
+/* The logo's wordmark is dark gray. Inverting lightness while keeping hue makes it light on a dark
+   background and leaves the green leaves green. */
+@media (prefers-color-scheme: dark) {
+    header nav a.brand img {
+        filter: invert(1) hue-rotate(180deg);
+    }
+}
+
+main {
+    padding-top: 24px;
+    padding-bottom: 64px;
+}
+
+h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin: 0 0 8px;
+}
+
+h2 {
+    font-size: 1.35rem;
+    margin: 40px 0 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+}
+
+h3 {
+    font-size: 1.05rem;
+    margin: 24px 0 4px;
+}
+
+.lead {
+    color: var(--muted);
+    font-size: 1.1rem;
+    margin-top: 0;
+}
+
+a {
+    color: var(--accent);
+}
+
+code, pre {
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    font-size: 0.9em;
+    background: var(--code-bg);
+    border-radius: 6px;
+}
+
+code {
+    padding: 0.1em 0.35em;
+}
+
+pre {
+    padding: 12px 16px;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+}
+
+pre code {
+    padding: 0;
+    background: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+}
+
+th, td {
+    text-align: left;
+    vertical-align: top;
+    padding: 6px 12px 6px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    font-weight: 600;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 12px;
+    padding: 0;
+    list-style: none;
+}
+
+.cards a {
+    display: block;
+    height: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: inherit;
+    text-decoration: none;
+}
+
+.cards a:hover {
+    border-color: var(--accent);
+}
+
+.cards strong {
+    display: block;
+    color: var(--accent);
+}
+
+.cards span {
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.note {
+    border-left: 3px solid var(--accent);
+    padding: 4px 0 4px 14px;
+    color: var(--muted);
+}

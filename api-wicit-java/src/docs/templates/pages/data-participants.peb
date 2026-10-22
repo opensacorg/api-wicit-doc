@@ -1,0 +1,213 @@
+{% extends "base.peb" %}
+{% block title %}Participants by County{% endblock %}
+{% block content %}
+    <h1>WIC Participants by County</h1>
+    <p class="lead">Source: <a href="https://data.chhs.ca.gov/dataset/cdph-wic-participants-by-county">data.chhs.ca.gov/dataset/cdph-wic-participants-by-county</a>
+    </p>
+
+    <h2>About the dataset</h2>
+    <h3>WIC Program Overview</h3>
+    <p>The Women, Infants and Children (WIC) Program is a federally funded health and nutrition program that provides
+        assistance to pregnant and postpartum individuals, infants, and children up to age five. WIC supports California
+        families by offering:</p>
+    <ul>
+        <li>Food benefits based on individual participants’ nutritional needs and risk assessment;</li>
+        <li>Nutritional education and breastfeeding support;</li>
+        <li>Healthcare referrals and other community services.</li>
+    </ul>
+    <p>Participants must also meet income guidelines and other criteria. Currently, 84 WIC local agencies provide
+        services monthly to approximately one million participants at 500 sites in local communities throughout the
+        State. The food benefits can be used to purchase healthy supplemental foods from WIC authorized vendor stores
+        throughout the State (about 3,700 in 2024). Certified WIC participants are individuals who have completed the
+        eligibility and enrollment process and are approved to receive benefits and services. Participating WIC clients
+        refer to certified individuals who are actively issued benefits during a specific reporting period.</p>
+
+    <h3>Report File Overview</h3>
+    <p>There are two reports providing detailed information about WIC participants by year and month in California,
+        including:</p>
+    <p><strong>Report 1: WIC Participants by County of Residence and by WIC Category</strong></p>
+    <p>This report counts the number of certified WIC participants, participants issued benefits, and participants
+        redeeming benefits (only for Food Instrument [FI] benefits) in each county in California by WIC Category for
+        each year and month. Category in the report is defined as Breastfeeding, Child Aged 1-4, Infant,
+        Non-Breastfeeding, and Prenatal. Statewide totals are included.</p>
+    <p><strong>Report 2: WIC Participants by County of Residence and by Race/Ethnicity</strong></p>
+    <p>This report counts the number of certified WIC participants (those who met eligibility criteria), participants
+        issued food benefits, and participants redeeming benefits (only for FI benefits) in each county in California by
+        race/ethnicity and for each year and month. Race/ethnicity in the report is defined as Hispanic, Non-Hispanic
+        African American, Non-Hispanic Asian, Non-Hispanic White, and Non-Hispanic Other. Statewide totals are included.
+        For definitions and coding structure for County of Residence, WIC Category, race/ethnicity; certified
+        participants, issued participants, and redeemed participants please see the Data Dictionary file.</p>
+
+    <h3>Note regarding transition to Electronic Benefit Transfer</h3>
+    <p>Each report listed above is split into two files: 1) 2010-2018 data and 2) 2019 data onward. This is due to the
+        transition to electronic benefit transfer in June 2019. Prior to June 2019, WIC issued paper food instruments
+        (FIs {i.e., WIC checks}) to individual participants for purchasing supplemental, nutritious foods. Between June
+        2019 and March 2020, California WIC transitioned from the FI delivery system to a new Electronic Benefit
+        Transfer (EBT) system. With the new system, each family’s WIC food benefits are loaded to its EBT account and
+        accessed by its California WIC card, which works like a debit card. As a result of the change, the benefit
+        redemptions (i.e., purchases) are no longer recorded at the individual level, but at the family level; which
+        results in the 2019 and later data file not including a “Number of Redeemed Participants” column.</p>
+
+    <h3>Note on small sample sizes</h3>
+    <p>To ensure WIC participant anonymity, small cells are suppressed when the number of WIC participants is fewer than
+        11. The suppressed cells are annotated as “. “. Due to consistently small numbers, data for Alpine and Sierra
+        counties are not shared, although they are included in the Statewide records. Statewide records are provided
+        under the Category of “County of Residence”.</p>
+
+    <h2>Published files</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>File</th>
+            <th>Rows</th>
+            <th>Contents</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>wic-participants-by-county-of-residence-and-by-wic-category-2010-2018.csv</code></td>
+            <td>53,352</td>
+            <td>Report 1, 2010 to 2018.</td>
+        </tr>
+        <tr>
+            <td><code>wic-participants-by-county-of-residence-and-by-wic-category-2019-onwards.csv</code></td>
+            <td>35,568</td>
+            <td>Report 1, 2019 onward.</td>
+        </tr>
+        <tr>
+            <td><code>wic-participants-by-county-of-residence-and-by-race-ethnicity-2010-2018.csv</code></td>
+            <td>32,806</td>
+            <td>Report 2, 2010 to 2018.</td>
+        </tr>
+        <tr>
+            <td><code>wic-participants-by-county-of-residence-and-by-race-ethnicity-2019-onwards.csv</code></td>
+            <td>21,820</td>
+            <td>Report 2, 2019 onward.</td>
+        </tr>
+        <tr>
+            <td><code>*-data-dictionary.csv</code></td>
+            <td></td>
+            <td>One data dictionary per file, with the county codes.</td>
+        </tr>
+        <tr>
+            <td><code>datapackage.json</code></td>
+            <td></td>
+            <td>Dataset metadata.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>How it is stored in our database</h2>
+    <p>Loaded by <code>db/changelog/seed/04-participants.yaml</code>. Each report's two files go into one table, so a
+        query can span 2010 to today. The 2019 onward files have no redeemed participants column, so <code>redeemed_participants</code>
+        is <code>NULL</code> from 2019.</p>
+
+    <h3><code>participants_by_category</code> (Report 1)</h3>
+    <p>88,920 rows. Indexed on <code>(county, year, month)</code>.</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Column</th>
+            <th>Type</th>
+            <th>Published column</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>id</code></td>
+            <td>bigint</td>
+            <td>Generated key.</td>
+        </tr>
+        <tr>
+            <td><code>county_code</code></td>
+            <td>smallint</td>
+            <td>COUNTY CODE. Published as <code>00</code>–<code>58</code> in the 2010-2018 files and
+                <code>0</code>–<code>58</code> in the 2019 files; stored as a number. <code>0</code> is Statewide.
+            </td>
+        </tr>
+        <tr>
+            <td><code>county</code></td>
+            <td>varchar(50)</td>
+            <td>COUNTY OF RESIDENCE, or <code>Statewide</code>.</td>
+        </tr>
+        <tr>
+            <td><code>year</code></td>
+            <td>smallint</td>
+            <td rowspan="2">YEAR MONTH. <code>2010</code> is an annual row (<code>month</code> is <code>NULL</code>);
+                <code>201001</code> is January 2010.
+            </td>
+        </tr>
+        <tr>
+            <td><code>month</code></td>
+            <td>smallint</td>
+        </tr>
+        <tr>
+            <td><code>category</code></td>
+            <td>varchar(50)</td>
+            <td>CATEGORY: Breastfeeding, Child Aged 1, Child Aged 2, Child Aged 3, Child Aged 4, Infant,
+                Non-Breastfeeding or Prenatal.
+            </td>
+        </tr>
+        <tr>
+            <td><code>certified_participants</code></td>
+            <td>integer</td>
+            <td>NUMBER OF CERTIFIED PARTICIPANTS</td>
+        </tr>
+        <tr>
+            <td><code>issued_participants</code></td>
+            <td>integer</td>
+            <td>NUMBER OF ISSUED PARTICIPANTS</td>
+        </tr>
+        <tr>
+            <td><code>redeemed_participants</code></td>
+            <td>integer</td>
+            <td>NUMBER OF REDEEMED PARTICIPANTS. 2010-2018 only.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3><code>participants_by_race_ethnicity</code> (Report 2)</h3>
+    <p>54,626 rows. The same columns as Report 1, with <code>race_ethnicity</code> (varchar(50), from RACE ETHNICITY) in
+        place of <code>category</code>: Hispanic, Non-Hispanic African American, Non-Hispanic Asian, Non-Hispanic White
+        or Non-Hispanic Other.</p>
+
+    <h3>Notes</h3>
+    <ul>
+        <li>Suppressed cells, published as <code>.</code>, are stored as <code>NULL</code>. The 2019 onward files also
+            write counts with thousands separators (<code>"816,721"</code>); they are stored as plain integers.
+        </li>
+        <li>The description says Report 1 uses "Child Aged 1-4". The files split it into four categories, Child Aged 1
+            to Child Aged 4, and the table keeps them separate.
+        </li>
+        <li>Alpine and Sierra have no rows of their own, but are counted in the Statewide rows. So the counties do not
+            add up to Statewide.
+        </li>
+    </ul>
+
+    <h2>API</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Request</th>
+            <th>Returns</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>GET /api/participants/by-category</code></td>
+            <td>Pages of Report 1 rows. Takes <code>category</code>.</td>
+        </tr>
+        <tr>
+            <td><code>GET /api/participants/by-race-ethnicity</code></td>
+            <td>Pages of Report 2 rows. Takes <code>raceEthnicity</code>.</td>
+        </tr>
+        </tbody>
+    </table>
+    <p>Both take <code>county</code>, <code>year</code>, <code>month</code>, <code>annual</code>, <code>page</code> and
+        <code>size</code> (up to 1,000). The category or race/ethnicity is returned in a <code>group</code> field.</p>
+    <pre><code>GET /api/participants/by-category?county=Sacramento&amp;year=2024&amp;month=6</code></pre>
+    <pre><code>SELECT category, certified_participants, issued_participants
+FROM participants_by_category
+WHERE county = 'Sacramento' AND year = 2024 AND month = 6
+ORDER BY category;</code></pre>
+{% endblock %}

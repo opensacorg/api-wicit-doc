@@ -1,0 +1,96 @@
+# Loads "WIC Participants by County" (reports 1 and 2, both date ranges) into participants_by_category
+# and participants_by_race_ethnicity. The 2019 onwards files have no redeemed participants column.
+databaseChangeLog:
+  - changeSet:
+      id: seed-participants-by-category
+      author: wicit
+      context: seed
+      runOnChange: true
+      changes:
+        - sql:
+            sql: >
+              DROP TABLE IF EXISTS stg_participants_by_category;
+              CREATE TABLE stg_participants_by_category (c0 text, c1 text, c2 text, c3 text, c4 text, c5 text, c6 text)
+        - loadData:
+            tableName: stg_participants_by_category
+            file: cdph-wic-participants-by-county/wic-participants-by-county-of-residence-and-by-wic-category-2010-2018.csv
+            encoding: UTF-8
+            usePreparedStatements: true
+            columns:
+              - column: { index: 0, name: c0, type: STRING }
+              - column: { index: 1, name: c1, type: STRING }
+              - column: { index: 2, name: c2, type: STRING }
+              - column: { index: 3, name: c3, type: STRING }
+              - column: { index: 4, name: c4, type: STRING }
+              - column: { index: 5, name: c5, type: STRING }
+              - column: { index: 6, name: c6, type: STRING }
+        - loadData:
+            tableName: stg_participants_by_category
+            file: cdph-wic-participants-by-county/wic-participants-by-county-of-residence-and-by-wic-category-2019-onwards.csv
+            encoding: UTF-8
+            usePreparedStatements: true
+            columns:
+              - column: { index: 0, name: c0, type: STRING }
+              - column: { index: 1, name: c1, type: STRING }
+              - column: { index: 2, name: c2, type: STRING }
+              - column: { index: 3, name: c3, type: STRING }
+              - column: { index: 4, name: c4, type: STRING }
+              - column: { index: 5, name: c5, type: STRING }
+        - sql:
+            sql: >
+              DELETE FROM participants_by_category;
+              INSERT INTO participants_by_category (county_code, county, year, month, category,
+                                                    certified_participants, issued_participants, redeemed_participants)
+              SELECT wic_numeric(c0)::smallint, wic_text(c1), wic_period_year(c2), wic_period_month(c2), wic_text(c3),
+                     wic_numeric(c4)::integer, wic_numeric(c5)::integer, wic_numeric(c6)::integer
+              FROM stg_participants_by_category
+              WHERE wic_text(c2) IS NOT NULL
+        - dropTable:
+            tableName: stg_participants_by_category
+
+  - changeSet:
+      id: seed-participants-by-race-ethnicity
+      author: wicit
+      context: seed
+      runOnChange: true
+      changes:
+        - sql:
+            sql: >
+              DROP TABLE IF EXISTS stg_participants_by_race_ethnicity;
+              CREATE TABLE stg_participants_by_race_ethnicity (c0 text, c1 text, c2 text, c3 text, c4 text, c5 text, c6 text)
+        - loadData:
+            tableName: stg_participants_by_race_ethnicity
+            file: cdph-wic-participants-by-county/wic-participants-by-county-of-residence-and-by-race-ethnicity-2010-2018.csv
+            encoding: UTF-8
+            usePreparedStatements: true
+            columns:
+              - column: { index: 0, name: c0, type: STRING }
+              - column: { index: 1, name: c1, type: STRING }
+              - column: { index: 2, name: c2, type: STRING }
+              - column: { index: 3, name: c3, type: STRING }
+              - column: { index: 4, name: c4, type: STRING }
+              - column: { index: 5, name: c5, type: STRING }
+              - column: { index: 6, name: c6, type: STRING }
+        - loadData:
+            tableName: stg_participants_by_race_ethnicity
+            file: cdph-wic-participants-by-county/wic-participants-by-county-of-residence-and-by-race-ethnicity-2019-onwards.csv
+            encoding: UTF-8
+            usePreparedStatements: true
+            columns:
+              - column: { index: 0, name: c0, type: STRING }
+              - column: { index: 1, name: c1, type: STRING }
+              - column: { index: 2, name: c2, type: STRING }
+              - column: { index: 3, name: c3, type: STRING }
+              - column: { index: 4, name: c4, type: STRING }
+              - column: { index: 5, name: c5, type: STRING }
+        - sql:
+            sql: >
+              DELETE FROM participants_by_race_ethnicity;
+              INSERT INTO participants_by_race_ethnicity (county_code, county, year, month, race_ethnicity,
+                                                          certified_participants, issued_participants, redeemed_participants)
+              SELECT wic_numeric(c0)::smallint, wic_text(c1), wic_period_year(c2), wic_period_month(c2), wic_text(c3),
+                     wic_numeric(c4)::integer, wic_numeric(c5)::integer, wic_numeric(c6)::integer
+              FROM stg_participants_by_race_ethnicity
+              WHERE wic_text(c2) IS NOT NULL
+        - dropTable:
+            tableName: stg_participants_by_race_ethnicity

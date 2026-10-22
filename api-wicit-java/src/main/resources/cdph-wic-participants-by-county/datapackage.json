@@ -1,0 +1,240 @@
+{
+  "accrual_periodicity": "annually",
+  "additional_limitations": "",
+  "citation": "",
+  "contact_email": "WICdata@cdph.ca.gov",
+  "data_collection_tool": "",
+  "data_license": "Terms of Use",
+  "de_identification_method": "To ensure WIC participant anonymity, small cells are suppressed when the number of WIC participants is fewer than 11. The suppressed cells are annotated as “. “. Due to consistently small numbers, data for Alpine and Sierra counties are not shared, although they are included in the Statewide records. Statewide records are provided under the Category of “County of Residence”.\r\n",
+  "description": "**WIC Program Overview**\r\n\r\nThe Women, Infants and Children (WIC) Program is a federally funded health and nutrition program that provides assistance to pregnant and postpartum individuals, infants, and children up to age five. WIC supports California families by offering: \r\n\r\n- Food benefits based on individual participants’ nutritional needs and risk assessment;\r\n- Nutritional education and breastfeeding support;\r\n- Healthcare referrals and other community services.\r\n\r\nParticipants must also meet income guidelines and other criteria. Currently, 84 WIC local agencies provide services monthly to approximately one million participants at 500 sites in local communities throughout the State. The food benefits can be used to purchase healthy supplemental foods from WIC authorized vendor stores throughout the State (about 3,700 in 2024). Certified WIC participants are individuals who have completed the eligibility and enrollment process and are approved to receive benefits and services. Participating WIC clients refer to certified individuals who are actively issued benefits during a specific reporting period.\r\n\r\n**Report File Overview**\r\n\r\nThere are two reports providing detailed information about WIC participants by year and month in California, including: \r\n\r\nReport 1: <u>WIC Participants by County of Residence and by WIC Category</u>\r\n\r\nThis report counts the number of certified WIC participants, participants issued benefits, and participants redeeming benefits (only for Food Instrument [FI] benefits) in each county in California by WIC Category for each year and month. Category in the report is defined as Breastfeeding, Child Aged 1-4, Infant, Non-Breastfeeding, and Prenatal. Statewide totals are included. \r\n\r\nReport 2: WIC Participants by County of Residence and by Race/Ethnicity\r\n\r\nThis report counts the number of certified WIC participants (those who met eligibility criteria), participants issued food benefits, and participants redeeming benefits (only for FI benefits) in each county in California by race/ethnicity and for each year and month. Race/ethnicity in the report is defined as Hispanic, Non-Hispanic African American, Non-Hispanic Asian, Non-Hispanic White, and Non-Hispanic Other. Statewide totals are included. \r\nFor definitions and coding structure for County of Residence, WIC Category, race/ethnicity; certified participants, issued participants, and redeemed participants please see the Data Dictionary file. \r\n\r\n**Note regarding transition to Electronic Benefit Transfer**\r\n\r\nEach report listed above is split into two files: 1) 2010-2018 data and 2) 2019 data onward. This is due to the transition to electronic benefit transfer in June 2019. Prior to June 2019, WIC issued paper food instruments (FIs {i.e., WIC checks}) to individual participants for purchasing supplemental, nutritious foods. Between June 2019 and March 2020, California WIC transitioned from the FI delivery system to a new Electronic Benefit Transfer (EBT) system. With the new system, each family’s WIC food benefits are loaded to its EBT account and accessed by its California WIC card, which works like a debit card. As a result of the change, the benefit redemptions (i.e., purchases) are no longer recorded at the individual level, but at the family level; which results in the 2019 and later data file not including a “Number of Redeemed Participants” column.\r\n\r\nNote on small sample sizes\r\n\r\nTo ensure WIC participant anonymity, small cells are suppressed when the number of WIC participants is fewer than 11. The suppressed cells are annotated as “. “. Due to consistently small numbers, data for Alpine and Sierra counties are not shared, although they are included in the Statewide records. Statewide records are provided under the Category of “County of Residence”.\r\n",
+  "extras": {
+    "twitter_popup": []
+  },
+  "geo_coverage": "California",
+  "geographic_granularity": "county",
+  "keywords": [
+    "EBT",
+    "Electronic Benefit Transfer",
+    "FI",
+    "WIC",
+    "WIC Participants",
+    "food instrument"
+  ],
+  "limitations": "Limitations",
+  "name": "cdph-wic-participants-by-county",
+  "program_web_page": "https://www.cdph.ca.gov/Programs/CFH/DWICSN/Pages/Program-Landing1.aspx",
+  "related_resources": "",
+  "resources": [
+    {
+      "description": "This report counts the number of certified WIC participants, participants issued benefits, and participants redeeming benefits (only for Food Instrument [FI] benefits) in each county in California by WIC Category for each year and month. Category in the report is defined as Breastfeeding, Child Aged 1-4, Infant, Non-Breastfeeding, and Prenatal. Statewide totals are included. ",
+      "format": "CSV",
+      "hash": "0b2d52a5ee726cce3a9d25b891b63c1c",
+      "name": "wic-participants-by-county-of-residence-and-by-wic-category-2010-2018",
+      "path": "wic-participants-by-county-of-residence-and-by-wic-category-2010-2018.csv",
+      "schema": {
+        "fields": [
+          {
+            "description": "County Code: 1 Alameda 2 Alpine 3 Amador 4 Butte 5 Calaveras 6 Colusa 7 Contra Costa 8 Del Norte 9 El Dorado 10 Fresno 11 Glenn 12 Humboldt 13 Imperial 14 Inyo 15 Kern 16 Kings 17 Lake 18 Lassen 19 Los Angeles 20 Madera 21 Marin 22 Mariposa 23 Mendocino 24 Merced 25 Modoc 26 Mono 27 Monterey 28 Napa 29 Nevada 30 Orange 31 Placer 32 Plumas 33 Riverside 34 Sacramento 35 San Benito 36 San Bernardino 37 San Diego 38 San Francisco 39 San Joaquin 40 San Luis Obispo 41 San Mateo 42 Santa Barbara 43 Santa Clara 44 Santa Cruz 45 Shasta 46 Sierra 47 Siskiyou 48 Solano 49 Sonoma 50 Stanislaus 51 Sutter 52 Tehama 53 Trinity 54 Tulare 55 Tuolumne 56 Ventura 57 Yolo 58 Yuba",
+            "name": "COUNTY CODE",
+            "type": "string"
+          },
+          {
+            "description": "The county of the Women, Infants and Children (WIC) participant’s residence.  When residence address is unknown, WIC clinic address where the WIC participant was certified is used to determine county.  When neither residence nor clinic address are available, WIC agency address is used.  To ensure WIC participant anonymity, both Alpine and Sierra are excluded from this report.\r\n\r\n",
+            "name": "COUNTY OF RESIDENCE",
+            "type": "string"
+          },
+          {
+            "description": "The year and month for which participants were certified, or food benefits were issued or redeemed.\r\n\r\n",
+            "name": "YEAR MONTH",
+            "type": "string"
+          },
+          {
+            "description": "The type of participants. There are five participant categories in the Report 1 including:  Prenatal, Breastfeeding Individual, Non-Breastfeeding Individual, Infant, and Child. In the Report 3, the Child category has been broken down to four age groups as following: Prenatal, Breastfeeding Individual, Non-Breastfeeding Individual, Infant, and Child Aged 1 through Child Aged 4.\r\n\r\n",
+            "name": "CATEGORY",
+            "type": "string"
+          },
+          {
+            "description": "Number of participants who were certified in WIC for the year and month. For county or statewide annual count, it represents the average of 12 months of certified participant counts in the county or statewide. When participant count is less than 11, the cell was suppressed to ensure participant anonymity.\r\n\r\n\r\n",
+            "name": "NUMBER OF CERTIFIED PARTICIPANTS",
+            "type": "string"
+          },
+          {
+            "description": "Number of participants who were issued food benefits for the year and month. For county or statewide annual count, it represents the average of 12 months of issued participant counts in the county or statewide. When participant count is less than 11, the cell was suppressed to ensure participant anonymity.\r\n\r\n\r\n",
+            "name": "NUMBER OF ISSUED PARTICIPANTS",
+            "type": "string"
+          },
+          {
+            "description": "Number of participants who redeemed partial or full food benefits during the year and month. This data is only available for 2010 - 2018 due to transitioning from the FI delivery system to the EBT system.  For county or statewide annual count, it represents the average of 12 months of redeemed participant counts in the county or statewide. When participant count is less than 11, the cell was suppressed to ensure participant anonymity.\r\n\r\n\r\n",
+            "name": "NUMBER OF REDEEMED PARTICIPANTS",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/890afa4a-fc77-4d1a-a09f-52a7f0e3a490/resource/369f0cfe-2ad1-441b-8251-b8a92d73801f/download/report1_wic-participants-by-county-of-residence-by-wic-category_2010-2018.csv",
+          "title": "WIC Participants by County of Residence and by WIC Category, 2010-2018"
+        }
+      ],
+      "title": "WIC Participants by County of Residence and by WIC Category, 2010-2018"
+    },
+    {
+      "description": "This report counts the number of certified WIC participants, participants issued benefits, and participants redeeming benefits (only for Food Instrument [FI] benefits) in each county in California by WIC Category for each year and month. Category in the report is defined as Breastfeeding, Child Aged 1-4, Infant, Non-Breastfeeding, and Prenatal. Statewide totals are included. ",
+      "format": "CSV",
+      "hash": "df915103e01e54bc956ea93a2cc06b4e",
+      "name": "wic-participants-by-county-of-residence-and-by-wic-category-2019-onwards",
+      "path": "wic-participants-by-county-of-residence-and-by-wic-category-2019-onwards.csv",
+      "schema": {
+        "fields": [
+          {
+            "description": "County Code: 1 Alameda 2 Alpine 3 Amador 4 Butte 5 Calaveras 6 Colusa 7 Contra Costa 8 Del Norte 9 El Dorado 10 Fresno 11 Glenn 12 Humboldt 13 Imperial 14 Inyo 15 Kern 16 Kings 17 Lake 18 Lassen 19 Los Angeles 20 Madera 21 Marin 22 Mariposa 23 Mendocino 24 Merced 25 Modoc 26 Mono 27 Monterey 28 Napa 29 Nevada 30 Orange 31 Placer 32 Plumas 33 Riverside 34 Sacramento 35 San Benito 36 San Bernardino 37 San Diego 38 San Francisco 39 San Joaquin 40 San Luis Obispo 41 San Mateo 42 Santa Barbara 43 Santa Clara 44 Santa Cruz 45 Shasta 46 Sierra 47 Siskiyou 48 Solano 49 Sonoma 50 Stanislaus 51 Sutter 52 Tehama 53 Trinity 54 Tulare 55 Tuolumne 56 Ventura 57 Yolo 58 Yuba",
+            "name": "COUNTY CODE",
+            "type": "string"
+          },
+          {
+            "description": "The county of the Women, Infants and Children (WIC) participant’s residence.  When residence address is unknown, WIC clinic address where the WIC participant was certified is used to determine county.  When neither residence nor clinic address are available, WIC agency address is used.  To ensure WIC participant anonymity, both Alpine and Sierra are excluded from this report.\r\n",
+            "name": "COUNTY OF RESIDENCE",
+            "type": "string"
+          },
+          {
+            "description": "The year and month for which participants were certified, or food benefits were issued or redeemed.\r\n\r\n",
+            "name": "YEAR MONTH",
+            "type": "string"
+          },
+          {
+            "description": "The type of participants. There are five participant categories in the Report 1 including:  Prenatal, Breastfeeding Individual, Non-Breastfeeding Individual, Infant, and Child. In the Report 3, the Child category has been broken down to four age groups as following: Prenatal, Breastfeeding Individual, Non-Breastfeeding Individual, Infant, and Child Aged 1 through Child Aged 4.\r\n\r\n",
+            "name": "CATEGORY",
+            "type": "string"
+          },
+          {
+            "description": "Number of participants who were certified in WIC for the year and month. For county or statewide annual count, it represents the average of 12 months of certified participant counts in the county or statewide. When participant count is less than 11, the cell was suppressed to ensure participant anonymity.\r\n\r\n",
+            "name": "NUMBER OF CERTIFIED PARTICIPANTS",
+            "type": "string"
+          },
+          {
+            "description": "Number of participants who were issued food benefits for the year and month. For county or statewide annual count, it represents the average of 12 months of issued participant counts in the county or statewide. When participant count is less than 11, the cell was suppressed to ensure participant anonymity.\r\n\r\n",
+            "name": "NUMBER OF ISSUED PARTICIPANTS",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/890afa4a-fc77-4d1a-a09f-52a7f0e3a490/resource/d17babd7-815e-4bad-a1a9-55b70540e944/download/report1_wic-participants-by-county-of-residence-by-wic-category_2019-2024.csv",
+          "title": "WIC Participants by County of Residence and by WIC Category, 2019 Onwards"
+        }
+      ],
+      "title": "WIC Participants by County of Residence and by WIC Category, 2019 Onwards"
+    },
+    {
+      "description": "This report counts the number of certified WIC participants (those who met eligibility criteria), participants issued food benefits, and participants redeeming benefits (only for FI benefits) in each county in California by race/ethnicity and for each year and month. Race/ethnicity in the report is defined as Hispanic, Non-Hispanic African American, Non-Hispanic Asian, Non-Hispanic White, and Non-Hispanic Other. Statewide totals are included. ",
+      "format": "CSV",
+      "hash": "c9f728ab809747e5f3cd1c790981245d",
+      "name": "wic-participants-by-county-of-residence-and-by-race-ethnicity-2010-2018",
+      "path": "wic-participants-by-county-of-residence-and-by-race-ethnicity-2010-2018.csv",
+      "schema": {
+        "fields": [
+          {
+            "description": "County Code: 1 Alameda 2 Alpine 3 Amador 4 Butte 5 Calaveras 6 Colusa 7 Contra Costa 8 Del Norte 9 El Dorado 10 Fresno 11 Glenn 12 Humboldt 13 Imperial 14 Inyo 15 Kern 16 Kings 17 Lake 18 Lassen 19 Los Angeles 20 Madera 21 Marin 22 Mariposa 23 Mendocino 24 Merced 25 Modoc 26 Mono 27 Monterey 28 Napa 29 Nevada 30 Orange 31 Placer 32 Plumas 33 Riverside 34 Sacramento 35 San Benito 36 San Bernardino 37 San Diego 38 San Francisco 39 San Joaquin 40 San Luis Obispo 41 San Mateo 42 Santa Barbara 43 Santa Clara 44 Santa Cruz 45 Shasta 46 Sierra 47 Siskiyou 48 Solano 49 Sonoma 50 Stanislaus 51 Sutter 52 Tehama 53 Trinity 54 Tulare 55 Tuolumne 56 Ventura 57 Yolo 58 Yuba",
+            "name": "COUNTY CODE",
+            "type": "string"
+          },
+          {
+            "description": "The county of the Women, Infants and Children (WIC) participant’s residence.  When residence address is unknown, WIC clinic address where the WIC participant was certified is used to determine county.  When neither residence nor clinic address are available, WIC agency address is used.  To ensure WIC participant anonymity, both Alpine and Sierra are excluded from this report.\r\n\r\n",
+            "name": "COUNTY OF RESIDENCE",
+            "type": "string"
+          },
+          {
+            "description": "The year and month for which participants were certified, or food benefits were issued or redeemed.\r\n\r\n",
+            "name": "YEAR MONTH",
+            "type": "string"
+          },
+          {
+            "description": "The race and ethnicity of participants.  In the Report 2, race/ethnicity were defined as Hispanic, Non-Hispanic African American, Non-Hispanic Asian, Non-Hispanic White, and Non-Hispanic Other.\r\n",
+            "name": "RACE ETHNICITY",
+            "type": "string"
+          },
+          {
+            "description": "Number of participants who were certified in WIC for the year and month. For county or statewide annual count, it represents the average of 12 months of certified participant counts in the county or statewide. When participant count is less than 11, the cell was suppressed to ensure participant anonymity.\r\n\r\n\r\n\r\n",
+            "name": "NUMBER OF CERTIFIED PARTICIPANTS",
+            "type": "string"
+          },
+          {
+            "description": "Number of participants who were issued food benefits for the year and month. For county or statewide annual count, it represents the average of 12 months of issued participant counts in the county or statewide. When participant count is less than 11, the cell was suppressed to ensure participant anonymity.\r\n\r\n\r\n",
+            "name": "NUMBER OF ISSUED PARTICIPANTS",
+            "type": "string"
+          },
+          {
+            "description": "Number of participants who redeemed partial or full food benefits during the year and month. This data is only available for 2010 - 2018 due to transitioning from the FI delivery system to the EBT system.  For county or statewide annual count, it represents the average of 12 months of redeemed participant counts in the county or statewide. When participant count is less than 11, the cell was suppressed to ensure participant anonymity.\r\n\r\n",
+            "name": "NUMBER OF REDEEMED PARTICIPANTS",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/890afa4a-fc77-4d1a-a09f-52a7f0e3a490/resource/ea2df040-e9fb-4b8b-b66b-ac623dba701a/download/report2_wic-participants-by-county-of-residence-by-race-ethnicity_2010-2018.csv",
+          "title": "WIC Participants by County of Residence and by Race/Ethnicity 2010-2018"
+        }
+      ],
+      "title": "WIC Participants by County of Residence and by Race/Ethnicity 2010-2018"
+    },
+    {
+      "description": "This report counts the number of certified WIC participants (those who met eligibility criteria), participants issued food benefits, and participants redeeming benefits (only for FI benefits) in each county in California by race/ethnicity and for each year and month. Race/ethnicity in the report is defined as Hispanic, Non-Hispanic African American, Non-Hispanic Asian, Non-Hispanic White, and Non-Hispanic Other. Statewide totals are included. ",
+      "format": "CSV",
+      "hash": "bc76fcf0ada659bf73d68d76955520fa",
+      "name": "wic-participants-by-county-of-residence-and-by-race-ethnicity-2019-onwards",
+      "path": "wic-participants-by-county-of-residence-and-by-race-ethnicity-2019-onwards.csv",
+      "schema": {
+        "fields": [
+          {
+            "description": "County Code: 1 Alameda 2 Alpine 3 Amador 4 Butte 5 Calaveras 6 Colusa 7 Contra Costa 8 Del Norte 9 El Dorado 10 Fresno 11 Glenn 12 Humboldt 13 Imperial 14 Inyo 15 Kern 16 Kings 17 Lake 18 Lassen 19 Los Angeles 20 Madera 21 Marin 22 Mariposa 23 Mendocino 24 Merced 25 Modoc 26 Mono 27 Monterey 28 Napa 29 Nevada 30 Orange 31 Placer 32 Plumas 33 Riverside 34 Sacramento 35 San Benito 36 San Bernardino 37 San Diego 38 San Francisco 39 San Joaquin 40 San Luis Obispo 41 San Mateo 42 Santa Barbara 43 Santa Clara 44 Santa Cruz 45 Shasta 46 Sierra 47 Siskiyou 48 Solano 49 Sonoma 50 Stanislaus 51 Sutter 52 Tehama 53 Trinity 54 Tulare 55 Tuolumne 56 Ventura 57 Yolo 58 Yuba",
+            "name": "COUNTY CODE",
+            "type": "string"
+          },
+          {
+            "description": "The county of the Women, Infants and Children (WIC) participant’s residence.  When residence address is unknown, WIC clinic address where the WIC participant was certified is used to determine county.  When neither residence nor clinic address are available, WIC agency address is used.  To ensure WIC participant anonymity, both Alpine and Sierra are excluded from this report.\r\n\r\n",
+            "name": "COUNTY OF RESIDENCE",
+            "type": "string"
+          },
+          {
+            "description": "The year and month for which participants were certified, or food benefits were issued or redeemed.\r\n\r\n",
+            "name": "YEAR MONTH",
+            "type": "string"
+          },
+          {
+            "description": "The race and ethnicity of participants.  In the Report 2, race/ethnicity were defined as Hispanic, Non-Hispanic African American, Non-Hispanic Asian, Non-Hispanic White, and Non-Hispanic Other.\r\n\r\n",
+            "name": "RACE ETHNICITY",
+            "type": "string"
+          },
+          {
+            "description": "Number of participants who were certified in WIC for the year and month. For county or statewide annual count, it represents the average of 12 months of certified participant counts in the county or statewide. When participant count is less than 11, the cell was suppressed to ensure participant anonymity.\r\n\r\n\r\n",
+            "name": "NUMBER OF CERTIFIED PARTICIPANTS",
+            "type": "string"
+          },
+          {
+            "description": "Number of participants who were issued food benefits for the year and month. For county or statewide annual count, it represents the average of 12 months of issued participant counts in the county or statewide. When participant count is less than 11, the cell was suppressed to ensure participant anonymity.\r\n",
+            "name": "NUMBER OF ISSUED PARTICIPANTS",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/890afa4a-fc77-4d1a-a09f-52a7f0e3a490/resource/8a27dc3e-1789-4c55-832d-0d6d8720e3da/download/report2_wic-participants-by-county-of-residence-by-race-ethnicity_2019-2024.csv",
+          "title": "WIC Participants by County of Residence and by Race/Ethnicity, 2019 Onwards"
+        }
+      ],
+      "title": "WIC Participants by County of Residence and by Race/Ethnicity, 2019 Onwards"
+    }
+  ],
+  "secondary_sources": "",
+  "sources": [
+    {
+      "name": "Women, Infants and Children Program",
+      "web": "https://www.cdph.ca.gov/Programs/CFH/DWICSN/Pages/ResearchandData/WICProgramParticipantInfo.aspx"
+    }
+  ],
+  "temporal_coverage": "2010 and after\r\n2010-2018 WIC Food Instrument System;\r\n2019-2024 WIC Electronic Benefits System",
+  "title": "WIC Participants by County"
+}

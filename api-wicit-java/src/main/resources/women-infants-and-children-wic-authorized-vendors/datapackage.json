@@ -1,0 +1,88 @@
+{
+  "accrual_periodicity": "daily",
+  "additional_limitations": "",
+  "citation": "California Women, Infants and Children Program. 2014. WICAuthorized Vendors-2014-CA-CDPH.",
+  "contact_email": "WICdata@cdph.ca.gov",
+  "data_collection_tool": "https://www.cdph.ca.gov/Programs/CFH/DWICSN/Pages/Program-Landing1.aspx",
+  "data_license": "Terms of Use",
+  "de_identification_method": "",
+  "description": "This dataset contains the vendor name and location of all currently active vendors authorized to offer supplemental foods to participants for redemption with WIC food instruments and vouchers.\r\n\r\nThe Women, Infants and Children (WIC) Program is a federally-funded health and nutrition program that provides assistance to pregnant women, new mothers, infants and children under age five. WIC helps California families by providing food instruments and vouchers that can be used to purchase healthy supplemental foods from over 4000 WIC-authorized vendor stores throughout the State. WIC also provides nutritional education, breastfeeding support and help finding healthcare and other community services. Participants must meet income guidelines and other criteria. Currently, 84 WIC agencies provide services monthly to over 1.45 million participants at over 650 sites in local communities throughout the State.\r\n\r\nFor a mobile friendly site on WIC vendors and other WIC-related information visit:  https://m.wic.ca.gov/\r\n\r\n",
+  "extras": {
+    "twitter_popup": []
+  },
+  "geo_coverage": "California",
+  "geographic_granularity": "location point",
+  "keywords": [
+    "wic authorized vendors"
+  ],
+  "limitations": "Limitations",
+  "name": "women-infants-and-children-wic-authorized-vendors",
+  "program_web_page": "https://www.cdph.ca.gov/Programs/CFH/DWICSN/Pages/Program-Landing1.aspx",
+  "related_resources": "",
+  "resources": [
+    {
+      "description": "The Women, Infants and Children (WIC) Program is a federally-funded health and nutrition program that provides assistance to pregnant women, new mothers, infants and children under age five. WIC helps California families by providing food instruments and vouchers that can be used to purchase healthy supplemental foods from over 4000 WIC-authorized vendor stores throughout the State. WIC also provides nutritional education, breastfeeding support and help finding healthcare and other community services. Participants must meet income guidelines and other criteria. Currently, 84 WIC agencies provide services monthly to over 1.45 million participants at over 650 sites in local communities throughout the State.",
+      "format": "CSV",
+      "hash": "c3a2119f926bd010311f386273ef28d6",
+      "name": "women-infants-and-children-wic-authorized-vendors-csv",
+      "path": "women-infants-and-children-wic-authorized-vendors-.csv",
+      "schema": {
+        "fields": [
+          {
+            "description": "Vendor name\r\n",
+            "name": "VENDOR",
+            "type": "string"
+          },
+          {
+            "description": "Street address\r\n",
+            "name": "ADDRESS",
+            "type": "string"
+          },
+          {
+            "description": "This is filled if there is a second address line",
+            "name": "SECOND ADDRESS",
+            "type": "string"
+          },
+          {
+            "description": "City\r\n",
+            "name": "CITY",
+            "type": "string"
+          },
+          {
+            "name": "ZIP",
+            "type": "string"
+          },
+          {
+            "description": "County\r\n",
+            "name": "COUNTY",
+            "type": "string"
+          },
+          {
+            "name": "LATITUDE",
+            "type": "number"
+          },
+          {
+            "name": "LONGITUDE",
+            "type": "number"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/7bba51ec-bb02-4b3f-be32-ffd9a207ba70/resource/ee10b67b-2b93-47e7-aa41-cecfbbd32e17/download/vendor.csv",
+          "title": "Women, Infants and Children (WIC) Authorized Vendors (CSV)"
+        }
+      ],
+      "title": "Women, Infants and Children (WIC) Authorized Vendors (CSV)"
+    }
+  ],
+  "secondary_sources": "",
+  "sources": [
+    {
+      "name": "Woman, Infants and Children Program",
+      "web": "https://www.cdph.ca.gov/Programs/CFH/DWICSN/Pages/Program-Landing1.aspx"
+    }
+  ],
+  "temporal_coverage": "Continually updated",
+  "title": "Women, Infants and Children (WIC) Authorized Vendors"
+}

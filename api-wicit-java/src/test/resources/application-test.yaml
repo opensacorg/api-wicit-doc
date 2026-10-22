@@ -1,0 +1,12 @@
+# In-memory database for tests. Liquibase builds it from the same changelog as production, running only
+# the schema changesets; the seed changesets need PostgreSQL. Each test context gets its own database.
+# YEAR and MONTH are column names here, not keywords.
+spring:
+  datasource:
+    url: jdbc:h2:mem:wicit-${random.uuid};MODE=PostgreSQL;DEFAULT_NULL_ORDERING=HIGH;NON_KEYWORDS=YEAR,MONTH;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    contexts: schema
