@@ -23,6 +23,7 @@ export function Header() {
           <li><a href="/qualify/residency" data-link>${t("nav.qualify")}</a></li>
           <li><a href="/about" data-link>${t("nav.about")}</a></li>
           <li><a href="/search" data-link>${t("nav.search")}</a></li>
+          <li><a href="${basePath("/shopping-guide")}" data-nav="/shopping-guide">${t("nav.shoppingGuide")}</a></li>
         </ul>
       </div>
     </div>

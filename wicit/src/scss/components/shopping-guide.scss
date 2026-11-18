@@ -1,0 +1,351 @@
+@use "../abstracts/index" as *;
+
+#content.shopping-guide-page {
+  max-width: 1120px;
+  margin: 36px auto;
+  padding: clamp(22px, 4vw, 48px);
+  border: 1px solid #e4e5d8;
+  border-radius: 20px;
+  background: #fafaf6;
+  box-shadow: 0 12px 44px rgb(37 42 24 / 12%);
+  line-height: 1.6;
+}
+
+.guide-page-header {
+  max-width: 760px;
+  margin-bottom: 28px;
+  h1 {
+    margin: 4px 0 14px;
+    font-size: clamp(30px, 5vw, 44px);
+    color: #303825;
+  }
+}
+
+.guide-eyebrow {
+  margin: 0 0 8px;
+  color: #616729;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+}
+
+.guide-page-intro {
+  color: #5d6256;
+  font-size: 18px;
+}
+.guide-search-link {
+  color: #505d20;
+  font-weight: 700;
+  text-underline-offset: 4px;
+}
+.guide-category-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.guide-category {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px;
+  color: #343c2d;
+  border: 2px solid #dddfd2;
+  border-radius: 12px;
+  background: #fff;
+  text-decoration: none;
+  transition:
+    border-color 150ms,
+    background-color 150ms;
+  strong {
+    display: block;
+    font-size: 18px;
+  }
+  &:hover,
+  &.is-selected {
+    color: #303825;
+    border-color: #747c31;
+    background: #f1f3e5;
+  }
+  &:focus-visible {
+    outline: 3px solid #366da4;
+    outline-offset: 3px;
+  }
+}
+
+.guide-category-number {
+  color: #737b3d;
+  font-size: 13px;
+  font-weight: 700;
+}
+.guide-category-description {
+  display: block;
+  margin-top: 5px;
+  color: #616759;
+  font-size: 13px;
+}
+.guide-category-arrow {
+  margin-inline-start: auto;
+  font-size: 24px;
+}
+.guide-language-note {
+  margin: 20px 0 28px;
+  color: #696d61;
+  font-size: 13px;
+}
+
+.guide-article-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+  padding-top: 28px;
+  border-top: 1px solid #dddfd2;
+  h2 {
+    color: #303825;
+    font-size: clamp(26px, 4vw, 34px);
+  }
+}
+
+.guide-source-date {
+  margin: 8px 0 0;
+  color: #666c5e;
+  font-size: 13px;
+}
+.guide-hero-image {
+  flex-shrink: 0;
+  width: 150px;
+}
+.guide-illustration {
+  margin: 16px 0;
+  img {
+    display: block;
+    max-width: 100%;
+    max-height: 220px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+}
+.guide-hero-image .guide-illustration {
+  margin: 0;
+}
+.guide-rules-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.guide-panel {
+  padding: clamp(20px, 3vw, 28px);
+  border: 1px solid #e0e3d6;
+  border-radius: 14px;
+  background: #fff;
+  h3 {
+    margin: 0 0 16px;
+    color: #303825;
+    font-size: 22px;
+  }
+  li {
+    margin: 9px 0;
+  }
+  ul {
+    padding-inline-start: 22px;
+    margin-bottom: 0;
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.guide-can-buy {
+  border-top: 4px solid #65783b;
+}
+.guide-cannot-buy {
+  border-top: 4px solid #a75f48;
+}
+.guide-rule-label {
+  margin-bottom: 8px;
+  color: #587032;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.guide-cannot-buy .guide-rule-label {
+  color: #96503d;
+}
+.guide-rule-summary {
+  font-weight: 700;
+}
+.guide-conditions {
+  margin-top: 20px;
+  border-inline-start: 4px solid #b78b36;
+  background: #fff8e9;
+}
+.guide-brands,
+.guide-hints {
+  margin-top: 20px;
+}
+.guide-panel-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.guide-count {
+  padding: 2px 10px;
+  border-radius: 20px;
+  background: #eff1e3;
+  color: #576529;
+  font-size: 13px;
+  font-weight: 700;
+}
+.guide-brand-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+  gap: 14px;
+}
+
+.guide-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0;
+  padding: 18px 12px;
+  min-height: 154px;
+  border: 1px solid #e5e7df;
+  border-radius: 10px;
+  background: #fff;
+  text-align: center;
+  img {
+    max-width: 120px;
+    width: 100%;
+    height: 70px;
+    object-fit: contain;
+  }
+  figcaption {
+    color: #505648;
+    font-size: 12px;
+  }
+}
+
+.guide-hints {
+  background: #f0f4ed;
+}
+.guide-hint-note {
+  margin-top: 20px;
+  font-weight: 700;
+}
+.guide-source {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid #dddfd2;
+  font-size: 14px;
+  color: #626959;
+  p {
+    margin-bottom: 8px;
+  }
+  a {
+    color: #505d20;
+    font-weight: 700;
+    text-underline-offset: 4px;
+  }
+}
+.guide-status {
+  padding: 40px 24px;
+  border: 1px dashed #cdd1bb;
+  border-radius: 14px;
+  background: #fff;
+}
+.guide-status-error {
+  border-color: #c99e90;
+}
+button.guide-retry {
+  width: auto;
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  background: #5b662b;
+  font-weight: 700;
+  text-transform: none;
+  &:focus-visible {
+    outline: 3px solid #366da4;
+    outline-offset: 3px;
+  }
+}
+
+.shopping-guide-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 24px 0;
+  padding: 24px;
+  border: 1px solid #d7dcc1;
+  border-radius: 12px;
+  background: #f1f4e7;
+  h3 {
+    margin: 0 0 8px;
+    color: #374326;
+    font-size: 22px;
+  }
+  p {
+    margin: 0;
+  }
+  a {
+    display: inline-block;
+    flex-shrink: 0;
+    padding: 12px 18px;
+    border-radius: 6px;
+    color: #fff;
+    background: #5b662b;
+    font-weight: 700;
+    text-decoration: none;
+    &:hover {
+      background: #444f20;
+    }
+    &:focus-visible {
+      outline: 3px solid #366da4;
+      outline-offset: 3px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  #content.shopping-guide-page {
+    margin: 16px 12px;
+    padding: 22px 18px;
+    border-radius: 14px;
+  }
+  .guide-category-nav,
+  .guide-rules-grid {
+    grid-template-columns: 1fr;
+  }
+  .guide-category {
+    padding: 16px;
+  }
+  .guide-article-header {
+    gap: 12px;
+  }
+  .guide-hero-image {
+    width: 90px;
+  }
+  .guide-brand-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .guide-brand {
+    min-width: 0;
+    img {
+      max-width: 100%;
+    }
+  }
+  .shopping-guide-callout {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
