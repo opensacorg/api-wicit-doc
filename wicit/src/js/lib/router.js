@@ -1,6 +1,7 @@
 import { initMapView, MapView } from "../views/map.js";
 import { AboutView } from "../views/about.js";
 import { initSearchView, SearchView } from "../views/search.js";
+import { ShoppingGuideView, initShoppingGuide } from "../views/shopping-guide.js";
 import { NotFoundView } from "../views/error.js";
 import { QualifyShell } from "../views/qualify/shell.js";
 import { ResidencyStep } from "../views/qualify/residency.js";
@@ -14,6 +15,16 @@ const routes = {
   "/map": { template: MapView, init: initMapView, bodyClass: "map" },
   "/about": { template: AboutView },
   "/search": { template: SearchView, init: initSearchView },
+  "/shopping-guide": {
+    template: ShoppingGuideView,
+    init: initShoppingGuide,
+    bodyClass: "shopping-guide",
+  },
+  "/shopping-guide/:slug": {
+    template: ShoppingGuideView,
+    init: initShoppingGuide,
+    bodyClass: "shopping-guide",
+  },
   "/qualify": { redirect: "/qualify/residency" },
   "/qualify/residency": {
     template: ResidencyStep,
@@ -112,6 +123,8 @@ function updateActiveNav(pathname) {
     const href = link.getAttribute("href").replace(basePath, "") || "/";
     const isActive = href === pathname || (href !== "/" && pathname.startsWith(href));
     link.parentElement.classList.toggle("active", isActive);
+    if (isActive) link.setAttribute("aria-current", "page");
+    else link.removeAttribute("aria-current");
   });
 }
 
@@ -191,6 +204,8 @@ export function initRouter() {
   window.addEventListener("popstate", router);
 
   document.addEventListener("click", (e) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)
+      return;
     const link = e.target.closest("[data-link]");
     if (link) {
       e.preventDefault();

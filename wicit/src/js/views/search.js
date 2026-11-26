@@ -1,7 +1,7 @@
 import { formatNumber, t, tCount, tHtml } from "../i18n/index.js";
 import { apiUrl } from "../lib/config.js";
 import { escapeHtml } from "../lib/utility.js";
-import { ShoppingGuideView, initShoppingGuide } from "./shopping-guide.js";
+import { basePath } from "../lib/paths.js";
 
 const RESULTS_PER_PAGE = 25;
 const DEBOUNCE = 200;
@@ -14,13 +14,10 @@ const DEBOUNCE = 200;
  * @returns {Promise<{items: object[], totalItems: number}>}
  */
 async function searchProducts(query, signal) {
-  const response = await fetch(
-    apiUrl("/api/products", { q: query, size: RESULTS_PER_PAGE }),
-    {
-      headers: { Accept: "application/json" },
-      signal,
-    },
-  );
+  const response = await fetch(apiUrl("/api/products", { q: query, size: RESULTS_PER_PAGE }), {
+    headers: { Accept: "application/json" },
+    signal,
+  });
 
   if (!response.ok) {
     throw new Error(`Request failed: ${response.status}`);
@@ -30,7 +27,7 @@ async function searchProducts(query, signal) {
 }
 
 /**
- * "Which Foods Qualify?" page with product search and shopping guide rules.
+ * "Which Foods Qualify?" product search, with a link to the separate shopping guide.
  *
  * @returns {string} HTML for the search view.
  */
@@ -38,6 +35,13 @@ export function SearchView() {
   return `
     <div class="col-md-8 col-md-offset-2" id="content">
       <h2>${t("search.heading")}</h2>
+      <aside class="shopping-guide-callout">
+        <div>
+          <h3>${t("shoppingGuide.searchHeading")}</h3>
+          <p>${t("shoppingGuide.searchDescription")}</p>
+        </div>
+        <a href="${basePath("/shopping-guide")}" data-nav="/shopping-guide">${t("shoppingGuide.openGuide")}</a>
+      </aside>
       <div class="row search-wrap">
         <div class="search-col col-xs-12 col-sm-8 col-md-7">
           <p class="info">${t("search.disclaimer")}</p>
@@ -51,7 +55,6 @@ export function SearchView() {
             <div class="well">${t("search.initial")}</div>
           </div>
           <p class="info">${t("feedback.tweetUs")}</p>
-          ${ShoppingGuideView()}
         </div>
       </div>
     </div>
@@ -59,11 +62,9 @@ export function SearchView() {
 }
 
 /**
- * Load the shopping guide and wire the debounced search input after render.
+ * Wire the debounced search input after render.
  */
 export function initSearchView() {
-  initShoppingGuide();
-
   const input = document.querySelector("#search-input");
   const stateEl = document.querySelector("#search-state");
   if (!input || !stateEl) return;
@@ -78,8 +79,7 @@ export function initSearchView() {
     initial: () => `<div class="well">${t("search.initial")}</div>`,
     pending: () => `<div class="well">${t("search.pending")}</div>`,
     error: () => `<div class="alert alert-danger">${t("search.error")}</div>`,
-    noResults: (query) =>
-      `<div class="well">${tHtml("search.noResults", { query })}</div>`,
+    noResults: (query) => `<div class="well">${tHtml("search.noResults", { query })}</div>`,
     results: (results, count) => {
       const items = results
         .map(
@@ -87,9 +87,7 @@ export function initSearchView() {
             <li class="list-group-item">
               ${escapeHtml(result.description)}
               <div class="category">${escapeHtml(
-                result.subcategoryDescription ??
-                  result.categoryDescription ??
-                  "",
+                result.subcategoryDescription ?? result.categoryDescription ?? "",
               )}</div>
               <div class="upc">${
                 result.codeType === "PLU"
